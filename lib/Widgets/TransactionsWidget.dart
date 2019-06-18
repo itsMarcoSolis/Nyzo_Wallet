@@ -57,9 +57,17 @@ class TranSactionsWidgetState extends State<TranSactionsWidget> {
       child: _transactions != null
           ? _transactions.length == 0
               ? Center(
-                  child: Text(
-                    "No transactions to show! Try sending or receiving some nyzo.",
-                    style: TextStyle(color: Colors.black, fontSize: 15),
+                  child: InkWell(
+                    onTap: () {
+                      refresh();
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 200.0),
+                      child: Text(
+                        "No transactions to show! Try sending or receiving some nyzo.",
+                        style: TextStyle(color: Colors.black, fontSize: 15),
+                      ),
+                    ),
                   ),
                 )
               : LiquidPullToRefresh(

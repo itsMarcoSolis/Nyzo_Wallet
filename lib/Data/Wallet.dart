@@ -71,7 +71,6 @@ Future<bool> importWallet(String privKey, String password) async {
     for (var i = 0; i < array.length; i++) {
       array[i] = HEX.decode(identifier.substring(i * 2, i * 2 + 2))[0];
     }
-    addContact([], Contact("c660f3c5b662d4632e19bc332afc29a8fa0fb9365bdd53418637323203538944", "Donate", "Help the development of this wallet."));
     return array;
   }
 
