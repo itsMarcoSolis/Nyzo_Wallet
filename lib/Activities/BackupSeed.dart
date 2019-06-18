@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:nyzo_wallet/Data/Wallet.dart';
-import 'package:nyzo_wallet/Activities/WalletWindow.dart';
 import 'package:flutter/services.dart';
 
 class BackUpSeed extends StatefulWidget {

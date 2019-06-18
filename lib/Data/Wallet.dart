@@ -313,15 +313,14 @@ Future<String> send(String password, String account, int amount, int balance,
             micronyzosToSend,
             utf8.encode(senderData));
         if (result2.content == null) {
-          print('There was a problem communicating with the server. To protect yourself ' +
+          return 'There was a problem communicating with the server. To protect yourself ' +
               'against possible coin theft, please wait to resubmit this transaction. Refer ' +
               'to the Nyzo white paper for full details on why this is necessary, how long ' +
               'you need to wait, and to understand how Nyzo provides stronger protection ' +
-              'than other blockchains against this type of potential vulnerability.');
+              'than other blockchains against this type of potential vulnerability.';
         } else {
           return result2.content.message;
         }
-        //print("WE DID IT REDDIT!!!!");
         /* to ensure that the pending item is fetched */
 
       }

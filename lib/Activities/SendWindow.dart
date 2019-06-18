@@ -6,22 +6,8 @@ import 'package:nyzo_wallet/Activities/WalletWindow.dart';
 class SendWindow extends StatelessWidget {
   SendWindow(this.password, this.address);
 
-  static final textControllerAmount = new TextEditingController();
-  static final textControllerAddress = new TextEditingController();
-  static final textControllerData = new TextEditingController();
-  static final amountFormKey = new GlobalKey<FormFieldState>();
-  static final addressFormKey = new GlobalKey<FormFieldState>();
-  static final dataFormKey = new GlobalKey<FormFieldState>();
   final String password;
   final String address;
-
-  setaddressControllertext(String address) {
-    textControllerAddress.text = address;
-  }
-
-  setdataControllertext(String data) {
-    textControllerData.text = data;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -63,13 +49,15 @@ class SendWindow extends StatelessWidget {
               right: MediaQuery.of(context).size.width * 0.15,
             ),
             child: TextFormField(
-              key: amountFormKey,
-              controller: textControllerAmount,
+              key: walletWindowState.amountFormKey,
+              controller: walletWindowState.textControllerAmount,
               keyboardType: TextInputType.number,
               maxLines: 1,
               maxLength: 20,
               validator: (String val) =>
-                  double.parse(textControllerAmount.text).toInt() * 1000000 >=
+                  double.parse(walletWindowState.textControllerAmount.text)
+                                  .toInt() *
+                              1000000 >=
                           walletWindowState.balance
                       ? "You don't have enough Nyzo."
                       : null,
@@ -92,8 +80,8 @@ class SendWindow extends StatelessWidget {
               right: MediaQuery.of(context).size.width * 0.15,
             ),
             child: TextFormField(
-              key: addressFormKey,
-              controller: textControllerAddress,
+              key: walletWindowState.addressFormKey,
+              controller: walletWindowState.textControllerAddress,
               maxLines: 3,
               maxLength: 67,
               validator: (String val) => val.contains(RegExp(r'[g-z]')) ||
@@ -119,8 +107,8 @@ class SendWindow extends StatelessWidget {
               right: MediaQuery.of(context).size.width * 0.15,
             ),
             child: TextFormField(
-              key: dataFormKey,
-              controller: textControllerData,
+              key: walletWindowState.dataFormKey,
+              controller: walletWindowState.textControllerData,
               maxLength: 32,
               style: TextStyle(color: Color(0xFF500000)),
               decoration: InputDecoration(
@@ -151,19 +139,24 @@ class SendWindow extends StatelessWidget {
                     child: Text("Send"),
                     onPressed: () {
                       //var dataForm = dataFormKey.currentState;
-                      var addressForm = addressFormKey.currentState;
-                      var amountForm = amountFormKey.currentState;
+                      var addressForm =
+                          walletWindowState.addressFormKey.currentState;
+                      var amountForm =
+                          walletWindowState.amountFormKey.currentState;
                       if (addressForm.validate() && amountForm.validate()) {
-                        var address =
-                            textControllerAddress.text.split('-').join('');
+                        var address = walletWindowState
+                            .textControllerAddress.text
+                            .split('-')
+                            .join('');
                         send(
                                 password,
                                 address,
-                                (double.parse(textControllerAmount.text) *
+                                (double.parse(walletWindowState
+                                            .textControllerAmount.text) *
                                         1000000)
                                     .toInt(),
                                 walletWindowState.balance,
-                                textControllerData.text)
+                                walletWindowState.textControllerData.text)
                             .then((String result) {
                           return showDialog(
                             context: context,
@@ -186,9 +179,9 @@ class SendWindow extends StatelessWidget {
                             },
                           );
                         });
-                        textControllerAddress.clear();
-                        textControllerAmount.clear();
-                        textControllerData.clear();
+                        walletWindowState.textControllerAddress.clear();
+                        walletWindowState.textControllerAmount.clear();
+                        walletWindowState.textControllerData.clear();
                       }
                     },
                   ),

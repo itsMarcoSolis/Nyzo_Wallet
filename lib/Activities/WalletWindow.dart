@@ -47,6 +47,13 @@ class WalletWindowState extends State<WalletWindow> {
   SendWindow sendWindowInstance;
   CurvedNavigationBar navBar;
 
+   final textControllerAmount = new TextEditingController();
+   final textControllerAddress = new TextEditingController();
+   final textControllerData = new TextEditingController();
+   final amountFormKey = new GlobalKey<FormFieldState>();
+   final addressFormKey = new GlobalKey<FormFieldState>();
+   final dataFormKey = new GlobalKey<FormFieldState>();
+
   @override
   void initState() {
     getAddress().then((address) {

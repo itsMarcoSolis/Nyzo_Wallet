@@ -62,12 +62,10 @@ class ContactsWindowState extends State<ContactsWindow> {
                                 color: Colors.white,
                                 icon: Icons.send,
                                 onTap: () {
-                                  walletWindowState.sendWindowInstance
-                                      .setaddressControllertext(
-                                          contactsList[i].address);
-                                  walletWindowState.sendWindowInstance
-                                      .setdataControllertext(
-                                          contactsList[i].notes);
+                                  walletWindowState.textControllerAddress.text =
+                                      contactsList[i].address;
+                                  walletWindowState.textControllerData.text =
+                                      contactsList[i].notes;
                                   walletWindowState.setState(() {
                                     walletWindowState.pageIndex = 2;
                                   });

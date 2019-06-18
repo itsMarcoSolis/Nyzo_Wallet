@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:nyzo_wallet/Activities/WalletWindow.dart';
 import 'package:nyzo_wallet/Data/Wallet.dart';
 import 'package:nyzo_wallet/Activities/BackupSeed.dart';
 
@@ -37,6 +38,11 @@ class _NewWalletScreenState extends State<NewWalletScreen> {
     createNewWallet(textController1.text).then((onValue) {
       print(onValue);
       //onValue not used
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => WalletWindow(textController1.text)),
+      );
       Navigator.push(
         context,
         MaterialPageRoute(
