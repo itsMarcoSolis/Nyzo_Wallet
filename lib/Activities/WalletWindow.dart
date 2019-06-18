@@ -51,6 +51,7 @@ class WalletWindowState extends State<WalletWindow> {
 
   @override
   void initState() {
+    sendWindowInstance = new SendWindow(password,  _address);
     super.initState();
     
     getAddress().then((address) {
@@ -101,7 +102,7 @@ class WalletWindowState extends State<WalletWindow> {
             });
           },
         );
-    sendWindowInstance = new SendWindow(password,  _address);
+    
     return WillPopScope(
       // widget to control the moving between activities
       onWillPop: () async =>
