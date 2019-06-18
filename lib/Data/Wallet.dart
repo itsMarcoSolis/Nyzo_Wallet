@@ -63,7 +63,7 @@ Future createNewWallet(String password) async {
       Contact(
           "c660f3c5b662d4632e19bc332afc29a8fa0fb9365bdd53418637323203538944",
           "Donate",
-          "Help the development of this wallet."));
+          "Help us develop this wallet."));
   return [HEX.encode(privKey), HEX.encode(pubKey)];
 }
 
