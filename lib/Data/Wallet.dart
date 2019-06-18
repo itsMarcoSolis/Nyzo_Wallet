@@ -177,7 +177,7 @@ Future<List> getTransactions(String address) async {
         transaction.address =
             transactionSlice[2].toString().split("(")[0].split("∩")[0];
         List balanceSlice = eachTransaction.text.toString().split("∩");
-        transaction.ammount = double.parse(
+        transaction.amount = double.parse(
             balanceSlice[1].toString().split(".")[0] +
                 "." +
                 balanceSlice[1].toString().split(".")[1].substring(0, 6));
@@ -192,7 +192,7 @@ Future<List> getTransactions(String address) async {
   return transactions;
 }
 
-Future send(String password, String account, int ammount, int balance,
+Future send(String password, String account, int amount, int balance,
     String data) async {
 //print("Sendinggg-------------------------------------------------------------------------------------------------");
   String encryptedprivKey = await _storage.read(key: "privKey");
@@ -202,7 +202,7 @@ Future send(String password, String account, int ammount, int balance,
   String walletPrivateSeed = await getPrivateKey(password);
   String recipientIdentifier = account;
   int balanceMicronyzos = balance;
-  int micronyzosToSend = ammount;
+  int micronyzosToSend = amount;
   String senderData = data;
 
   bool specifiedTransactionIsValid() {

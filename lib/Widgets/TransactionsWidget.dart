@@ -94,7 +94,7 @@ class TranSactionsWidgetState extends State<TranSactionsWidget> {
                               style: TextStyle(color: Colors.white),
                             ),
                             trailing: Text(
-                              _transactions[i].ammount.toString() + ' ∩',
+                              _transactions[i].amount.toString() + ' ∩',
                             ),
                           ),
                         ),

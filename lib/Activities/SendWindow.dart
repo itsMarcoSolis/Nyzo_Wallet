@@ -6,10 +6,10 @@ import 'package:nyzo_wallet/Activities/WalletWindow.dart';
 class SendWindow extends StatelessWidget {
   SendWindow(this.password, this.address);
 
-  static final textControllerAmmount = new TextEditingController();
+  static final textControllerAmount = new TextEditingController();
   static final textControllerAddress = new TextEditingController();
   static final textControllerData = new TextEditingController();
-  static final ammountFormKey = new GlobalKey<FormFieldState>();
+  static final amountFormKey = new GlobalKey<FormFieldState>();
   static final addressFormKey = new GlobalKey<FormFieldState>();
   static final dataFormKey = new GlobalKey<FormFieldState>();
   final String password;
@@ -63,19 +63,19 @@ class SendWindow extends StatelessWidget {
               right: MediaQuery.of(context).size.width * 0.15,
             ),
             child: TextFormField(
-              key: ammountFormKey,
-              controller: textControllerAmmount,
+              key: amountFormKey,
+              controller: textControllerAmount,
               keyboardType: TextInputType.number,
               maxLines: 1,
               maxLength: 20,
               validator: (String val) =>
-                  double.parse(textControllerAmmount.text).toInt() * 1000000 >=
+                  double.parse(textControllerAmount.text).toInt() * 1000000 >=
                           walletWindowState.balance
                       ? "You don't have enough Nyzo."
                       : null,
               style: TextStyle(color: Color(0xFF500000)),
               decoration: InputDecoration(
-                labelText: "Ammount",
+                labelText: "Amount",
                 labelStyle: TextStyle(color: Color(0xFF500000)),
                 border: UnderlineInputBorder(
                     borderSide: BorderSide(color: Colors.grey)),
@@ -152,19 +152,19 @@ class SendWindow extends StatelessWidget {
                     onPressed: () {
                       //var dataForm = dataFormKey.currentState;
                       var addressForm = addressFormKey.currentState;
-                      var ammountForm = ammountFormKey.currentState;
-                      if (addressForm.validate() && ammountForm.validate()) {
+                      var amountForm = amountFormKey.currentState;
+                      if (addressForm.validate() && amountForm.validate()) {
                         var address =
                             textControllerAddress.text.split('-').join('');
                         send(
                             password,
                             address,
-                            (double.parse(textControllerAmmount.text) * 1000000)
+                            (double.parse(textControllerAmount.text) * 1000000)
                                 .toInt(),
                             walletWindowState.balance,
                             textControllerData.text);
                         textControllerAddress.clear();
-                        textControllerAmmount.clear();
+                        textControllerAmount.clear();
                         textControllerData.clear();
                       }
                     },
