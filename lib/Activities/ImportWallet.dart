@@ -22,17 +22,17 @@ class _ImportWalletScreenState extends State<ImportWalletScreen> {
     ]);
   }
 
-
   void _performWalletCreation() {
     setState(() {
       _isLoading = true;
     });
     Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => ImportWalletScreen2(privKeytextController.text)),
-      );
-      setState(() {
+      context,
+      MaterialPageRoute(
+          builder: (context) =>
+              ImportWalletScreen2(privKeytextController.text)),
+    );
+    setState(() {
       _isLoading = false;
     });
   }
@@ -40,7 +40,7 @@ class _ImportWalletScreenState extends State<ImportWalletScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //resizeToAvoidBottomInset: false,
+        //resizeToAvoidBottomInset: false,
         //resizeToAvoidBottomPadding: false,
         appBar: new AppBar(
           elevation: 0.0,
@@ -78,9 +78,9 @@ class _ImportWalletScreenState extends State<ImportWalletScreen> {
                   labelText: "Private Key",
                 ),
                 validator: (String val) => val.contains(RegExp(r'[g-z]')) ||
-                      !(val.length == 67 || val.length == 64)
-                  ? "Invalid private key."
-                  : null,
+                        !(val.length == 67 || val.length == 64)
+                    ? "Invalid private key."
+                    : null,
               ),
               new SizedBox(
                 height: 50.0,
@@ -88,12 +88,12 @@ class _ImportWalletScreenState extends State<ImportWalletScreen> {
               _isLoading
                   ? Center(
                       child: new CircularProgressIndicator(
-                          valueColor: new AlwaysStoppedAnimation(
-                              Color(0XFFFFFFFF))))
+                          valueColor:
+                              new AlwaysStoppedAnimation(Color(0XFFFFFFFF))))
                   : Center(
                       child: new RaisedButton(
                         shape: new RoundedRectangleBorder(
-                                  borderRadius: new BorderRadius.circular(30.0)),
+                            borderRadius: new BorderRadius.circular(30.0)),
                         onPressed: () {
                           final form = formKey.currentState;
                           if (form.validate()) {

@@ -70,11 +70,11 @@ class TransactionMessage {
       this.senderIdentifier[i] = pubKey[i];
     }
     print(this.senderIdentifier.toString());
-      Signature s1 = Signature(null, keyPair.secretKey);
-      Uint8List signature = s1.detached(this.getBytes(false));
-      for (var i = 0; i < this.signature.length; i++) {
-        this.signature[i] = signature[i];
-      }
+    Signature s1 = Signature(null, keyPair.secretKey);
+    Uint8List signature = s1.detached(this.getBytes(false));
+    for (var i = 0; i < this.signature.length; i++) {
+      this.signature[i] = signature[i];
+    }
   }
 
   getBytes(bool includeSignature) {

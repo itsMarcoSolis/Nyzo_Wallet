@@ -16,11 +16,8 @@ class _AuthScreenState extends State<AuthScreen> {
   var _localAuth = new LocalAuthentication();
   final textController = new TextEditingController();
 
-
-
   @override
   void initState() {
-
     try {
       Future didAuthenticate = _localAuth.authenticateWithBiometrics(
           localizedReason: 'Please authenticate to show your account.');

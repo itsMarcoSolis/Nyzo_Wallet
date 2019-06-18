@@ -47,18 +47,17 @@ class AddContactDialog {
               FlatButton(
                 child: Text("Cancel"),
                 onPressed: () {
-                    nameController.text = '';
-                    Navigator.pop(context);
-                  
+                  nameController.text = '';
+                  Navigator.pop(context);
                 },
               ),
               FlatButton(
                 child: Text("Next"),
                 onPressed: () {
                   if (nameFormKey.currentState.validate()) {
-                  Navigator.pop(context);
-                  address(context2, "Add Contact", contactList,
-                      onClose: onClose);
+                    Navigator.pop(context);
+                    address(context2, "Add Contact", contactList,
+                        onClose: onClose);
                   }
                 },
               ),

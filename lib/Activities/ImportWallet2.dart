@@ -5,9 +5,10 @@ import 'package:nyzo_wallet/Data/Wallet.dart';
 
 class ImportWalletScreen2 extends StatefulWidget {
   ImportWalletScreen2(this._privKey);
-    final String _privKey;
+  final String _privKey;
   @override
-  _ImportWalletScreen2State createState() => _ImportWalletScreen2State(_privKey);
+  _ImportWalletScreen2State createState() =>
+      _ImportWalletScreen2State(_privKey);
 }
 
 class _ImportWalletScreen2State extends State<ImportWalletScreen2> {
@@ -18,7 +19,7 @@ class _ImportWalletScreen2State extends State<ImportWalletScreen2> {
   final textController2 = new TextEditingController();
   final privKeytextController = new TextEditingController();
   final formKey = new GlobalKey<FormFieldState>();
-   @override
+  @override
   void initState() {
     super.initState();
     //prevent the screen from rotating
@@ -26,21 +27,23 @@ class _ImportWalletScreen2State extends State<ImportWalletScreen2> {
       DeviceOrientation.portraitUp,
     ]);
   }
-    @override
+
+  @override
   void dispose() {
     textController2.dispose();
     textController1.dispose();
     super.dispose();
   }
+
   void _performWalletCreation() {
     setState(() {
       _isLoading = true;
     });
-    importWallet(_privKey ,textController1.text).then((bool onValue) {
+    importWallet(_privKey, textController1.text).then((bool onValue) {
       if (onValue) {
         print("Wallet Imported");
       }
-      
+
       //onValue not used
       Navigator.push(
         context,
@@ -51,10 +54,11 @@ class _ImportWalletScreen2State extends State<ImportWalletScreen2> {
       ///this.dispose();
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //resizeToAvoidBottomInset: false,
+        //resizeToAvoidBottomInset: false,
         //resizeToAvoidBottomPadding: false,
         appBar: new AppBar(
           elevation: 0.0,
@@ -117,7 +121,7 @@ class _ImportWalletScreen2State extends State<ImportWalletScreen2> {
                       : Center(
                           child: new RaisedButton(
                             shape: new RoundedRectangleBorder(
-                                  borderRadius: new BorderRadius.circular(30.0)),
+                                borderRadius: new BorderRadius.circular(30.0)),
                             onPressed: () {
                               final form = formKey.currentState;
                               if (form.validate()) {

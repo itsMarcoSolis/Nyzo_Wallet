@@ -38,8 +38,8 @@ class SendWindow extends StatelessWidget {
             style: TextStyle(
                 color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20),
           ),
-          InkWell(
-            onTap: () {
+          RaisedButton(
+            onPressed: () {
               Clipboard.setData(new ClipboardData(text: address));
               final snackBar =
                   SnackBar(content: Text('Address copied to clipboard'));
@@ -157,34 +157,35 @@ class SendWindow extends StatelessWidget {
                         var address =
                             textControllerAddress.text.split('-').join('');
                         send(
-                            password,
-                            address,
-                            (double.parse(textControllerAmount.text) * 1000000)
-                                .toInt(),
-                            walletWindowState.balance,
-                            textControllerData.text).then((String result){
-                              return showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return AlertDialog(
-                        title: Text(
-                          "Transaction state:",
-                          style: TextStyle(color: Colors.black),
-                        ),
-                        content: Text(
-                            result),
-                        actions: <Widget>[
-                          FlatButton(
-                            child: Text("Ok"),
-                            onPressed: () {
-                              Navigator.pop(context);
+                                password,
+                                address,
+                                (double.parse(textControllerAmount.text) *
+                                        1000000)
+                                    .toInt(),
+                                walletWindowState.balance,
+                                textControllerData.text)
+                            .then((String result) {
+                          return showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: Text(
+                                  "Transaction state:",
+                                  style: TextStyle(color: Colors.black),
+                                ),
+                                content: Text(result),
+                                actions: <Widget>[
+                                  FlatButton(
+                                    child: Text("Ok"),
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                  )
+                                ],
+                              );
                             },
-                          )
-                        ],
-                      );
-                    },
-                  );
-                            });
+                          );
+                        });
                         textControllerAddress.clear();
                         textControllerAmount.clear();
                         textControllerData.clear();

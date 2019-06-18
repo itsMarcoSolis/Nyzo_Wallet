@@ -65,100 +65,96 @@ class _RadialMenuState extends State<RadialMenu>
             animation: _animation,
             builder: (context, builder) {
               return Stack(
-                    fit: StackFit.loose,
-                    overflow: Overflow.visible,
-                    children: <Widget>[
-                      Positioned(
-                          child: Transform.rotate(
-                              angle: radians(_animation.value),
-                              child: Container(
-                                  color: Color(0xffa4a4a4),
-                                  width: 100,
-                                  height:100,
-                                  child: Stack(
-                                    overflow: Overflow.visible,
-                                    fit: StackFit.passthrough,
-                                    key: Key("Spinnable"),
-                                    alignment: Alignment.center,
-                                    children: <Widget>[
-                                      Positioned(
-                                        right: 0.0,
-                                        left: radi * cos(radians(0)),
-                                        top: 0.0,
-                                        bottom: 0.0,
-                                        child: Transform.rotate(
-                                            angle: radians(0.0 + 90),
-                                            child: Container(
-                                              width: 10.0,
-                                              height: 10.0,
-                                              child: Icon(Icons.accessibility),
-                                            )),
+                fit: StackFit.loose,
+                overflow: Overflow.visible,
+                children: <Widget>[
+                  Positioned(
+                      child: Transform.rotate(
+                          angle: radians(_animation.value),
+                          child: Container(
+                              color: Color(0xffa4a4a4),
+                              width: 100,
+                              height: 100,
+                              child: Stack(
+                                overflow: Overflow.visible,
+                                fit: StackFit.passthrough,
+                                key: Key("Spinnable"),
+                                alignment: Alignment.center,
+                                children: <Widget>[
+                                  Positioned(
+                                    right: 0.0,
+                                    left: radi * cos(radians(0)),
+                                    top: 0.0,
+                                    bottom: 0.0,
+                                    child: Transform.rotate(
+                                        angle: radians(0.0 + 90),
+                                        child: Container(
+                                          width: 10.0,
+                                          height: 10.0,
+                                          child: Icon(Icons.accessibility),
+                                        )),
+                                  ),
+                                  Positioned(
+                                    right: 0.0,
+                                    left: radi * cos(radians(360 / 5)),
+                                    top: 0.0,
+                                    bottom: radi * sin(radians(360 / 5)),
+                                    child: Transform.rotate(
+                                      angle: radians(-360 / 5 + 90),
+                                      child: Container(
+                                        width: 100.0,
+                                        height: 100.0,
+                                        child: TranSactionsWidget([]),
                                       ),
-                                      Positioned(
-                                        right: 0.0,
-                                        left: radi * cos(radians(360 / 5)),
-                                        top: 0.0,
-                                        bottom: radi * sin(radians(360 / 5)),
-                                        child: Transform.rotate(
-                                          angle: radians(-360 / 5 + 90),
-                                          child: Container(
-                                            width: 100.0,
-                                            height: 100.0,
-                                            child: TranSactionsWidget([]),
-                                          ),
-                                        ),
+                                    ),
+                                  ),
+                                  Positioned(
+                                    right: 0.0,
+                                    left: radi * cos(radians(360 / 5 * 2)),
+                                    top: 0.0,
+                                    bottom: radi * sin(radians((360 / 5 * 2))),
+                                    child: Transform.rotate(
+                                      angle: radians(-360 / 5 * 2 + 90),
+                                      child: Container(
+                                        width: 100.0,
+                                        height: 100.0,
+                                        child: Icon(Icons.accessibility),
                                       ),
-                                      Positioned(
-                                        right: 0.0,
-                                        left: radi * cos(radians(360 / 5 * 2)),
-                                        top: 0.0,
-                                        bottom:
-                                            radi * sin(radians((360 / 5 * 2))),
-                                        child: Transform.rotate(
-                                          angle: radians(-360 / 5 * 2 + 90),
-                                          child: Container(
-                                            width: 100.0,
-                                            height: 100.0,
-                                            child: Icon(Icons.accessibility),
-                                          ),
-                                        ),
+                                    ),
+                                  ),
+                                  Positioned(
+                                    right: 0.0,
+                                    left: radi * cos(radians(360 / 5 * 3)),
+                                    top: 0.0,
+                                    bottom: radi * sin(radians(360 / 5 * 3)),
+                                    child: Transform.rotate(
+                                      angle: radians(-360 / 5 * 3 + 90),
+                                      child: Container(
+                                        width: 100.0,
+                                        height: 100.0,
+                                        child: Icon(Icons.accessibility),
                                       ),
-                                      Positioned(
-                                        right: 0.0,
-                                        left: radi * cos(radians(360 / 5 * 3)),
-                                        top: 0.0,
-                                        bottom:
-                                            radi * sin(radians(360 / 5 * 3)),
-                                        child: Transform.rotate(
-                                          angle: radians(-360 / 5 * 3 + 90),
-                                          child: Container(
-                                            width: 100.0,
-                                            height: 100.0,
-                                            child: Icon(Icons.accessibility),
-                                          ),
-                                        ),
+                                    ),
+                                  ),
+                                  Positioned(
+                                    right: 0.0,
+                                    left:
+                                        radi / 1.0 * cos(radians(360 / 5 * 4)),
+                                    top: 0.0,
+                                    bottom: radi * sin(radians(360 / 5 * 4)),
+                                    child: Transform.rotate(
+                                      angle: radians(-360 / 5 * 4 + 90),
+                                      child: Container(
+                                        width: 100.0,
+                                        height: 100.0,
+                                        child: Icon(Icons.accessibility),
                                       ),
-                                      Positioned(
-                                        right: 0.0,
-                                        left: radi /
-                                            1.0 *
-                                            cos(radians(360 / 5 * 4)),
-                                        top: 0.0,
-                                        bottom:
-                                            radi * sin(radians(360 / 5 * 4)),
-                                        child: Transform.rotate(
-                                          angle: radians(-360 / 5 * 4 + 90),
-                                          child: Container(
-                                            width: 100.0,
-                                            height: 100.0,
-                                            child: Icon(Icons.accessibility),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  )))),
-                    ],
-                  );
+                                    ),
+                                  ),
+                                ],
+                              )))),
+                ],
+              );
             },
           ),
           Row(

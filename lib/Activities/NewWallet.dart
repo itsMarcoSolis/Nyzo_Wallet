@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:nyzo_wallet/Data/Wallet.dart';
@@ -43,6 +42,7 @@ class _NewWalletScreenState extends State<NewWalletScreen> {
         MaterialPageRoute(
             builder: (context) => BackUpSeed(textController1.text)),
       );
+
       ///this.dispose();
     });
   }
@@ -50,7 +50,7 @@ class _NewWalletScreenState extends State<NewWalletScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //resizeToAvoidBottomInset: false,
+        //resizeToAvoidBottomInset: false,
         //resizeToAvoidBottomPadding: false,
         appBar: new AppBar(
           elevation: 0.0,
@@ -85,7 +85,7 @@ class _NewWalletScreenState extends State<NewWalletScreen> {
                     autofocus: false,
                     obscureText: true,
                     controller: textController1,
-                    style: TextStyle( color: Colors.white),
+                    style: TextStyle(color: Colors.white),
                     decoration: new InputDecoration(
                       labelText: "Password",
                     ),
@@ -95,7 +95,7 @@ class _NewWalletScreenState extends State<NewWalletScreen> {
                     autocorrect: false,
                     controller: textController2,
                     obscureText: true,
-                    style: TextStyle( color: Colors.white),
+                    style: TextStyle(color: Colors.white),
                     decoration:
                         new InputDecoration(labelText: "Confirm password"),
                     validator: (val) => val != textController1.text
@@ -113,7 +113,7 @@ class _NewWalletScreenState extends State<NewWalletScreen> {
                       : Center(
                           child: new RaisedButton(
                             shape: new RoundedRectangleBorder(
-                                  borderRadius: new BorderRadius.circular(30.0)),
+                                borderRadius: new BorderRadius.circular(30.0)),
                             onPressed: () {
                               final form = formKey.currentState;
                               if (form.validate()) {

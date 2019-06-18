@@ -227,16 +227,19 @@ class ContactsWindowState extends State<ContactsWindow> {
         color: Color(0xEEFFFFFF),
         child: Container(
           alignment: Alignment.center,
-          child: TextFormField(initialValue: contactsList[index].notes,textAlign: TextAlign.center,
-          onFieldSubmitted: (String newData){
-            contactsList[index].notes=newData;
-            saveContacts(contactsList);
-            getContacts().then((List<Contact> _contactList) {
-                    setState(() {
-                      contactsList = _contactList;
-                    });
-                  });
-          },),
+          child: TextFormField(
+            initialValue: contactsList[index].notes,
+            textAlign: TextAlign.center,
+            onFieldSubmitted: (String newData) {
+              contactsList[index].notes = newData;
+              saveContacts(contactsList);
+              getContacts().then((List<Contact> _contactList) {
+                setState(() {
+                  contactsList = _contactList;
+                });
+              });
+            },
+          ),
         ),
       );
     });

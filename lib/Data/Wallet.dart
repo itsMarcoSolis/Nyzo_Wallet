@@ -58,10 +58,13 @@ Future createNewWallet(String password) async {
   // We take the values starting from index 1 to get  rid of the two leading '0's (pubKey)
   prefs.setString('pubKey', HEX.encode(pubKey));
   await _storage.write(key: "Password", value: password);
-  addContact([], Contact("c660f3c5b662d4632e19bc332afc29a8fa0fb9365bdd53418637323203538944", "Donate", "Help the development of this wallet."));
+  addContact(
+      [],
+      Contact(
+          "c660f3c5b662d4632e19bc332afc29a8fa0fb9365bdd53418637323203538944",
+          "Donate",
+          "Help the development of this wallet."));
   return [HEX.encode(privKey), HEX.encode(pubKey)];
-  
-  
 }
 
 Future<bool> importWallet(String privKey, String password) async {
@@ -99,7 +102,12 @@ Future<bool> importWallet(String privKey, String password) async {
   // We take the values starting from index 1 to get  rid of the two leading '0's (pubKey)
   prefs.setString('pubKey', HEX.encode(pubKey));
   await _storage.write(key: "Password", value: password);
-  addContact([], Contact("c660f3c5b662d4632e19bc332afc29a8fa0fb9365bdd53418637323203538944", "Donate", "Help the development of this wallet."));
+  addContact(
+      [],
+      Contact(
+          "c660f3c5b662d4632e19bc332afc29a8fa0fb9365bdd53418637323203538944",
+          "Donate",
+          "Help the development of this wallet."));
   return true;
 }
 
@@ -329,13 +337,13 @@ Future<List<Contact>> getContacts() async {
 
   if (_contactListJson != null) {
     print("lmaoo" + _contactListJson.toString());
-  List<Contact> _contactList = [];
-  List<dynamic> _contactListDeserialized = json.decode(_contactListJson);
-  int index = _contactListDeserialized.length;
-  for (var i = 0; i < index; i++) {
-    _contactList.add(Contact.fromJson(_contactListDeserialized[i]));
-  }
-  return _contactList;
+    List<Contact> _contactList = [];
+    List<dynamic> _contactListDeserialized = json.decode(_contactListJson);
+    int index = _contactListDeserialized.length;
+    for (var i = 0; i < index; i++) {
+      _contactList.add(Contact.fromJson(_contactListDeserialized[i]));
+    }
+    return _contactList;
   } else {
     return [];
   }
@@ -347,12 +355,12 @@ Future<bool> addContact(List<Contact> contactList, Contact contact) async {
   List<Contact> _contactList = [];
   if (_contactListJson != null) {
     print("lmaoo" + _contactListJson.toString());
-  List<dynamic> _contactListDeserialized = json.decode(_contactListJson);
-  int index = _contactListDeserialized.length;
-  for (var i = 0; i < index; i++) {
-    _contactList.add(Contact.fromJson(_contactListDeserialized[i]));
-  }
-  _contactList.add(contact);
+    List<dynamic> _contactListDeserialized = json.decode(_contactListJson);
+    int index = _contactListDeserialized.length;
+    for (var i = 0; i < index; i++) {
+      _contactList.add(Contact.fromJson(_contactListDeserialized[i]));
+    }
+    _contactList.add(contact);
   } else {
     _contactList.add(contact);
   }
@@ -370,7 +378,7 @@ Future<bool> saveContacts(List<Contact> contactList) async {
   return true;
 }
 
-void deleteWallet()async {
+void deleteWallet() async {
   final pref = await SharedPreferences.getInstance();
   await pref.clear();
   await _storage.deleteAll();

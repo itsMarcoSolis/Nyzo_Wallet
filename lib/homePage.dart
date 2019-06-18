@@ -57,74 +57,73 @@ class _MyHomePageState extends State<HomePage> {
     // than having to individually change instances of widgets.
     return Scaffold(
       resizeToAvoidBottomInset: false,
-        resizeToAvoidBottomPadding: false,
-        body: new Center(
-          // Center is a layout widget. It takes a single child and positions it
-          // in the middle of the parent.
-          child: new Column(
-            children: <Widget>[
-              new Padding(
-                  padding: EdgeInsets.fromLTRB(0.0, 200.0, 0.0, 0.0),
-                  child: new Image.asset(
-                    "images/Logo.png",
-                    width: 150.0,
-                  )),
-              new Padding(padding: EdgeInsets.symmetric(vertical: 30.0)),
-              _visibleButttons
-                  ? new Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: <Widget>[
-                        new Padding(
-                            padding: new EdgeInsets.symmetric(horizontal: 70.0),
-                            child: RaisedButton(
-                              shape: new RoundedRectangleBorder(
-                                  borderRadius: new BorderRadius.circular(30.0)),
-                              onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => NewWalletScreen()),
-                                );
-                              },
-                              child: Text("Create new Wallet"),
-                            )),
-                        new Padding(
-                            padding: EdgeInsets.symmetric(vertical: 20.0)),
-                        new Padding(
+      resizeToAvoidBottomPadding: false,
+      body: new Center(
+        // Center is a layout widget. It takes a single child and positions it
+        // in the middle of the parent.
+        child: new Column(
+          children: <Widget>[
+            new Padding(
+                padding: EdgeInsets.fromLTRB(0.0, 200.0, 0.0, 0.0),
+                child: new Image.asset(
+                  "images/Logo.png",
+                  width: 150.0,
+                )),
+            new Padding(padding: EdgeInsets.symmetric(vertical: 30.0)),
+            _visibleButttons
+                ? new Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: <Widget>[
+                      new Padding(
                           padding: new EdgeInsets.symmetric(horizontal: 70.0),
                           child: RaisedButton(
                             shape: new RoundedRectangleBorder(
                                 borderRadius: new BorderRadius.circular(30.0)),
                             onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => ImportWalletScreen()),
-                                );
-                              },
-                            child: Text("Import Existing Wallet"),
-                          ),
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => NewWalletScreen()),
+                              );
+                            },
+                            child: Text("Create new Wallet"),
+                          )),
+                      new Padding(
+                          padding: EdgeInsets.symmetric(vertical: 20.0)),
+                      new Padding(
+                        padding: new EdgeInsets.symmetric(horizontal: 70.0),
+                        child: RaisedButton(
+                          shape: new RoundedRectangleBorder(
+                              borderRadius: new BorderRadius.circular(30.0)),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ImportWalletScreen()),
+                            );
+                          },
+                          child: Text("Import Existing Wallet"),
                         ),
-                      ],
-                    )
-                  : new CircularProgressIndicator(
-                      valueColor: new AlwaysStoppedAnimation(Color(0XFFD42D72)),
-                    ),
-              new Expanded(
-                child: new Container(),
-              ),
-              new Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  new Text("Made with "),
-                  new Icon(Icons.favorite, color: Color(0xFFFFFFFF)),
-                  new Text(" for the community.")
-                ],
-              )
-            ],
-          ),
+                      ),
+                    ],
+                  )
+                : new CircularProgressIndicator(
+                    valueColor: new AlwaysStoppedAnimation(Color(0XFFD42D72)),
+                  ),
+            new Expanded(
+              child: new Container(),
+            ),
+            new Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                new Text("Made with "),
+                new Icon(Icons.favorite, color: Color(0xFFFFFFFF)),
+                new Text(" for the community.")
+              ],
+            )
+          ],
         ),
-      )
-    ;
+      ),
+    );
   }
 }
