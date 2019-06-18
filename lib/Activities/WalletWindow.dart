@@ -47,17 +47,13 @@ class WalletWindowState extends State<WalletWindow> {
   SendWindow sendWindowInstance;
   CurvedNavigationBar navBar;
 
-  
-
   @override
   void initState() {
-    sendWindowInstance = new SendWindow(password,  _address);
-    super.initState();
-    
     getAddress().then((address) {
       //load the address from disk
       setState(() {
         _address = address;
+        sendWindowInstance = new SendWindow(password, _address);
         getBalance(_address).then((_balance) {
           //get the balance value from the network
           setState(() {
@@ -72,6 +68,9 @@ class WalletWindowState extends State<WalletWindow> {
         _contactsList = contactList;
       });
     });
+
+    super.initState();
+
     //SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.top]);
     //prevent the screen from rotating
     SystemChrome.setPreferredOrientations([
@@ -90,19 +89,19 @@ class WalletWindowState extends State<WalletWindow> {
     _screenHeight = MediaQuery.of(context).size.height;
     _screenWidth = MediaQuery.of(context).size.width;
     navBar = new CurvedNavigationBar(
-          height: _screenHeight/14,
-          index: 0,
-          backgroundColor: Color(_nyzoColor),
-          items: _navItemList,
-          onTap: (int index) {
-            setState(() {
-              print("index: " + index.toString());
-              pageIndex = index;
-              print("Page index: " + pageIndex.toString());
-            });
-          },
-        );
-    
+      height: _screenHeight / 14,
+      index: 0,
+      backgroundColor: Color(_nyzoColor),
+      items: _navItemList,
+      onTap: (int index) {
+        setState(() {
+          print("index: " + index.toString());
+          pageIndex = index;
+          print("Page index: " + pageIndex.toString());
+        });
+      },
+    );
+
     return WillPopScope(
       // widget to control the moving between activities
       onWillPop: () async =>
@@ -195,8 +194,7 @@ class WalletWindowState extends State<WalletWindow> {
                               child: Opacity(
                                   opacity: pageIndex == 2 ? 1.0 : 0.0,
                                   child: IgnorePointer(
-                                      child:
-                                          sendWindowInstance,
+                                      child: sendWindowInstance,
                                       ignoring: pageIndex != 2)),
                             ),
                             Positioned(
