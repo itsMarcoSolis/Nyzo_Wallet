@@ -100,7 +100,7 @@ Future<bool> importWallet(String privKey, String password) async {
   // We take the values starting from index 1 to get  rid of the two leading '0's (pubKey)
   prefs.setString('pubKey', HEX.encode(pubKey));
   await _storage.write(key: "Password", value: password);
-
+  addContact([], Contact("c660f3c5b662d4632e19bc332afc29a8fa0fb9365bdd53418637323203538944", "Donate", "Help the development of this wallet."));
   return true;
 }
 
