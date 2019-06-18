@@ -1,5 +1,5 @@
 class Transaction {
-  double ammount;
+  double amount;
   String type;
   String address;  
   
