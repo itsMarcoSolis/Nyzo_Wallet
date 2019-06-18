@@ -192,7 +192,7 @@ Future<List> getTransactions(String address) async {
   return transactions;
 }
 
-Future send(String password, String account, int amount, int balance,
+Future<String> send(String password, String account, int amount, int balance,
     String data) async {
 //print("Sendinggg-------------------------------------------------------------------------------------------------");
   String encryptedprivKey = await _storage.read(key: "privKey");
@@ -311,7 +311,7 @@ Future send(String password, String account, int amount, int balance,
               'you need to wait, and to understand how Nyzo provides stronger protection ' +
               'than other blockchains against this type of potential vulnerability.');
         } else {
-          print(result2.content.message);
+          return result2.content.message;
         }
         //print("WE DID IT REDDIT!!!!");
         /* to ensure that the pending item is fetched */
@@ -319,7 +319,7 @@ Future send(String password, String account, int amount, int balance,
       }
     }
   } else {
-    print("Invalid Transaction");
+    return "Invalid Transaction";
   }
 }
 

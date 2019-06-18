@@ -67,10 +67,10 @@ class SettingsWindow extends StatelessWidget {
                               Navigator.pop(context);
                               deleteWallet();
                               Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => HomePage()),
-        );
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => HomePage()),
+                              );
                             },
                           ),
                         ],

@@ -162,7 +162,29 @@ class SendWindow extends StatelessWidget {
                             (double.parse(textControllerAmount.text) * 1000000)
                                 .toInt(),
                             walletWindowState.balance,
-                            textControllerData.text);
+                            textControllerData.text).then((String result){
+                              return showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: Text(
+                          "Transaction state:",
+                          style: TextStyle(color: Colors.black),
+                        ),
+                        content: Text(
+                            result),
+                        actions: <Widget>[
+                          FlatButton(
+                            child: Text("Ok"),
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                          )
+                        ],
+                      );
+                    },
+                  );
+                            });
                         textControllerAddress.clear();
                         textControllerAmount.clear();
                         textControllerData.clear();
