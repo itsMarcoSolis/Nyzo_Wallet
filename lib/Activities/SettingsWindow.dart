@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:nyzo_wallet/Activities/WalletWindow.dart';
 import 'package:nyzo_wallet/Activities/BackupSeed.dart';
 import 'package:nyzo_wallet/Data/Wallet.dart';
+import 'package:nyzo_wallet/homePage.dart';
 
 class SettingsWindow extends StatelessWidget {
   @override
@@ -65,6 +66,11 @@ class SettingsWindow extends StatelessWidget {
                             onPressed: () {
                               Navigator.pop(context);
                               deleteWallet();
+                              Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => HomePage()),
+        );
                             },
                           ),
                         ],
