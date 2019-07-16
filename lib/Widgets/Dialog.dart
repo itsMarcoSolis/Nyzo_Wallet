@@ -3,7 +3,7 @@ import 'package:nyzo_wallet/Data/Contact.dart';
 import 'package:nyzo_wallet/Data/Wallet.dart';
 
 class AddContactDialog {
-  static final List<Contact> contatList = [];
+
   static final TextEditingController addressController =
       new TextEditingController();
   static final TextEditingController nameController =
@@ -33,14 +33,27 @@ class AddContactDialog {
               maxLength: 24,
               style: TextStyle(color: Color(0xFF500000)),
               decoration: InputDecoration(
+                hasFloatingPlaceholder: false,
                 labelText: "Name",
-                labelStyle: TextStyle(color: Color(0xFF500000)),
-                border: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey)),
-                enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey)),
-                focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey)),
+                labelStyle: TextStyle(
+                  
+                                  color: Color(0xFF555555),
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 15),
+                              focusedErrorBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(100),
+                                  borderSide: BorderSide(color: Colors.red)),
+                              errorBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(100),
+                                  borderSide: BorderSide(color: Colors.red)),
+                              enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(100),
+                                  borderSide:
+                                      BorderSide(color: Color(0x55666666))),
+                              focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(100),
+                                  borderSide:
+                                      BorderSide(color: Color(0x55666666))),
               ),
             )),
             actions: <Widget>[
@@ -89,14 +102,26 @@ class AddContactDialog {
                   : null,
               style: TextStyle(color: Color(0xFF500000)),
               decoration: InputDecoration(
+                hasFloatingPlaceholder: false,
                 labelText: "Address",
-                labelStyle: TextStyle(color: Color(0xFF500000)),
-                border: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey)),
-                enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey)),
-                focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey)),
+                labelStyle: TextStyle(
+                                  color: Color(0xFF555555),
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 15),
+                              focusedErrorBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(100),
+                                  borderSide: BorderSide(color: Colors.red)),
+                              errorBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(100),
+                                  borderSide: BorderSide(color: Colors.red)),
+                              enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(100),
+                                  borderSide:
+                                      BorderSide(color: Color(0x55666666))),
+                              focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(100),
+                                  borderSide:
+                                      BorderSide(color: Color(0x55666666))),
               ),
             ),
             actions: <Widget>[
@@ -139,16 +164,29 @@ class AddContactDialog {
               key: dataFormKey,
               controller: dataController,
               maxLength: 32,
+              
               style: TextStyle(color: Color(0xFF500000)),
               decoration: InputDecoration(
+                hasFloatingPlaceholder: false,
                 labelText: "Data",
-                labelStyle: TextStyle(color: Color(0xFF500000)),
-                border: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey)),
-                enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey)),
-                focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey)),
+                labelStyle: TextStyle(
+                                  color: Color(0xFF555555),
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 15),
+                              focusedErrorBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(100),
+                                  borderSide: BorderSide(color: Colors.red)),
+                              errorBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(100),
+                                  borderSide: BorderSide(color: Colors.red)),
+                              enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(100),
+                                  borderSide:
+                                      BorderSide(color: Color(0x55666666))),
+                              focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(100),
+                                  borderSide:
+                                      BorderSide(color: Color(0x55666666))),
               ),
             ),
             actions: <Widget>[

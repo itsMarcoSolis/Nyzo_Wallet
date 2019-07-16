@@ -1,9 +1,11 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:nyzo_wallet/Data/Contact.dart';
 import 'package:nyzo_wallet/Data/Wallet.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:folding_cell/folding_cell.dart';
+import 'package:expandable/expandable.dart';
 import 'package:nyzo_wallet/Widgets/Dialog.dart';
 import 'package:nyzo_wallet/Activities/WalletWindow.dart';
 
@@ -18,10 +20,14 @@ class ContactsWindowState extends State<ContactsWindow> {
   ContactsWindowState(this.contactsList);
   List<Contact> contactsList;
   final SlidableController slidableController = SlidableController();
+  final ExpandableController expandableController = ExpandableController();
   AddContactDialog floatingdialog = new AddContactDialog();
+  WalletWindowState walletWindowState;
 
   @override
   void initState() {
+    walletWindowState =
+        context.ancestorStateOfType(TypeMatcher<WalletWindowState>());
     getContacts().then((List<Contact> contactList) {
       setState(() {
         contactsList = contactList;
@@ -32,214 +38,314 @@ class ContactsWindowState extends State<ContactsWindow> {
 
   @override
   Widget build(BuildContext context) {
-    WalletWindowState walletWindowState =
-        context.ancestorStateOfType(TypeMatcher<WalletWindowState>());
-    return Container(
-      child: Stack(
-        children: <Widget>[
-          contactsList != null
-              ? contactsList.length != 0
-                  ? ListView.builder(
-                      padding: EdgeInsets.all(0.0),
-                      itemCount: contactsList?.length,
-                      itemBuilder: (context, i) => Slidable(
-                            controller: slidableController,
-                            actionPane: SlidableDrawerActionPane(),
-                            child: SimpleFoldingCell(
-                                frontWidget: _buildFrontWidget(i),
-                                innerTopWidget: _buildInnerTopWidget(i),
-                                innerBottomWidget: _buildInnerBottomWidget(i),
-                                cellSize:
-                                    Size(MediaQuery.of(context).size.width, 75),
-                                padding: EdgeInsets.symmetric(horizontal: 0),
-                                animationDuration: Duration(milliseconds: 300),
-                                borderRadius: 0,
-                                onOpen: () {},
-                                onClose: () => print('cell closed')),
-                            actions: <Widget>[
-                              IconSlideAction(
-                                caption: 'Send',
-                                color: Colors.white,
-                                icon: Icons.send,
-                                onTap: () {
-                                  walletWindowState.textControllerAddress.text =
-                                      contactsList[i].address;
-                                  walletWindowState.textControllerData.text =
-                                      contactsList[i].notes;
-                                  walletWindowState.setState(() {
-                                    walletWindowState.pageIndex = 2;
-                                  });
-                                },
-                              )
-                            ],
-                            secondaryActions: <Widget>[
-                              IconSlideAction(
-                                caption: 'Delete',
-                                color: Colors.white,
-                                icon: Icons.delete,
-                                onTap: () {
-                                  contactsList.removeAt(i);
-                                  setState(() {
-                                    saveContacts(contactsList);
-                                  });
-                                },
-                              ),
-                            ],
-                          ))
-                  : Center(
-                      child: Text(
-                        "No contacts to show! Try sending some using the button below.",
-                        style: TextStyle(color: Colors.black, fontSize: 15),
-                      ),
-                    )
-              : ListView.builder(
-                  padding: EdgeInsets.all(0.0),
-                  itemCount: 8,
-                  itemBuilder: (context, i) => Card(
-                          child: SizedBox(
-                        width: 200.0,
-                        height: 60.0,
-                        child: Shimmer.fromColors(
-                          baseColor: Colors.grey[300],
-                          highlightColor: Colors.grey[100],
-                          child: Padding(
-                            padding: const EdgeInsets.all(2.0),
-                            child: ListTile(
-                              leading: Container(
-                                color: Colors.green,
-                                width: 50,
-                                height: 50,
-                              ),
-                              title: Text(
-                                  "                                                                        ",
-                                  style:
-                                      TextStyle(backgroundColor: Colors.grey)),
-                            ),
-                          ),
-                        ),
-                      ))),
-          Positioned(
-            bottom: MediaQuery.of(context).size.height / 30,
-            right: MediaQuery.of(context).size.height / 30,
-            child: FloatingActionButton(
-              backgroundColor: Colors.white54,
-              foregroundColor: Colors.white,
-              onPressed: () {
-                floatingdialog.information(context, "Add Contact", contactsList,
-                    onClose: () {
-                  getContacts().then((List<Contact> _contactList) {
-                    setState(() {
-                      contactsList = _contactList;
-                    });
-                  });
-                });
-                //contactsList.add(addcontact);
-              },
-              child: Icon(Icons.add),
-            ),
-          )
-        ],
-      ),
-    );
-  }
-
-  Widget _buildFrontWidget(int index) {
-    return Builder(
-      builder: (BuildContext context) {
-        return InkWell(
-          onTap: () {
-            SimpleFoldingCellState foldingCellState = context
-                .ancestorStateOfType(TypeMatcher<SimpleFoldingCellState>());
-
-            foldingCellState?.toggleFold();
-          },
-          child: Card(
-              color: Color(0xFF500000),
-              child: Container(
-                alignment: Alignment.center,
-                child: ListTile(
-                  leading: Icon(
-                    Icons.person,
-                    color: Colors.white,
-                  ),
-                  title: Text(contactsList[index].name,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20.0,
-                      )),
-                ),
-              )),
-        );
-      },
-    );
-  }
-
-  Widget _buildInnerTopWidget(int index) {
-    return Builder(
-      builder: (BuildContext context) {
-        return Card(
-            color: Color(0xEEFFFFFF),
-            child: Stack(
-              children: <Widget>[
-                Positioned(
-                    right: 5.0,
-                    top: 5.0,
-                    child: Container(
-                      width: 25.0,
-                      height: 25.0,
-                      child: RawMaterialButton(
-                        onPressed: () {
-                          SimpleFoldingCellState foldingCellState =
-                              context.ancestorStateOfType(
-                                  TypeMatcher<SimpleFoldingCellState>());
-                          foldingCellState?.toggleFold();
-                        },
-                        shape: CircleBorder(),
-                        elevation: 0,
-                        child: Icon(
-                          Icons.close,
-                          size: 15,
-                        ),
-                      ),
-                    )),
-                Container(
-                  alignment: Alignment.center,
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(20, 0, 25, 0),
-                    child: Text(contactsList[index].address,
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontFamily: 'OpenSans',
-                        )),
-                  ),
-                ),
-              ],
-            ));
-      },
-    );
-  }
-
-  Widget _buildInnerBottomWidget(int index) {
-    return Builder(builder: (context) {
-      return Card(
-        color: Color(0xEEFFFFFF),
-        child: Container(
-          alignment: Alignment.center,
-          child: TextFormField(
-            initialValue: contactsList[index].notes,
-            textAlign: TextAlign.center,
-            onFieldSubmitted: (String newData) {
-              contactsList[index].notes = newData;
-              saveContacts(contactsList);
-              getContacts().then((List<Contact> _contactList) {
-                setState(() {
-                  contactsList = _contactList;
-                });
-              });
-            },
+    return Column(
+      children: <Widget>[
+        Expanded(
+          child: Container(),
+        ),
+        Center(
+          child: Text(
+            'Contacts',
+            style: TextStyle(
+                fontWeight: FontWeight.w600, letterSpacing: 0, fontSize: 35),
           ),
         ),
-      );
-    });
+        Expanded(
+          flex: 7,
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(10, 30, 10, 0),
+            child: Container(
+              child: Stack(
+                children: <Widget>[
+                  contactsList != null
+                      ? contactsList.length != 0
+                          ? ListView.builder(
+                              padding: EdgeInsets.all(0.0),
+                              itemCount: contactsList?.length,
+                              itemBuilder: (context, i) => Slidable(
+                                    controller: slidableController,
+                                    actionPane: SlidableDrawerActionPane(),
+                                    child: ExpandablePanel(
+                                      header: ListTile(
+                                        leading: Icon(
+                                          Icons.person,
+                                        ),
+                                        title: Text(contactsList[i].name,
+                                            style: TextStyle(
+                                              fontSize: 20.0,
+                                            )),
+                                      ),
+                                      collapsed: null,
+                                      expanded: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        children: <Widget>[
+                                          Padding(
+                                            padding: const EdgeInsets.fromLTRB(
+                                                75, 0, 0, 0),
+                                            child: Container(
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width -
+                                                  125,
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: <Widget>[
+                                                  Text(
+                                                    'Address',
+                                                    style: TextStyle(
+                                                        color:
+                                                            Color(0xFF555555),
+                                                        fontSize: 15),
+                                                  ),
+                                                  RichText(
+                                                    overflow: TextOverflow.fade,
+                                                    maxLines: 2,
+                                                    textAlign:
+                                                        TextAlign.justify,
+                                                    text: TextSpan(
+                                                      recognizer:
+                                                          TapGestureRecognizer()
+                                                            ..onTap = () {
+                                                              Clipboard.setData(
+                                                                  new ClipboardData(
+                                                                      text: contactsList[
+                                                                              i]
+                                                                          .address));
+                                                              final snackBar = SnackBar(
+                                                                  content: Text(
+                                                                      'Address copied to clipboard'));
+                                                              Scaffold.of(
+                                                                      context)
+                                                                  .showSnackBar(
+                                                                      snackBar);
+                                                            },
+                                                      style: TextStyle(
+                                                          color: Colors.black),
+                                                      text: contactsList[i]
+                                                          .address,
+                                                    ),
+                                                  ),
+                                                  Padding(
+                                                    padding: const EdgeInsets
+                                                        .fromLTRB(0, 15, 0, 0),
+                                                    child: Text(
+                                                      'Data',
+                                                      style: TextStyle(
+                                                          color:
+                                                              Color(0xFF555555),
+                                                          fontSize: 15),
+                                                    ),
+                                                  ),
+                                                  TextFormField(
+                                                    initialValue:
+                                                        contactsList[i].notes,
+                                                    textAlign: TextAlign.center,
+                                                    onFieldSubmitted:
+                                                        (String newData) {
+                                                      contactsList[i].notes =
+                                                          newData;
+                                                      saveContacts(
+                                                          contactsList);
+                                                      getContacts().then(
+                                                          (List<Contact>
+                                                              _contactList) {
+                                                        setState(() {
+                                                          contactsList =
+                                                              _contactList;
+                                                        });
+                                                      });
+                                                    },
+                                                  ),
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            top: 15),
+                                                    child: Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceEvenly,
+                                                      children: <Widget>[
+                                                        IconButton(
+                                                          icon: Icon(
+                                                            Icons.delete,
+                                                          ),
+                                                          onPressed: () {
+                                                            contactsList
+                                                                .removeAt(i);
+                                                            setState(() {
+                                                              saveContacts(
+                                                                  contactsList);
+                                                            });
+                                                          },
+                                                        ),
+                                                        Padding(
+                                                          padding: EdgeInsets
+                                                              .symmetric(
+                                                                  horizontal:
+                                                                      10),
+                                                          child: Container(),
+                                                        ),
+                                                        IconButton(
+                                                          icon: Icon(
+                                                            Icons.send,
+                                                          ),
+                                                          onPressed: () {
+                                                            walletWindowState
+                                                                    .textControllerAddress
+                                                                    .text =
+                                                                contactsList[i]
+                                                                    .address;
+                                                            walletWindowState
+                                                                    .textControllerData
+                                                                    .text =
+                                                                contactsList[i]
+                                                                    .notes;
+                                                            walletWindowState
+                                                                .setState(() {
+                                                              walletWindowState
+                                                                  .pageIndex = 2;
+                                                            });
+                                                          },
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      tapHeaderToExpand: true,
+                                      hasIcon: false,
+                                    ),
+                                    actions: <Widget>[
+                                      IconSlideAction(
+                                        caption: 'Send',
+                                        color: Colors.white,
+                                        icon: Icons.send,
+                                        onTap: () {
+                                          walletWindowState
+                                              .textControllerAddress
+                                              .text = contactsList[i].address;
+                                          walletWindowState.textControllerData
+                                              .text = contactsList[i].notes;
+                                          walletWindowState.setState(() {
+                                            walletWindowState.pageIndex = 2;
+                                          });
+                                        },
+                                      )
+                                    ],
+                                    secondaryActions: <Widget>[
+                                      IconSlideAction(
+                                        caption: 'Delete',
+                                        color: Colors.white,
+                                        icon: Icons.delete,
+                                        onTap: () {
+                                          contactsList.removeAt(i);
+                                          setState(() {
+                                            saveContacts(contactsList);
+                                          });
+                                        },
+                                      ),
+                                    ],
+                                  ))
+                          : Center(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  Expanded(
+                                    child: Container(),
+                                  ),
+                                  Image.asset(
+                                    "images/noContacts.png",
+                                    color: Colors.black,
+                                    height: walletWindowState.screenHeight / 6,
+                                    //width: walletWindowState.screenHeight / 5 * 0.9,
+                                  ),
+                                  Padding(
+                                    padding:
+                                        const EdgeInsets.fromLTRB(0, 15, 0, 0),
+                                    child: Text("Didn't save any contacts yet!",
+                                        style: TextStyle(
+                                            color: Color(0xFF555555),
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 15)),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(0.0),
+                                    child: Text(
+                                        "Try adding one using the button below.",
+                                        style: TextStyle(
+                                            color: Color(0xFF666666),
+                                            fontWeight: FontWeight.w400,
+                                            fontSize: 15)),
+                                  ),
+                                  Expanded(
+                                    flex: 2,
+                                    child: Container(),
+                                  ),
+                                ],
+                              ),
+                            )
+                      : ListView.builder(
+                          padding: EdgeInsets.all(0.0),
+                          itemCount: 8,
+                          itemBuilder: (context, i) => Card(
+                                  child: SizedBox(
+                                width: 200.0,
+                                height: 60.0,
+                                child: Shimmer.fromColors(
+                                  baseColor: Colors.grey[300],
+                                  highlightColor: Colors.grey[100],
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(2.0),
+                                    child: ListTile(
+                                      leading: Container(
+                                        color: Colors.green,
+                                        width: 50,
+                                        height: 50,
+                                      ),
+                                      title: Text(
+                                          "                                                                        ",
+                                          style: TextStyle(
+                                              backgroundColor: Colors.grey)),
+                                    ),
+                                  ),
+                                ),
+                              ))),
+                  Positioned(
+                    bottom: MediaQuery.of(context).size.height / 30,
+                    right: MediaQuery.of(context).size.height / 30,
+                    child: FloatingActionButton(
+                      elevation: 0,
+                      backgroundColor: Colors.white,
+                      foregroundColor: Colors.black,
+                      onPressed: () {
+                        floatingdialog.information(
+                            context, "Add Contact", contactsList, onClose: () {
+                          getContacts().then((List<Contact> _contactList) {
+                            setState(() {
+                              contactsList = _contactList;
+                            });
+                          });
+                        });
+                        //contactsList.add(addcontact);
+                      },
+                      child: Container(
+                          height: double.infinity,
+                          width: double.infinity,
+                          child: Icon(Icons.add)),
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
   }
 }

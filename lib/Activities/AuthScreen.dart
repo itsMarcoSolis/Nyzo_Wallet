@@ -15,11 +15,15 @@ class _AuthScreenState extends State<AuthScreen> {
   final _storage = new FlutterSecureStorage();
   var _localAuth = new LocalAuthentication();
   final textController = new TextEditingController();
+   final scaffoldKey = new GlobalKey<ScaffoldState>();
+
 
   @override
   void initState() {
+    super.initState();
     try {
       Future didAuthenticate = _localAuth.authenticateWithBiometrics(
+        stickyAuth: true,
           localizedReason: 'Please authenticate to show your account.');
       didAuthenticate.then((value) {
         if (value) {
@@ -35,7 +39,7 @@ class _AuthScreenState extends State<AuthScreen> {
           });
         }
       });
-      super.initState();
+      
       //prevent the screen from rotating
       SystemChrome.setPreferredOrientations([
         DeviceOrientation.portraitUp,
@@ -53,6 +57,7 @@ class _AuthScreenState extends State<AuthScreen> {
     return WillPopScope(
       onWillPop: () async => false,
       child: new Scaffold(
+        key: scaffoldKey,
         resizeToAvoidBottomInset: false,
         resizeToAvoidBottomPadding: false,
         body: new Center(
@@ -92,7 +97,7 @@ class _AuthScreenState extends State<AuthScreen> {
                       }
                     },
                     child: Icon(Icons.fingerprint,
-                        size: 75.0, color: Color(0XFFD42D72)),
+                        size: 75.0, color: Colors.black),
                   ),
                 ),
                 new Expanded(
@@ -109,13 +114,22 @@ class _AuthScreenState extends State<AuthScreen> {
                       ),
                       new TextFormField(
                         onFieldSubmitted: (text) {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => WalletWindow(
-                                      text,
-                                    )),
-                          );
+                          Future salt = _storage.read(key: "Password");
+                            salt.then((value) {
+                              if (text == value) {
+                                Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => WalletWindow(
+                                          value,
+                                        )),
+                              );
+                              } else {
+                                
+                              }
+                              
+                            });
+
                         },
                         autocorrect: false,
                         autofocus: false,

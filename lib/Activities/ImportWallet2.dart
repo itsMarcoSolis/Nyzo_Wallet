@@ -40,9 +40,7 @@ class _ImportWalletScreen2State extends State<ImportWalletScreen2> {
       _isLoading = true;
     });
     importWallet(_privKey, textController1.text).then((bool onValue) {
-      if (onValue) {
-        print("Wallet Imported");
-      }
+
 
       //onValue not used
       Navigator.push(
@@ -62,7 +60,7 @@ class _ImportWalletScreen2State extends State<ImportWalletScreen2> {
         //resizeToAvoidBottomPadding: false,
         appBar: new AppBar(
           elevation: 0.0,
-          backgroundColor: Color(0xFF550000),
+          backgroundColor: Colors.white,
           leading: new IconButton(
             color: const Color(0xFFFFFFFF),
             onPressed: () {
@@ -93,7 +91,7 @@ class _ImportWalletScreen2State extends State<ImportWalletScreen2> {
                     autofocus: false,
                     obscureText: true,
                     controller: textController1,
-                    style: TextStyle(color: Colors.white),
+                    style: TextStyle(color: Colors.black),
                     decoration: new InputDecoration(
                       labelText: "Password",
                     ),
@@ -103,7 +101,7 @@ class _ImportWalletScreen2State extends State<ImportWalletScreen2> {
                     autocorrect: false,
                     controller: textController2,
                     obscureText: true,
-                    style: TextStyle(color: Colors.white),
+                    style: TextStyle(color: Colors.black),
                     decoration:
                         new InputDecoration(labelText: "Confirm password"),
                     validator: (val) => val != textController1.text
@@ -120,6 +118,7 @@ class _ImportWalletScreen2State extends State<ImportWalletScreen2> {
                                   Color(0XFFFFFFFF))))
                       : Center(
                           child: new RaisedButton(
+                            color: Colors.black87,
                             shape: new RoundedRectangleBorder(
                                 borderRadius: new BorderRadius.circular(30.0)),
                             onPressed: () {
@@ -128,7 +127,7 @@ class _ImportWalletScreen2State extends State<ImportWalletScreen2> {
                                 _performWalletCreation();
                               }
                             },
-                            child: new Text("Import Wallet"),
+                            child: new Text("Import Wallet",style: TextStyle(color: Colors.white)),
                           ),
                         ),
                 ],

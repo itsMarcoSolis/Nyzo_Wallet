@@ -44,9 +44,9 @@ class _ImportWalletScreenState extends State<ImportWalletScreen> {
         //resizeToAvoidBottomPadding: false,
         appBar: new AppBar(
           elevation: 0.0,
-          backgroundColor: Color(0xFF550000),
+          backgroundColor: Colors.white,
           leading: new IconButton(
-            color: const Color(0xFFFFFFFF),
+            color: Colors.black,
             onPressed: () {
               Navigator.pop(context);
             },
@@ -73,7 +73,7 @@ class _ImportWalletScreenState extends State<ImportWalletScreen> {
                 obscureText: true,
                 maxLength: 67,
                 controller: privKeytextController,
-                style: TextStyle(color: Colors.white),
+                style: TextStyle(color: Colors.black),
                 decoration: new InputDecoration(
                   labelText: "Private Key",
                 ),
@@ -91,7 +91,7 @@ class _ImportWalletScreenState extends State<ImportWalletScreen> {
                           valueColor:
                               new AlwaysStoppedAnimation(Color(0XFFFFFFFF))))
                   : Center(
-                      child: new RaisedButton(
+                      child: new RaisedButton(color: Colors.black87,
                         shape: new RoundedRectangleBorder(
                             borderRadius: new BorderRadius.circular(30.0)),
                         onPressed: () {
@@ -100,7 +100,7 @@ class _ImportWalletScreenState extends State<ImportWalletScreen> {
                             _performWalletCreation();
                           }
                         },
-                        child: new Text("Next"),
+                        child: new Text("Next",style: TextStyle(color: Colors.white)),
                       ),
                     ),
             ],

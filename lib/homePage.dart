@@ -11,14 +11,14 @@ class HomePage extends StatefulWidget {
   _MyHomePageState createState() => new _MyHomePageState();
 }
 
-class _MyHomePageState extends State<HomePage> {
+class _MyHomePageState extends State<HomePage>{
   bool _walletCreated;
+  
   bool _visibleButttons = false;
   changeStatusColor(Color color) async {
     try {
       await FlutterStatusbarcolor.setStatusBarColor(color);
     } on PlatformException catch (e) {
-      print(e);
     }
   }
 
@@ -56,6 +56,7 @@ class _MyHomePageState extends State<HomePage> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     return Scaffold(
+      
       resizeToAvoidBottomInset: false,
       resizeToAvoidBottomPadding: false,
       body: new Center(
@@ -67,6 +68,7 @@ class _MyHomePageState extends State<HomePage> {
                 padding: EdgeInsets.fromLTRB(0.0, 200.0, 0.0, 0.0),
                 child: new Image.asset(
                   "images/Logo.png",
+                  color: Colors.black,
                   width: 150.0,
                 )),
             new Padding(padding: EdgeInsets.symmetric(vertical: 30.0)),
@@ -77,6 +79,7 @@ class _MyHomePageState extends State<HomePage> {
                       new Padding(
                           padding: new EdgeInsets.symmetric(horizontal: 70.0),
                           child: RaisedButton(
+                            color: Colors.black87,
                             shape: new RoundedRectangleBorder(
                                 borderRadius: new BorderRadius.circular(30.0)),
                             onPressed: () {
@@ -86,13 +89,14 @@ class _MyHomePageState extends State<HomePage> {
                                     builder: (context) => NewWalletScreen()),
                               );
                             },
-                            child: Text("Create new Wallet"),
+                            child: Text("Create new Wallet",style: TextStyle(color: Colors.white)),
                           )),
                       new Padding(
                           padding: EdgeInsets.symmetric(vertical: 20.0)),
                       new Padding(
                         padding: new EdgeInsets.symmetric(horizontal: 70.0),
                         child: RaisedButton(
+                          color: Colors.black87,
                           shape: new RoundedRectangleBorder(
                               borderRadius: new BorderRadius.circular(30.0)),
                           onPressed: () {
@@ -102,7 +106,7 @@ class _MyHomePageState extends State<HomePage> {
                                   builder: (context) => ImportWalletScreen()),
                             );
                           },
-                          child: Text("Import Existing Wallet"),
+                          child: Text("Import Existing Wallet",style: TextStyle(color: Colors.white),),
                         ),
                       ),
                     ],
@@ -117,7 +121,7 @@ class _MyHomePageState extends State<HomePage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 new Text("Made with "),
-                new Icon(Icons.favorite, color: Color(0xFFFFFFFF)),
+                new Icon(Icons.favorite, color: Colors.black),
                 new Text(" for the community.")
               ],
             )

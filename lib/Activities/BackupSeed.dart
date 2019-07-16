@@ -76,12 +76,13 @@ class _BackUpSeedState extends State<BackUpSeed> {
                     ),
                   ),
                   RaisedButton(
+                    color: Colors.black87,
                     shape: new RoundedRectangleBorder(
                         borderRadius: new BorderRadius.circular(30.0)),
                     onPressed: () {
                       Navigator.pop(context);
                     },
-                    child: new Text("Got it!"),
+                    child: new Text("Got it!",style: TextStyle(color: Colors.white)),
                   ),
                 ],
               ),

@@ -36,8 +36,7 @@ class _NewWalletScreenState extends State<NewWalletScreen> {
       _isLoading = true;
     });
     createNewWallet(textController1.text).then((onValue) {
-      print(onValue);
-      //onValue not used
+
       Navigator.push(
         context,
         MaterialPageRoute(
@@ -60,9 +59,9 @@ class _NewWalletScreenState extends State<NewWalletScreen> {
         //resizeToAvoidBottomPadding: false,
         appBar: new AppBar(
           elevation: 0.0,
-          backgroundColor: Color(0xFF550000),
+          backgroundColor: Colors.white,
           leading: new IconButton(
-            color: const Color(0xFFFFFFFF),
+            color:  Colors.black,
             onPressed: () {
               Navigator.pop(context);
             },
@@ -91,7 +90,7 @@ class _NewWalletScreenState extends State<NewWalletScreen> {
                     autofocus: false,
                     obscureText: true,
                     controller: textController1,
-                    style: TextStyle(color: Colors.white),
+                    style: TextStyle(color: Colors.black),
                     decoration: new InputDecoration(
                       labelText: "Password",
                     ),
@@ -101,7 +100,7 @@ class _NewWalletScreenState extends State<NewWalletScreen> {
                     autocorrect: false,
                     controller: textController2,
                     obscureText: true,
-                    style: TextStyle(color: Colors.white),
+                    style: TextStyle(color: Colors.black),
                     decoration:
                         new InputDecoration(labelText: "Confirm password"),
                     validator: (val) => val != textController1.text
@@ -118,6 +117,7 @@ class _NewWalletScreenState extends State<NewWalletScreen> {
                                   Color(0XFFFFFFFF))))
                       : Center(
                           child: new RaisedButton(
+                            color: Colors.black87,
                             shape: new RoundedRectangleBorder(
                                 borderRadius: new BorderRadius.circular(30.0)),
                             onPressed: () {
@@ -126,7 +126,7 @@ class _NewWalletScreenState extends State<NewWalletScreen> {
                                 _performWalletCreation();
                               }
                             },
-                            child: new Text("Create Wallet"),
+                            child: new Text("Create Wallet",style: TextStyle(color: Colors.white)),
                           ),
                         ),
                 ],
