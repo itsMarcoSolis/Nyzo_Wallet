@@ -1,73 +1,123 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:nyzo_wallet/Data/Verifier.dart';
+import 'package:nyzo_wallet/Data/watchedAddress.dart';
+import 'Data/Wallet.dart';
 import 'homePage.dart';
+import 'package:nyzo_wallet/Widgets/ColorTheme.dart';
 
 void main() => runApp(MyApp());
 
-class MyApp extends StatelessWidget {
-  static const nyzoRed = const Color(0xFF550000);
-  static const kBlackLight = const Color(0xFF484848);
-  static const kBlack = const Color(0xFF000000);
-  static const kYellow = const Color(0xFFffd600);
-  static const kYellowLight = const Color(0xFFffff52);
-  static const kYellowDark = const Color(0xFFc7a500);
-  static const kWhite = Colors.white;
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
 
-  static final Map<int, Color> nyzoColor = {
-    50: Color.fromRGBO(80, 0, 0, .1),
-    100: Color.fromRGBO(80, 0, 0, .2),
-    200: Color.fromRGBO(80, 0, 0, .3),
-    300: Color.fromRGBO(80, 0, 0, .4),
-    400: Color.fromRGBO(80, 0, 0, .5),
-    500: Color.fromRGBO(80, 0, 0, .6),
-    600: Color.fromRGBO(80, 0, 0, .7),
-    700: Color.fromRGBO(80, 0, 0, .8),
-    800: Color.fromRGBO(80, 0, 0, .9),
-    900: Color.fromRGBO(80, 0, 0, 1),
-  };
-  ThemeData buildDarkTheme() {
-    final ThemeData base = ThemeData();
-    return base.copyWith(
-      primaryColor: kWhite,
-      accentColor: nyzoRed,
-      scaffoldBackgroundColor: nyzoRed,
-      primaryTextTheme: buildTextTheme(base.primaryTextTheme, kWhite),
-      primaryIconTheme: base.iconTheme.copyWith(color: kWhite),
-      buttonColor: kWhite,
-      hintColor: kWhite,
-      textTheme: buildTextTheme(base.textTheme, kWhite),
-      inputDecorationTheme: InputDecorationTheme(
-        labelStyle: TextStyle(color: kWhite),
+class _MyAppState extends State<MyApp> {
+  bool lightTheme = false;
+  Color baseColor = Colors.white;
+  Color secondaryColor = Colors.black;
+  Color extraColor = Colors.black87;
+  Color transparentColor = Colors.grey[300];
+  Color highLightColor = Colors.grey[100];
+  List<Verifier> verifiersList;
+  List<WatchedAddress> addressesToWatch;
+  List<List<String>> balanceList;
+  @override
+  void initState() {
+    downloadBalanceList();
+    updateTheme();
+    setVerifiers();
+    super.initState();
+  }
+
+  void updateTheme() {
+    getNightModeValue().then((bool value) {
+      setState(() {
+        lightTheme = value;
+        if (!lightTheme) {
+          baseColor = Colors.white;
+          secondaryColor = Colors.black;
+          extraColor = Colors.black87;
+          transparentColor = Colors.grey[300];
+          highLightColor = Colors.grey[100];
+          SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
+        } else {
+          baseColor = Colors.black;
+          secondaryColor = Colors.white;
+          extraColor = Colors.white;
+          transparentColor = Colors.white30;
+          highLightColor = Colors.white10;
+          SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
+        }
+      });
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+
+    
+    return ColorTheme(
+      lightTheme: lightTheme,
+      update: updateTheme,
+      baseColor: baseColor,
+      secondaryColor: secondaryColor,
+      extraColor: extraColor,
+      transparentColor: transparentColor,
+      highLigthColor: highLightColor,
+      verifiersList: verifiersList,
+      updateVerifiers: setVerifiers,
+      addressesToWatch: addressesToWatch,
+      getBalanceList: downloadBalanceList,
+      balanceList: balanceList,
+      updateAddressesToWatch: updateWatchAddresses,
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Nyzo Wallet',
+        home: HomePage(),
       ),
     );
   }
 
-  TextTheme buildTextTheme(TextTheme base, Color color) {
-    return base.copyWith(
-      body1: base.headline.copyWith(color: color, fontSize: 16.0),
-      caption: base.headline.copyWith(color: color),
-      display1: base.headline.copyWith(color: color),
-      button: base.headline.copyWith(color: color),
-      headline: base.headline.copyWith(color: color),
-      title: base.title.copyWith(color: color),
-    );
+  Future<List<Verifier>> setVerifiers() async {
+    getVerifiers().then((List<Verifier> _verifiersList) {
+      setState(() {
+        verifiersList = _verifiersList;
+      });
+      return _verifiersList;
+    });
   }
 
-  static MaterialColor colorCustom = MaterialColor(0xFF500000, nyzoColor);
-  final ThemeData base = ThemeData();
-  // This widget is the root of your application.
-
-  @override
-  Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(statusBarColor: Colors.white));
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-
-      title: 'Nyzo Wallet',
-      //theme: buildDarkTheme(),
-      home: HomePage(),
-    );
+  void updateWatchAddresses(){
+    getWatchAddresses().then((List<WatchedAddress> _list) {
+          setState(() {
+            addressesToWatch = _list;
+            for (var eachAddress in addressesToWatch) {
+              eachAddress.balance =
+                  balanceList.firstWhere((List<String> address) {
+                return address[0] == eachAddress.address;
+              })[1];
+            }
+          });
+        });
+  }
+  void downloadBalanceList(){
+    getBalanceList().then((List<List<String>> _balanceList) {
+        setState(() {
+          balanceList = _balanceList;
+        });
+        getWatchAddresses().then((List<WatchedAddress> _list) {
+          setState(() {
+            addressesToWatch = _list;
+            for (var eachAddress in addressesToWatch) {
+              eachAddress.balance =
+                  balanceList.firstWhere((List<String> address) {
+                return address[0] == eachAddress.address;
+              })[1];
+            }
+          });
+        });
+      });
   }
 }

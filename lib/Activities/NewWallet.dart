@@ -105,7 +105,7 @@ class _NewWalletScreenState extends State<NewWalletScreen> {
                         new InputDecoration(labelText: "Confirm password"),
                     validator: (val) => val != textController1.text
                         ? "The passwords don't match"
-                        : null,
+                        : val == '' ? 'Invalid Password':null,
                   ),
                   new SizedBox(
                     height: 50.0,

@@ -41,7 +41,6 @@ class AddVerifierDialog {
                   key: nameFormKey,
                   controller: nameController, 
                   maxLength: isVerifier ? 9 : 67,
-                  style: TextStyle(color: Color(0xFF500000)),
                   decoration: InputDecoration(
 
                               focusedErrorBorder: OutlineInputBorder(

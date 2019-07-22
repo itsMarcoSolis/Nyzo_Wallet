@@ -19,6 +19,7 @@ class AddContactDialog {
         context: context2,
         barrierDismissible: true,
         builder: (BuildContext context) {
+          
           return AlertDialog(
             title: Text(
               title,
@@ -31,7 +32,6 @@ class AddContactDialog {
               key: nameFormKey,
               controller: nameController,
               maxLength: 24,
-              style: TextStyle(color: Color(0xFF500000)),
               decoration: InputDecoration(
                 hasFloatingPlaceholder: false,
                 labelText: "Name",
@@ -100,7 +100,7 @@ class AddContactDialog {
                       val == ''
                   ? "Invalid Nyzo address."
                   : null,
-              style: TextStyle(color: Color(0xFF500000)),
+              
               decoration: InputDecoration(
                 hasFloatingPlaceholder: false,
                 labelText: "Address",
@@ -165,7 +165,7 @@ class AddContactDialog {
               controller: dataController,
               maxLength: 32,
               
-              style: TextStyle(color: Color(0xFF500000)),
+              
               decoration: InputDecoration(
                 hasFloatingPlaceholder: false,
                 labelText: "Data",

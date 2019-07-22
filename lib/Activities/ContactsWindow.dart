@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:nyzo_wallet/Data/Contact.dart';
 import 'package:nyzo_wallet/Data/Wallet.dart';
+import 'package:nyzo_wallet/Widgets/ColorTheme.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:expandable/expandable.dart';
@@ -47,6 +48,7 @@ class ContactsWindowState extends State<ContactsWindow> {
           child: Text(
             'Contacts',
             style: TextStyle(
+              color: ColorTheme.of(context).secondaryColor,
                 fontWeight: FontWeight.w600, letterSpacing: 0, fontSize: 35),
           ),
         ),
@@ -68,10 +70,13 @@ class ContactsWindowState extends State<ContactsWindow> {
                                     child: ExpandablePanel(
                                       header: ListTile(
                                         leading: Icon(
+                                          
                                           Icons.person,
+                                          color: ColorTheme.of(context).secondaryColor,
                                         ),
                                         title: Text(contactsList[i].name,
                                             style: TextStyle(
+                                              color: ColorTheme.of(context).secondaryColor,
                                               fontSize: 20.0,
                                             )),
                                       ),
@@ -122,7 +127,7 @@ class ContactsWindowState extends State<ContactsWindow> {
                                                                       snackBar);
                                                             },
                                                       style: TextStyle(
-                                                          color: Colors.black),
+                                                          color: ColorTheme.of(context).secondaryColor),
                                                       text: contactsList[i]
                                                           .address,
                                                     ),
@@ -139,6 +144,24 @@ class ContactsWindowState extends State<ContactsWindow> {
                                                     ),
                                                   ),
                                                   TextFormField(
+                                                    decoration: InputDecoration(focusedErrorBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(100),
+                                  borderSide: BorderSide(color: Colors.red)),
+                              errorBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(100),
+                                  borderSide: BorderSide(color: Colors.red)),
+                              enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(100),
+                                  borderSide:
+                                      BorderSide(color: Color(0x55666666))),
+                              focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(100),
+                                  borderSide:
+                                      BorderSide(color: Color(0x55666666))),),
+                                                    style: TextStyle(
+                                                          
+                                                          color: ColorTheme.of(context).secondaryColor),
+                                                          
                                                     initialValue:
                                                         contactsList[i].notes,
                                                     textAlign: TextAlign.center,
@@ -170,6 +193,7 @@ class ContactsWindowState extends State<ContactsWindow> {
                                                         IconButton(
                                                           icon: Icon(
                                                             Icons.delete,
+                                                            color:  ColorTheme.of(context).secondaryColor,
                                                           ),
                                                           onPressed: () {
                                                             contactsList
@@ -190,6 +214,7 @@ class ContactsWindowState extends State<ContactsWindow> {
                                                         IconButton(
                                                           icon: Icon(
                                                             Icons.send,
+                                                            color:  ColorTheme.of(context).secondaryColor,
                                                           ),
                                                           onPressed: () {
                                                             walletWindowState
@@ -224,7 +249,7 @@ class ContactsWindowState extends State<ContactsWindow> {
                                     actions: <Widget>[
                                       IconSlideAction(
                                         caption: 'Send',
-                                        color: Colors.white,
+                                        color: ColorTheme.of(context).baseColor,
                                         icon: Icons.send,
                                         onTap: () {
                                           walletWindowState
@@ -241,7 +266,7 @@ class ContactsWindowState extends State<ContactsWindow> {
                                     secondaryActions: <Widget>[
                                       IconSlideAction(
                                         caption: 'Delete',
-                                        color: Colors.white,
+                                        color: ColorTheme.of(context).baseColor,
                                         icon: Icons.delete,
                                         onTap: () {
                                           contactsList.removeAt(i);
@@ -261,7 +286,7 @@ class ContactsWindowState extends State<ContactsWindow> {
                                   ),
                                   Image.asset(
                                     "images/noContacts.png",
-                                    color: Colors.black,
+                                    color: ColorTheme.of(context).secondaryColor,
                                     height: walletWindowState.screenHeight / 6,
                                     //width: walletWindowState.screenHeight / 5 * 0.9,
                                   ),
@@ -298,8 +323,8 @@ class ContactsWindowState extends State<ContactsWindow> {
                                 width: 200.0,
                                 height: 60.0,
                                 child: Shimmer.fromColors(
-                                  baseColor: Colors.grey[300],
-                                  highlightColor: Colors.grey[100],
+                                  baseColor: ColorTheme.of(context).transparentColor,
+                                  highlightColor: ColorTheme.of(context).highLigthColor,
                                   child: Padding(
                                     padding: const EdgeInsets.all(2.0),
                                     child: ListTile(
@@ -321,8 +346,8 @@ class ContactsWindowState extends State<ContactsWindow> {
                     right: MediaQuery.of(context).size.height / 30,
                     child: FloatingActionButton(
                       elevation: 0,
-                      backgroundColor: Colors.white,
-                      foregroundColor: Colors.black,
+                      backgroundColor: ColorTheme.of(context).baseColor,
+                      foregroundColor: ColorTheme.of(context).secondaryColor,
                       onPressed: () {
                         floatingdialog.information(
                             context, "Add Contact", contactsList, onClose: () {

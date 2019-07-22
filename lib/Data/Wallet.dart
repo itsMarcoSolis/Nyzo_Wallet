@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:core';
 import 'dart:math';
 import 'dart:convert';
-import 'package:flutter/material.dart' as material; 
+import 'package:flutter/material.dart' as material;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_string_encryption/flutter_string_encryption.dart';
 import 'package:http/http.dart' as http;
@@ -63,6 +63,8 @@ Future createNewWallet(String password) async {
   // We take the values starting from index 1 to get  rid of the two leading '0's (pubKey)
   prefs.setString('pubKey', HEX.encode(pubKey));
   await _storage.write(key: "Password", value: password);
+  setNightModeValue(false);
+  setWatchSentinels(false);
   addContact(
       [],
       Contact(
@@ -84,6 +86,8 @@ Future<bool> importWallet(String privKey, String password) async {
 
   final prefs = await SharedPreferences
       .getInstance(); //Create a Shared Preferences instance to save balance and pubKey
+  setNightModeValue(false);
+  setWatchSentinels(false);
   prefs.setDouble('balance', 0.0);
   prefs.setBool('sentinel', false);
   KeyPair keyPair = Signature.keyPair_fromSeed(hexStringAsUint8Array(
@@ -129,11 +133,12 @@ Future<double> getSavedBalance() async {
   final _address = _prefs.getDouble('balance') ?? '';
   return _address;
 }
+
 void setSavedBalance(double balance) async {
   final _prefs = await SharedPreferences.getInstance();
-  _prefs.setDouble('balance',balance) ;
-  
+  _prefs.setDouble('balance', balance);
 }
+
 Future getBalance(String address) async {
   final _prefs = await SharedPreferences.getInstance();
   double _balance = _prefs.getDouble('balance') ?? 70.0;
@@ -376,7 +381,8 @@ Future<List<Verifier>> getVerifiers() async {
     List<dynamic> _verifiersListDeserialized = json.decode(_verifiersListJson);
     int index = _verifiersListDeserialized.length;
     for (var i = 0; i < index; i++) {
-      _verifiersList.add(await Verifier.fromJson(_verifiersListDeserialized[i]).update());
+      _verifiersList
+          .add(await Verifier.fromJson(_verifiersListDeserialized[i]).update());
     }
     return _verifiersList;
   } else {
@@ -384,17 +390,18 @@ Future<List<Verifier>> getVerifiers() async {
   }
 }
 
-
 Future<List<WatchedAddress>> getWatchAddresses() async {
   final _prefs = await SharedPreferences.getInstance();
   final _watchAddressesListJson = _prefs.getString('watchAddressList');
 
   if (_watchAddressesListJson != null) {
     List<WatchedAddress> _watchAddressesList = [];
-    List<dynamic> _watchAddressesListDeserialized = json.decode(_watchAddressesListJson);
+    List<dynamic> _watchAddressesListDeserialized =
+        json.decode(_watchAddressesListJson);
     int index = _watchAddressesListDeserialized.length;
     for (var i = 0; i < index; i++) {
-      _watchAddressesList.add( WatchedAddress.fromJson(_watchAddressesListDeserialized[i]));
+      _watchAddressesList
+          .add(WatchedAddress.fromJson(_watchAddressesListDeserialized[i]));
     }
     return _watchAddressesList;
   } else {
@@ -420,7 +427,7 @@ Future<bool> addContact(List<Contact> contactList, Contact contact) async {
   return true;
 }
 
-Future<bool> addVerifier( Verifier verifier) async {
+Future<bool> addVerifier(Verifier verifier) async {
   final _prefs = await SharedPreferences.getInstance();
   final _verifiersListJson = _prefs.getString('verifiersList');
   List<Verifier> _verifierstList = [];
@@ -438,15 +445,17 @@ Future<bool> addVerifier( Verifier verifier) async {
   return true;
 }
 
-Future<bool> addWatchAddress( WatchedAddress watchedAddres) async {
+Future<bool> addWatchAddress(WatchedAddress watchedAddres) async {
   final _prefs = await SharedPreferences.getInstance();
   final _watchAddressAsJsonList = _prefs.getString('watchAddressList');
   List<WatchedAddress> _watchAddressList = [];
   if (_watchAddressAsJsonList != null) {
-    List<dynamic> _watchAddressesDeserialized = json.decode(_watchAddressAsJsonList);
+    List<dynamic> _watchAddressesDeserialized =
+        json.decode(_watchAddressAsJsonList);
     int index = _watchAddressesDeserialized.length;
     for (var i = 0; i < index; i++) {
-      _watchAddressList.add(WatchedAddress.fromJson(_watchAddressesDeserialized[i]));
+      _watchAddressList
+          .add(WatchedAddress.fromJson(_watchAddressesDeserialized[i]));
     }
     _watchAddressList.add(watchedAddres);
   } else {
@@ -497,6 +506,16 @@ Future<bool> watchSentinels() async {
   return _prefs.getBool('sentinel');
 }
 
+Future<bool> getNightModeValue() async {
+  final _prefs = await SharedPreferences.getInstance();
+  return _prefs.getBool('nigthMode');
+}
+
+Future<bool> setNightModeValue(bool value) async {
+  final _prefs = await SharedPreferences.getInstance();
+  return _prefs.setBool('nigthMode', value);
+}
+
 void setWatchSentinels(bool val) async {
   final _prefs = await SharedPreferences.getInstance();
   _prefs.setBool('sentinel', val);
@@ -530,7 +549,10 @@ Future<Verifier> getVerifierStatus(Verifier verifier) async {
             document.getElementsByClassName("verifier verifier-not-producing");
         verifier.status = Verifier.NOT_PRODUCING;
         verifier.iconBlack = material.Image.asset("images/NotProducing.png");
-        verifier.iconWhite = material.Image.asset("images/NotProducing.png",color: material.Colors.white,);
+        verifier.iconWhite = material.Image.asset(
+          "images/NotProducing.png",
+          color: material.Colors.white,
+        );
       }
     } catch (e) {}
     try {
@@ -540,7 +562,8 @@ Future<Verifier> getVerifierStatus(Verifier verifier) async {
             document.getElementsByClassName("verifier verifier-active");
         verifier.status = Verifier.ACTIVE;
         verifier.iconBlack = material.Image.asset("images/normal.png");
-        verifier.iconWhite = material.Image.asset("images/normal.png",color: material.Colors.white);
+        verifier.iconWhite = material.Image.asset("images/normal.png",
+            color: material.Colors.white);
       }
     } catch (e) {}
     try {
@@ -551,8 +574,11 @@ Future<Verifier> getVerifierStatus(Verifier verifier) async {
         attributeElementList =
             document.getElementsByClassName("verifier verifier-inactive");
         verifier.status = Verifier.COMMUNICATION_PROBLEM;
-        verifier.iconBlack = material.Image.asset("images/communicationProblem.png");
-        verifier.iconWhite = material.Image.asset("images/communicationProblem.png",color: material.Colors.white);
+        verifier.iconBlack =
+            material.Image.asset("images/communicationProblem.png");
+        verifier.iconWhite = material.Image.asset(
+            "images/communicationProblem.png",
+            color: material.Colors.white);
       }
     } catch (e) {}
     try {
@@ -562,12 +588,12 @@ Future<Verifier> getVerifierStatus(Verifier verifier) async {
             document.getElementsByClassName("verifier verifier-warning");
         verifier.status = Verifier.TRACKING_PROBLEM;
         verifier.iconBlack = material.Image.asset("images/trackingProblem.png");
-        verifier.iconWhite = material.Image.asset("images/trackingProblem.png",color: material.Colors.white);
+        verifier.iconWhite = material.Image.asset("images/trackingProblem.png",
+            color: material.Colors.white);
       }
     } catch (e) {}
 
     for (Element eachAttribute in attributeElementList) {
-      
       for (String eachAttribute in eachAttribute.innerHtml.split("<br>")) {
         print(eachAttribute + "\n");
         List<String> tempAttributeList = eachAttribute.split(":");
@@ -595,15 +621,17 @@ Future<Verifier> getVerifierStatus(Verifier verifier) async {
     verifier.receivingUDP = verifierMap["receiving UDP"];
     verifier.transactions == "0" ? verifier.balance = 0 : verifier.balance = 0;
     verifier.blocksCT.split("/")[0] != " 0"
-        ? verifier.inCicle = true:verifier.inCicle = false;
+        ? verifier.inCicle = true
+        : verifier.inCicle = false;
 
     //verifier.balance = double.parse(lmao.toString());
+    print("gotverifs"); 
     return verifier;
-  } catch (e) {
-  }
+  } catch (e) {}
   return verifier;
 }
-Future<List<List<String>>> getBalanceList()async{
+
+Future<List<List<String>>> getBalanceList() async {
   List<Element> attributeElementList;
   List<List<String>> balanceList = [];
   String url = "https://nyzo.co/balanceListPlain/L";
@@ -614,16 +642,18 @@ Future<List<List<String>>> getBalanceList()async{
     attributeElementList = document.getElementsByTagName("div");
     attributeElementList = attributeElementList[1].getElementsByTagName("p");
     for (var eachElement in attributeElementList) {
-
       balanceList.add(eachElement.text.split(" "));
     }
     for (List<String> eachList in balanceList) {
-      eachList.removeWhere((String value){return value=="";});
+      eachList.removeWhere((String value) {
+        return value == "";
+      });
     }
     for (var eachAddress in balanceList) {
-      eachAddress[0]=eachAddress[0].split("-").join();
+      eachAddress[0] = eachAddress[0].split("-").join();
     }
+    print("gotblist"); 
     return balanceList;
-  }catch(e){}
+  } catch (e) {}
   return balanceList;
 }

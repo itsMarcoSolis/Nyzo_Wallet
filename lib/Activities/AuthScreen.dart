@@ -5,6 +5,7 @@ import 'dart:async';
 import 'package:flutter/services.dart';
 import 'package:local_auth/error_codes.dart' as auth_error;
 import 'package:nyzo_wallet/Activities/WalletWindow.dart';
+import 'package:nyzo_wallet/Widgets/ColorTheme.dart';
 
 class AuthScreen extends StatefulWidget {
   @override
@@ -57,6 +58,7 @@ class _AuthScreenState extends State<AuthScreen> {
     return WillPopScope(
       onWillPop: () async => false,
       child: new Scaffold(
+        backgroundColor: ColorTheme.of(context).baseColor,
         key: scaffoldKey,
         resizeToAvoidBottomInset: false,
         resizeToAvoidBottomPadding: false,
@@ -97,7 +99,7 @@ class _AuthScreenState extends State<AuthScreen> {
                       }
                     },
                     child: Icon(Icons.fingerprint,
-                        size: 75.0, color: Colors.black),
+                        size: 75.0, color: ColorTheme.of(context).secondaryColor),
                   ),
                 ),
                 new Expanded(
@@ -106,6 +108,7 @@ class _AuthScreenState extends State<AuthScreen> {
                     children: <Widget>[
                       new Text("Enter your Password to unlock your Wallet",
                           style: new TextStyle(
+                            color: ColorTheme.of(context).secondaryColor,
                             fontWeight: FontWeight.bold,
                             fontSize: 21.0,
                           )),
@@ -113,6 +116,7 @@ class _AuthScreenState extends State<AuthScreen> {
                         height: 40.0,
                       ),
                       new TextFormField(
+                        
                         onFieldSubmitted: (text) {
                           Future salt = _storage.read(key: "Password");
                             salt.then((value) {
@@ -125,7 +129,10 @@ class _AuthScreenState extends State<AuthScreen> {
                                         )),
                               );
                               } else {
-                                
+                                final snackBar = SnackBar(
+                              content: Text('Wrong password!'));
+
+                          scaffoldKey.currentState..showSnackBar(snackBar);
                               }
                               
                             });
@@ -135,9 +142,64 @@ class _AuthScreenState extends State<AuthScreen> {
                         autofocus: false,
                         obscureText: true,
                         controller: textController,
-                        decoration: new InputDecoration(
-                          labelText: "Password",
-                        ),
+                        style: TextStyle(
+                                                          
+                                                          color: ColorTheme.of(context).secondaryColor),
+                        decoration: InputDecoration(
+                          
+                              focusedErrorBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(100),
+                                  borderSide: BorderSide(color: Colors.red)),
+                              errorBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(100),
+                                  borderSide: BorderSide(color: Colors.red)),
+                              enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(100),
+                                  borderSide:
+                                      BorderSide(color: Color(0x55666666))),
+                              focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(100),
+                                  borderSide:
+                                      BorderSide(color: Color(0x55666666))),
+                              contentPadding: EdgeInsets.all(10),
+                              hasFloatingPlaceholder: false,
+                              labelText: "Password",
+                              labelStyle: TextStyle(
+                                  color: Color(0xFF555555),
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 15),
+                            ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(15.0),
+                        child: RaisedButton(
+                    color: ColorTheme.of(context).extraColor,
+                    shape: new RoundedRectangleBorder(
+                          borderRadius: new BorderRadius.circular(30.0)),
+                    onPressed: () {
+                      FocusScope.of(context).unfocus();
+                          Future salt = _storage.read(key: "Password");
+                            salt.then((value) {
+                              if (textController.text == value) {
+                                Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => WalletWindow(
+                                          value,
+                                        )),
+                              );
+                              } else {
+                                final snackBar = SnackBar(
+                              content: Text('Wrong password!'));
+
+                          scaffoldKey.currentState..showSnackBar(snackBar);
+                              }
+                              
+                            });
+
+                        },
+                    child: new Text("Unlock",style: TextStyle(color: ColorTheme.of(context).baseColor)),
+                  ),
                       ),
                       new Expanded(
                         child: new Container(),

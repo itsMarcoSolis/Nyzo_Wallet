@@ -5,8 +5,8 @@ import 'package:nyzo_wallet/Activities/verifiersWindow.dart';
 import 'package:nyzo_wallet/Data/Verifier.dart';
 import 'package:nyzo_wallet/Data/Wallet.dart';
 import 'package:flutter/services.dart';
-import 'package:nyzo_wallet/Data/noScalingAnimation.dart';
 import 'package:nyzo_wallet/Data/watchedAddress.dart';
+import 'package:nyzo_wallet/Widgets/ColorTheme.dart';
 import 'package:nyzo_wallet/Widgets/TransactionsWidget.dart';
 import 'package:nyzo_wallet/Widgets/verifierDialog.dart';
 
@@ -25,19 +25,17 @@ class WalletWindow extends StatefulWidget {
 }
 
 class WalletWindowState extends State<WalletWindow> {
-  bool lightTheme = true;
   WalletWindowState(this.password);
-  List<List<String>> balanceList = [];
-  List<Widget> _pageOptions = [
-    ContactsWindow(_contactsList),
-    TranSactionsWidget(null),
-    SettingsWindow(),
-  ];
-  List<WatchedAddress> addressesToWatch;
+
+  ContactsWindow contactsWindow = ContactsWindow(_contactsList);
+  TranSactionsWidget tranSactionsWidgetInstance = TranSactionsWidget(null);
+  VerifiersWindow verifiersWindow;
+  SendWindow sendWindowInstance;
+  SettingsWindow settingsWindow = SettingsWindow();
+
   String password;
   double screenHeight;
-  VerifiersWindow verifiersWindow;
-  TranSactionsWidget tranSactionsWidgetInstance = TranSactionsWidget(null);
+
   int balance = 0;
   String _address = '';
   static List<Transaction> transactions;
@@ -46,8 +44,7 @@ class WalletWindowState extends State<WalletWindow> {
   var f = new NumberFormat("###.0#", "en_US");
   bool _compactFormat = true;
   int pageIndex = 0;
-  SendWindow sendWindowInstance;
-  List<Verifier> verifiersList;
+
   bool sentinels = false;
 
   final textControllerAmount = new TextEditingController();
@@ -59,29 +56,18 @@ class WalletWindowState extends State<WalletWindow> {
 
   AddVerifierDialog floatingdialog = AddVerifierDialog();
 
+  changeTheme(fn) {
+    super.setState(fn);
+  }
+
   @override
   void initState() {
-    getSavedBalance().then((double _balance){
+    getSavedBalance().then((double _balance) {
       setState(() {
-      balance = _balance.floor();  
+        balance = _balance.floor();
       });
-      
     });
-    verifiersWindow = VerifiersWindow(this);
-    getBalanceList().then((List<List<String>> _balanceList) {
-      balanceList = _balanceList;
-      getWatchAddresses().then((List<WatchedAddress> _list) {
-        setState(() {
-          addressesToWatch = _list;
-      for (var eachAddress in addressesToWatch) {
-        eachAddress.balance = balanceList.firstWhere((List<String> address) {
-          return address[0] == eachAddress.address;
-        })[1];
-      }
-        });
-      
-    });
-    });
+    verifiersWindow = VerifiersWindow();
 
     watchSentinels().then((bool val) {
       setState(() {
@@ -102,11 +88,6 @@ class WalletWindowState extends State<WalletWindow> {
           });
           getTransactions(_address).then((List transactions) {
             transactions = transactions;
-            getVerifiers().then((List<Verifier> _verifiersList) {
-              setState(() {
-                verifiersList = _verifiersList;
-              });
-            });
           });
         }); //set the address
       });
@@ -141,22 +122,19 @@ class WalletWindowState extends State<WalletWindow> {
         labelText: "Add verifier",
         currentButton: FloatingActionButton(
           heroTag: "verifier",
-          backgroundColor: lightTheme ? Colors.white : Colors.black,
+          backgroundColor: ColorTheme.of(context).baseColor,
           mini: true,
           child: Container(
               margin: EdgeInsets.all(8),
               child: Image.asset(
                 "images/normal.png",
-                color: lightTheme ? Colors.black : Colors.white,
+                color: ColorTheme.of(context).secondaryColor,
               )),
           onPressed: () {
             floatingdialog.information(context, "Add to Watch List", true,
                 onClose: () {
-              getVerifiers().then((List<Verifier> _verifiersList) {
-                setState(() {
-                  verifiersList = _verifiersList;
-                });
-              });
+              ColorTheme.of(context).updateVerifiers();
+              
             });
           },
         )));
@@ -166,25 +144,17 @@ class WalletWindowState extends State<WalletWindow> {
         labelText: "Add address",
         currentButton: FloatingActionButton(
           heroTag: "address",
-          backgroundColor: lightTheme ? Colors.white : Colors.black,
+          backgroundColor: ColorTheme.of(context).baseColor,
           mini: true,
           child: Icon(
             Icons.account_balance_wallet,
-            color: lightTheme ? Colors.black : Colors.white,
+            color: ColorTheme.of(context).secondaryColor,
           ),
           onPressed: () {
             setState(() {
               floatingdialog.information(context, "Add to Watch List", false,
                   onClose: () {
-                getWatchAddresses().then((List<WatchedAddress> _list) {
-                  addressesToWatch = _list;
-                  for (var eachAddress in addressesToWatch) {
-                    eachAddress.balance =
-                        balanceList.firstWhere((List<String> address) {
-                      return address[0] == eachAddress.address;
-                    })[1];
-                  }
-                });
+                ColorTheme.of(context).updateAddressesToWatch();
               });
             });
           },
@@ -194,23 +164,22 @@ class WalletWindowState extends State<WalletWindow> {
       onWillPop: () async =>
           false, //don't let the user go back to the previous activity
       child: Scaffold(
-        floatingActionButtonAnimator: NoScalingAnimation(),
         floatingActionButton: sentinels
             ? pageIndex == 3
                 ? UnicornDialer(
                     parentHeroTag: "ParenTagg",
                     childButtons: childButtons,
-                    parentButtonBackground: lightTheme ? Colors.white : Colors.black,
+                    parentButtonBackground: ColorTheme.of(context).baseColor,
                     backgroundColor: Colors.black12,
                     finalButtonIcon: Icon(
                       Icons.close,
-                      color:lightTheme ? Colors.black : Colors.white,
+                      color: ColorTheme.of(context).secondaryColor,
                     ),
                     parentButton: Container(
                         margin: EdgeInsets.all(15),
                         child: Icon(
                           Icons.add,
-                          color:lightTheme ? Colors.black : Colors.white,
+                          color: ColorTheme.of(context).secondaryColor,
                         )),
                   )
                 : null
@@ -218,11 +187,11 @@ class WalletWindowState extends State<WalletWindow> {
         //resizeToAvoidBottomInset: false,
         // resizeToAvoidBottomPadding: false,
         key: _scaffoldKey,
-        backgroundColor: lightTheme ? Colors.white:   Colors.black,
+        backgroundColor: ColorTheme.of(context).baseColor,
         bottomNavigationBar: TitledBottomNavigationBar(
-          indicatorColor: lightTheme ? Colors.black:Colors.white,
-          inactiveColor: lightTheme ? Colors.black : Colors.white,
-            activeColor: lightTheme ? Colors.black : Colors.white,
+            indicatorColor: ColorTheme.of(context).secondaryColor,
+            inactiveColor: ColorTheme.of(context).secondaryColor,
+            activeColor: ColorTheme.of(context).secondaryColor,
             reverse: true,
             initialIndex: 0,
             currentIndex:
@@ -236,41 +205,41 @@ class WalletWindowState extends State<WalletWindow> {
             items: sentinels
                 ? [
                     TitledNavigationBarItem(
-                        backgroundColor: lightTheme ? Colors.white : Colors.black,
+                        backgroundColor: ColorTheme.of(context).baseColor,
                         title: 'History',
                         icon: Icons.history),
                     TitledNavigationBarItem(
-                        backgroundColor: lightTheme ? Colors.white : Colors.black,
+                        backgroundColor: ColorTheme.of(context).baseColor,
                         title: 'Contacts',
                         icon: Icons.contacts),
                     TitledNavigationBarItem(
-                        backgroundColor: lightTheme ? Colors.white : Colors.black,
+                        backgroundColor: ColorTheme.of(context).baseColor,
                         title: 'Transfer',
                         icon: Icons.send),
                     TitledNavigationBarItem(
-                        backgroundColor: lightTheme ? Colors.white : Colors.black,
+                        backgroundColor: ColorTheme.of(context).baseColor,
                         title: 'Verifiers',
                         icon: Icons.remove_red_eye),
                     TitledNavigationBarItem(
-                        backgroundColor: lightTheme ? Colors.white : Colors.black,
+                        backgroundColor: ColorTheme.of(context).baseColor,
                         title: 'Settings',
                         icon: Icons.settings),
                   ]
                 : [
                     TitledNavigationBarItem(
-                        backgroundColor: lightTheme ? Colors.white : Colors.black,
+                        backgroundColor: ColorTheme.of(context).baseColor,
                         title: 'History',
                         icon: Icons.history),
                     TitledNavigationBarItem(
-                        backgroundColor: lightTheme ? Colors.white : Colors.black,
+                        backgroundColor: ColorTheme.of(context).baseColor,
                         title: 'Contacts',
                         icon: Icons.contacts),
                     TitledNavigationBarItem(
-                        backgroundColor: lightTheme ? Colors.white : Colors.black,
+                        backgroundColor: ColorTheme.of(context).baseColor,
                         title: 'Transfer',
                         icon: Icons.send),
                     TitledNavigationBarItem(
-                        backgroundColor: lightTheme ? Colors.white : Colors.black,
+                        backgroundColor: ColorTheme.of(context).baseColor,
                         title: 'Settings',
                         icon: Icons.settings),
                   ]),
@@ -291,7 +260,7 @@ class WalletWindowState extends State<WalletWindow> {
                     child: Opacity(
                         opacity: pageIndex == 1 ? 1.0 : 0.0,
                         child: IgnorePointer(
-                            child: _pageOptions[0], ignoring: pageIndex != 1)),
+                            child: contactsWindow, ignoring: pageIndex != 1)),
                   ),
                   Positioned(
                     child: Opacity(
@@ -306,7 +275,7 @@ class WalletWindowState extends State<WalletWindow> {
                             ? pageIndex == 4 ? 1.0 : 0.0
                             : pageIndex == 3 ? 1.0 : 0.0,
                         child: IgnorePointer(
-                            child: _pageOptions[2],
+                            child: settingsWindow,
                             ignoring:
                                 sentinels ? pageIndex != 4 : pageIndex != 3)),
                   ),
@@ -316,7 +285,7 @@ class WalletWindowState extends State<WalletWindow> {
                             ? pageIndex == 3 ? 1.0 : 0.0
                             : pageIndex == 4 ? 1.0 : 0.0,
                         child: IgnorePointer(
-                            child: VerifiersWindow(this),
+                            child: verifiersWindow,
                             ignoring:
                                 sentinels ? pageIndex != 3 : pageIndex != 4)),
                   ),
@@ -329,5 +298,3 @@ class WalletWindowState extends State<WalletWindow> {
     );
   }
 }
-
-//List<BottomNavigationDotBarItem> navItemList = [];

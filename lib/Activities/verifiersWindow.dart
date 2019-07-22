@@ -5,13 +5,14 @@ import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:nyzo_wallet/Activities/WalletWindow.dart';
 import 'package:nyzo_wallet/Data/Verifier.dart';
 import 'package:nyzo_wallet/Data/Wallet.dart';
+import 'package:nyzo_wallet/Widgets/ColorTheme.dart';
 import 'package:nyzo_wallet/Widgets/verifierDialog.dart';
 import 'package:shimmer/shimmer.dart';
 import 'dart:math' as math;
 
 class VerifiersWindow extends StatefulWidget {
-  VerifiersWindow(this.walletWindowState);
-  final WalletWindowState walletWindowState;
+  
+  
   @override
   _VerifiersWindowState createState() => _VerifiersWindowState();
 }
@@ -23,19 +24,14 @@ class _VerifiersWindowState extends State<VerifiersWindow> {
 
   @override
   void initState() {
-    walletWindowState = widget.walletWindowState;
+     walletWindowState=context.ancestorStateOfType(TypeMatcher<WalletWindowState>());
     super.initState();
   }
 
   Future<void> refresh() async {
-    Future<List<Verifier>> transactions = getVerifiers();
-    transactions.then((List<Verifier> verifiersList) {
-      walletWindowState.setState(() {
-        walletWindowState.verifiersList = verifiersList;
-      });
-      //getBalance(_address).then((int balance){});
-    });
-    return transactions;
+    Future<List<Verifier>> updateFuture = ColorTheme.of(context).updateVerifiers();
+    ColorTheme.of(context).getBalanceList();
+    return updateFuture;
   }
 
   SliverPersistentHeader makeHeader(String headerText,var color) {
@@ -78,7 +74,7 @@ class _VerifiersWindowState extends State<VerifiersWindow> {
           child: Text(
             'Watch List',
             style: TextStyle(
-              color: walletWindowState.lightTheme ? Colors.black:Colors.white,
+              color: ColorTheme.of(context).secondaryColor,
                 fontWeight: FontWeight.w600, letterSpacing: 0, fontSize: 35),
           ),
         ),
@@ -89,8 +85,8 @@ class _VerifiersWindowState extends State<VerifiersWindow> {
             child: Container(
               child: Stack(
                 children: <Widget>[
-              (walletWindowState.verifiersList != null &&  walletWindowState.addressesToWatch != null)
-                      ? (walletWindowState.verifiersList.length != 0 ||  walletWindowState.addressesToWatch?.length != 0)
+              (ColorTheme.of(context).verifiersList != null &&  ColorTheme.of(context).addressesToWatch != null)
+                      ? (ColorTheme.of(context).verifiersList.length != 0 ||  ColorTheme.of(context).addressesToWatch?.length != 0)
                           ? LiquidPullToRefresh(
                               color: Color(0xFF403942),
                               height: 75,
@@ -101,8 +97,8 @@ class _VerifiersWindowState extends State<VerifiersWindow> {
                               },
                               child: CustomScrollView(
                                 slivers: <Widget>[
-                                  (walletWindowState.verifiersList?.length != 0)
-                                      ? makeHeader("Verifiers",walletWindowState.lightTheme ? Colors.white:Colors.black):SliverList(
+                                  (ColorTheme.of(context).verifiersList?.length != 0)
+                                      ? makeHeader("Verifiers",ColorTheme.of(context).baseColor):SliverList(
                                           delegate: SliverChildListDelegate(
                                               [Container()])),
                                   SliverList(
@@ -117,32 +113,25 @@ class _VerifiersWindowState extends State<VerifiersWindow> {
                                                     const EdgeInsets.symmetric(
                                                         vertical: 5),
                                                 child: ExpandablePanel(iconColor:
-                                                  walletWindowState.lightTheme ? Colors.black:Colors.white,
-                                                  header: walletWindowState
-                                                        .verifiersList[i].inCicle ? ListTile(
-                                                    leading: walletWindowState.lightTheme? walletWindowState
-                                                        .verifiersList[i].iconBlack : walletWindowState
-                                                        .verifiersList[i].iconWhite,
+                                                  ColorTheme.of(context).secondaryColor,
+                                                  header: ColorTheme.of(context).verifiersList[i].inCicle ? ListTile(
+                                                    leading: ColorTheme.of(context).lightTheme ? ColorTheme.of(context).verifiersList[i].iconWhite : ColorTheme.of(context).verifiersList[i].iconBlack,
                                                     title: Text(
-                                                        walletWindowState
-                                                                .verifiersList[
+                                                        ColorTheme.of(context).verifiersList[
                                                                     i]
                                                                 .isValid
-                                                            ? walletWindowState
-                                                                .verifiersList[
+                                                            ? ColorTheme.of(context).verifiersList[
                                                                     i]
                                                                 .nickname
                                                                 .toString()
-                                                            : walletWindowState
-                                                                .verifiersList[
+                                                            : ColorTheme.of(context).verifiersList[
                                                                     i]
                                                                 .id,
-                                                        style: walletWindowState
-                                                                .verifiersList[
+                                                        style: ColorTheme.of(context).verifiersList[
                                                                     i]
                                                                 .isValid
                                                             ? TextStyle(
-                                                              color: walletWindowState.lightTheme ? Colors.black:Colors.white,
+                                                              color: ColorTheme.of(context).secondaryColor,
                                                                 fontSize: 20.0,
                                                               )
                                                             : TextStyle(
@@ -153,31 +142,25 @@ class _VerifiersWindowState extends State<VerifiersWindow> {
                                                               )),
                                                               trailing: Container(
                                                                 margin: EdgeInsets.all(MediaQuery.of(context).size.width/30),
-                                                                child: Image.asset("images/cycle.png")),
+                                                                child: Image.asset("images/cycle.png",color: ColorTheme.of(context).secondaryColor,)),
                                                   ):ListTile(
-                                                    leading: walletWindowState.lightTheme? walletWindowState
-                                                        .verifiersList[i].iconBlack : walletWindowState
-                                                        .verifiersList[i].iconWhite,
+                                                    leading: ColorTheme.of(context).lightTheme? ColorTheme.of(context).verifiersList[i].iconWhite : ColorTheme.of(context).verifiersList[i].iconBlack,
                                                     title: Text(
-                                                        walletWindowState
-                                                                .verifiersList[
+                                                        ColorTheme.of(context).verifiersList[
                                                                     i]
                                                                 .isValid
-                                                            ? walletWindowState
-                                                                .verifiersList[
+                                                            ? ColorTheme.of(context).verifiersList[
                                                                     i]
                                                                 .nickname
                                                                 .toString()
-                                                            : walletWindowState
-                                                                .verifiersList[
+                                                            : ColorTheme.of(context).verifiersList[
                                                                     i]
                                                                 .id,
-                                                        style: walletWindowState
-                                                                .verifiersList[
+                                                        style: ColorTheme.of(context).verifiersList[
                                                                     i]
                                                                 .isValid
                                                             ? TextStyle(
-                                                              color: walletWindowState.lightTheme ? Colors.black:Colors.white,
+                                                              color: ColorTheme.of(context).secondaryColor,
                                                                 fontSize: 20.0,
                                                               )
                                                             : TextStyle(
@@ -187,8 +170,7 @@ class _VerifiersWindowState extends State<VerifiersWindow> {
                                                               )),
                                                               
                                                   ),
-                                                  expanded: walletWindowState
-                                                          .verifiersList[i]
+                                                  expanded: ColorTheme.of(context).verifiersList[i]
                                                           .isValid
                                                       ? Container(
                                                         margin: EdgeInsets.fromLTRB(30, 20, 30, 0),
@@ -199,131 +181,118 @@ class _VerifiersWindowState extends State<VerifiersWindow> {
                                                           children: <Widget>[
                                                             Row(
                                                               children: <Widget>[
-                                                                Text("In cycle: ", style: TextStyle(color: walletWindowState.lightTheme ? Colors.black:Colors.white,fontWeight: FontWeight.w700),
+                                                                Text("In cycle: ", style: TextStyle(color: ColorTheme.of(context).secondaryColor,fontWeight: FontWeight.w700),
                                                                     ),
-                                                                    Text(walletWindowState
-                                                                        .verifiersList[
+                                                                    Text(ColorTheme.of(context).verifiersList[
                                                                             i]
                                                                         .inCicle
-                                                                        .toString(),style: TextStyle(color: walletWindowState.lightTheme ? Colors.black : Colors.white))
+                                                                        .toString(),style: TextStyle(color: ColorTheme.of(context).secondaryColor))
                                                               ],
                                                             ),
                                                             Row(
                                                               children: <Widget>[
-                                                                Text("Open edge: " , style: TextStyle(color: walletWindowState.lightTheme ? Colors.black:Colors.white,fontWeight: FontWeight.w700),
+                                                                Text("Open edge: " , style: TextStyle(color: ColorTheme.of(context).secondaryColor,fontWeight: FontWeight.w700),
                                                                     ),
-                                                                    Text(walletWindowState
-                                                                        .verifiersList[
+                                                                    Text(ColorTheme.of(context).verifiersList[
                                                                             i]
                                                                         .openEdge
-                                                                        .toString(),style: TextStyle(color: walletWindowState.lightTheme ? Colors.black : Colors.white))
+                                                                        .toString(),style: TextStyle(color: ColorTheme.of(context).secondaryColor))
                                                               ],
                                                             ),
                                                             Row(
                                                               children: <Widget>[
-                                                                Text("Receiving UDP: " , style: TextStyle(color: walletWindowState.lightTheme ? Colors.black:Colors.white,fontWeight: FontWeight.w700),
+                                                                Text("Receiving UDP: " , style: TextStyle(color: ColorTheme.of(context).secondaryColor,fontWeight: FontWeight.w700),
                                                                     ),
-                                                                    Text(walletWindowState
-                                                                        .verifiersList[
+                                                                    Text(ColorTheme.of(context).verifiersList[
                                                                             i]
                                                                         .receivingUDP
-                                                                        .toString(),style: TextStyle(color: walletWindowState.lightTheme ? Colors.black : Colors.white))
+                                                                        .toString(),style: TextStyle(color:ColorTheme.of(context).secondaryColor))
                                                               ],
                                                             ),
                                                             Row(
                                                               children: <Widget>[
-                                                                Text("Retention edge: " , style: TextStyle(color: walletWindowState.lightTheme ? Colors.black:Colors.white,fontWeight: FontWeight.w700),
+                                                                Text("Retention edge: " , style: TextStyle(color: ColorTheme.of(context).secondaryColor,fontWeight: FontWeight.w700),
                                                                     ),
-                                                                    Text(walletWindowState
-                                                                        .verifiersList[
+                                                                    Text(ColorTheme.of(context).verifiersList[
                                                                             i]
                                                                         .retentionEdge
-                                                                        .toString(),style: TextStyle(color: walletWindowState.lightTheme ? Colors.black : Colors.white))
+                                                                        .toString(),style: TextStyle(color: ColorTheme.of(context).secondaryColor))
                                                               ],
                                                             ),
                                                             Row(
                                                               children: <Widget>[
-                                                                Text("Status: " , style: TextStyle(color: walletWindowState.lightTheme ? Colors.black:Colors.white,fontWeight: FontWeight.w700),
+                                                                Text("Status: " , style: TextStyle(color: ColorTheme.of(context).secondaryColor,fontWeight: FontWeight.w700),
                                                                     ),
-                                                                    Text(walletWindowState
-                                                                        .verifiersList[
+                                                                    Text(ColorTheme.of(context).verifiersList[
                                                                             i]
                                                                         .retentionEdge
-                                                                        .toString(),style: TextStyle(color: walletWindowState.lightTheme ? Colors.black : Colors.white))
+                                                                        .toString(),style: TextStyle(color: ColorTheme.of(context).secondaryColor))
                                                               ],
                                                             ),
                                                             Row(
                                                               children: <Widget>[
-                                                                Text("Trailing Edge: " , style: TextStyle(color: walletWindowState.lightTheme ? Colors.black:Colors.white,fontWeight: FontWeight.w700),
+                                                                Text("Trailing Edge: " , style: TextStyle(color: ColorTheme.of(context).secondaryColor,fontWeight: FontWeight.w700),
                                                                     ),
-                                                                    Text(walletWindowState
-                                                                    .verifiersList[
+                                                                    Text(ColorTheme.of(context).verifiersList[
                                                                         i]
                                                                     .trailingEdge
-                                                                    .toString(),style: TextStyle(color: walletWindowState.lightTheme ? Colors.black : Colors.white))
+                                                                    .toString(),style: TextStyle(color: ColorTheme.of(context).secondaryColor))
                                                               ],
                                                             ),
                                                             Row(
                                                               children: <Widget>[
-                                                                Text("Transactions: " , style: TextStyle(color: walletWindowState.lightTheme ? Colors.black:Colors.white,fontWeight: FontWeight.w700),
+                                                                Text("Transactions: " , style: TextStyle(color: ColorTheme.of(context).secondaryColor,fontWeight: FontWeight.w700),
                                                                     ),
-                                                                    Text(walletWindowState
-                                                                        .verifiersList[
+                                                                    Text(ColorTheme.of(context).verifiersList[
                                                                             i]
                                                                         .transactions
-                                                                        .toString(),style: TextStyle(color: walletWindowState.lightTheme ? Colors.black : Colors.white))
+                                                                        .toString(),style: TextStyle(color: ColorTheme.of(context).secondaryColor))
                                                               ],
                                                             ),
                                                             Row(
                                                               children: <Widget>[
-                                                                Text("Version : " , style: TextStyle(color: walletWindowState.lightTheme ? Colors.black:Colors.white,fontWeight: FontWeight.w700),
+                                                                Text("Version : " , style: TextStyle(color: ColorTheme.of(context).secondaryColor,fontWeight: FontWeight.w700),
                                                                     ),
-                                                                    Text(walletWindowState
-                                                                        .verifiersList[
+                                                                    Text(ColorTheme.of(context).verifiersList[
                                                                             i]
                                                                         .version
-                                                                        .toString(),style: TextStyle(color: walletWindowState.lightTheme ? Colors.black : Colors.white))
+                                                                        .toString(),style: TextStyle(color: ColorTheme.of(context).secondaryColor))
                                                               ],
                                                             ),
                                                            
                                                             Row(
                                                               children: <Widget>[
-                                                                Text("Balance: " , style: TextStyle(color: walletWindowState.lightTheme ? Colors.black:Colors.white,fontWeight: FontWeight.w700),
+                                                                Text("Balance: " , style: TextStyle(color: ColorTheme.of(context).secondaryColor,fontWeight: FontWeight.w700),
                                                                     ),
-                                                                    Text(walletWindowState
-                                                                        .verifiersList[
+                                                                    Text(ColorTheme.of(context).verifiersList[
                                                                             i]
                                                                         .balance
-                                                                        .toString(),style: TextStyle(color: walletWindowState.lightTheme ? Colors.black : Colors.white))
+                                                                        .toString(),style: TextStyle(color: ColorTheme.of(context).secondaryColor))
                                                               ],
                                                             ),
                                                             Row(
                                                               children: <Widget>[
-                                                                Text("Blocks CT: " , style: TextStyle(color: walletWindowState.lightTheme ? Colors.black:Colors.white,fontWeight: FontWeight.w700),
+                                                                Text("Blocks CT: " , style: TextStyle(color: ColorTheme.of(context).secondaryColor,fontWeight: FontWeight.w700),
                                                                     ),
-                                                                    Text(walletWindowState
-                                                                        .verifiersList[
+                                                                    Text(ColorTheme.of(context).verifiersList[
                                                                             i]
                                                                         .blocksCT
-                                                                        .toString(),style: TextStyle(color: walletWindowState.lightTheme ? Colors.black : Colors.white))
+                                                                        .toString(),style: TextStyle(color: ColorTheme.of(context).secondaryColor))
                                                               ],
                                                             ),
                                                             Row(
 
                                                             crossAxisAlignment: CrossAxisAlignment.start,
                                                               children: <Widget>[
-                                                                Text("Block Vote: " , style: TextStyle(color: walletWindowState.lightTheme ? Colors.black:Colors.white,fontWeight: FontWeight.w700,),
+                                                                Text("Block Vote: " , style: TextStyle(color: ColorTheme.of(context).secondaryColor,fontWeight: FontWeight.w700,),
                                                                     ),
-                                                                    walletWindowState
-                                                                        .verifiersList[
+                                                                    ColorTheme.of(context).verifiersList[
                                                                             i]
                                                                         .blockVote
-                                                                        .toString().contains("other")? Text(walletWindowState
-                                                                        .verifiersList[
+                                                                        .toString().contains("other")? Text(ColorTheme.of(context).verifiersList[
                                                                             i]
                                                                         .blockVote
-                                                                        .toString(),style: TextStyle(color: walletWindowState.lightTheme ? Colors.black : Colors.white)): createColumn(walletWindowState
-                                                                        .verifiersList[
+                                                                        .toString(),style: TextStyle(color: ColorTheme.of(context).secondaryColor)): createColumn(ColorTheme.of(context).verifiersList[
                                                                             i]
                                                                         .blockVote
                                                                         .toString(),";")
@@ -331,79 +300,72 @@ class _VerifiersWindowState extends State<VerifiersWindow> {
                                                             ),
                                                             Row(
                                                               children: <Widget>[
-                                                                Text("Cycle Length: " , style: TextStyle(color: walletWindowState.lightTheme ? Colors.black:Colors.white,fontWeight: FontWeight.w700),
+                                                                Text("Cycle Length: " , style: TextStyle(color: ColorTheme.of(context).secondaryColor,fontWeight: FontWeight.w700),
                                                                     ),
-                                                                    Text(walletWindowState
-                                                                    .verifiersList[
+                                                                    Text(ColorTheme.of(context).verifiersList[
                                                                         i]
                                                                     .cycleLength
-                                                                    .toString(),style: TextStyle(color: walletWindowState.lightTheme ? Colors.black : Colors.white))
+                                                                    .toString(),style: TextStyle(color: ColorTheme.of(context).secondaryColor))
                                                               ],
                                                             ),
                                                             Row(
                                                               children: <Widget>[
-                                                                Text("Frozen Edge: " , style: TextStyle(color: walletWindowState.lightTheme ? Colors.black:Colors.white,fontWeight: FontWeight.w700),
+                                                                Text("Frozen Edge: " , style: TextStyle(color: ColorTheme.of(context).secondaryColor,fontWeight: FontWeight.w700),
                                                                     ),
-                                                                    Text(walletWindowState
-                                                                        .verifiersList[
+                                                                    Text(ColorTheme.of(context).verifiersList[
                                                                             i]
                                                                         .frozenEdge
-                                                                        .toString(),style: TextStyle(color: walletWindowState.lightTheme ? Colors.black : Colors.white))
+                                                                        .toString(),style: TextStyle(color:ColorTheme.of(context).secondaryColor))
                                                               ],
                                                             ),
                                                             Row(
                                                               children: <Widget>[
-                                                                Text("ID: " , style: TextStyle(color: walletWindowState.lightTheme ? Colors.black:Colors.white,fontWeight: FontWeight.w700),
+                                                                Text("ID: " , style: TextStyle(color: ColorTheme.of(context).secondaryColor,fontWeight: FontWeight.w700),
                                                                     ),
-                                                                    Text(walletWindowState
-                                                                        .verifiersList[
+                                                                    Text(ColorTheme.of(context).verifiersList[
                                                                             i]
                                                                         .id
-                                                                        .toString(),style: TextStyle(color: walletWindowState.lightTheme ? Colors.black : Colors.white))
+                                                                        .toString(),style: TextStyle(color: ColorTheme.of(context).secondaryColor))
                                                               ],
                                                             ),
                                                             Row(
                                                               children: <Widget>[
-                                                                Text("IP Address: " , style: TextStyle(color: walletWindowState.lightTheme ? Colors.black:Colors.white,fontWeight: FontWeight.w700),
+                                                                Text("IP Address: " , style: TextStyle(color: ColorTheme.of(context).secondaryColor,fontWeight: FontWeight.w700),
                                                                     ),
-                                                                    Text(walletWindowState
-                                                                        .verifiersList[
+                                                                    Text(ColorTheme.of(context).verifiersList[
                                                                             i]
                                                                         .iPAddress
-                                                                        .toString(),style: TextStyle(color: walletWindowState.lightTheme ? Colors.black : Colors.white))
+                                                                        .toString(),style: TextStyle(color: ColorTheme.of(context).secondaryColor))
                                                               ],
                                                             ),
                                                             Row(
                                                               children: <Widget>[
-                                                                Text("Las Queried: " , style: TextStyle(color: walletWindowState.lightTheme ? Colors.black:Colors.white,fontWeight: FontWeight.w700),
+                                                                Text("Las Queried: " , style: TextStyle(color: ColorTheme.of(context).secondaryColor,fontWeight: FontWeight.w700),
                                                                     ),
-                                                                    Text(walletWindowState
-                                                                        .verifiersList[
+                                                                    Text(ColorTheme.of(context).verifiersList[
                                                                             i]
                                                                         .lastQueried
-                                                                        .toString(),style: TextStyle(color: walletWindowState.lightTheme ? Colors.black : Colors.white))
+                                                                        .toString(),style: TextStyle(color: ColorTheme.of(context).secondaryColor))
                                                               ],
                                                             ),
                                                             Row(
                                                               children: <Widget>[
-                                                                Text("Last Removal Heigth: " , style: TextStyle(color: walletWindowState.lightTheme ? Colors.black:Colors.white,fontWeight: FontWeight.w700),
+                                                                Text("Last Removal Heigth: " , style: TextStyle(color: ColorTheme.of(context).secondaryColor,fontWeight: FontWeight.w700),
                                                                     ),
-                                                                    Text(walletWindowState
-                                                                        .verifiersList[
+                                                                    Text(ColorTheme.of(context).verifiersList[
                                                                             i]
                                                                         .lastRemovalHeight
-                                                                        .toString(),style: TextStyle(color: walletWindowState.lightTheme ? Colors.black : Colors.white))
+                                                                        .toString(),style: TextStyle(color: ColorTheme.of(context).secondaryColor))
                                                               ],
                                                             ),
                                                             Row(
                                                               children: <Widget>[
-                                                                Text("Mesh: " , style: TextStyle(color: walletWindowState.lightTheme ? Colors.black:Colors.white,fontWeight: FontWeight.w700),
+                                                                Text("Mesh: " , style: TextStyle(color: ColorTheme.of(context).secondaryColor,fontWeight: FontWeight.w700),
                                                                     ),
-                                                                    Text(walletWindowState
-                                                                        .verifiersList[
+                                                                    Text(ColorTheme.of(context).verifiersList[
                                                                             i]
                                                                         .mesh
-                                                                        .toString(),style: TextStyle(color: walletWindowState.lightTheme ? Colors.black : Colors.white))
+                                                                        .toString(),style: TextStyle(color: ColorTheme.of(context).secondaryColor))
                                                               ],
                                                             ),
                                                             
@@ -414,41 +376,37 @@ class _VerifiersWindowState extends State<VerifiersWindow> {
                                                           child: Text(
                                                             
                                                               "No known verifiers for id " +
-                                                                  walletWindowState
-                                                                      .verifiersList[
+                                                                  ColorTheme.of(context).verifiersList[
                                                                           i]
-                                                                      .id,style:TextStyle(color: walletWindowState.lightTheme ? Colors.black:Colors.white,),),
+                                                                      .id,style:TextStyle(color: ColorTheme.of(context).secondaryColor,),),
                                                         ),
                                                 ),
                                               ),
                                               secondaryActions: <Widget>[
                                                 IconSlideAction(
                                                   caption: 'Delete',
-                                                  color: walletWindowState.lightTheme ? Colors.white :Colors.black,
+                                                  color: ColorTheme.of(context).baseColor,
                                                   icon: Icons.delete,
                                                   onTap: () {
-                                                    walletWindowState
-                                                        .verifiersList
+                                                    ColorTheme.of(context).verifiersList
                                                         .removeAt(i);
                                                     setState(() {
                                                       saveVerifier(
-                                                          walletWindowState
-                                                              .verifiersList);
+                                                          ColorTheme.of(context).verifiersList);
                                                     });
                                                   },
                                                 ),
                                               ],
                                             ),
-                                        childCount: walletWindowState
-                                            .verifiersList?.length),
+                                        childCount: ColorTheme.of(context).verifiersList?.length),
                                   ),
-                                  (walletWindowState.addressesToWatch?.length != 0)
-                                      ? makeHeader("Addresses",walletWindowState.lightTheme ? Colors.white:Colors.black)
+                                  (ColorTheme.of(context).addressesToWatch?.length != 0)
+                                      ? makeHeader("Addresses",ColorTheme.of(context).baseColor)
                                       : SliverList(
                                           delegate: SliverChildListDelegate(
                                               [Container()]),
                                         ),
-                                  (walletWindowState.addressesToWatch?.length != 0)
+                                  (ColorTheme.of(context).addressesToWatch?.length != 0)
                                       ? SliverList(
                                           delegate: SliverChildBuilderDelegate(
                                               (BuildContext context, int i) =>
@@ -464,31 +422,28 @@ class _VerifiersWindowState extends State<VerifiersWindow> {
                                                                 vertical: 5),
                                                         child: ListTile(
                                                           leading: Icon(Icons
-                                                              .account_balance_wallet,color: walletWindowState.lightTheme ? Colors.black:Colors.white,),
-                                                              trailing: Text(walletWindowState.addressesToWatch[i].balance,style: TextStyle(color: walletWindowState.lightTheme ? Colors.black : Colors.white),),
+                                                              .account_balance_wallet,color: ColorTheme.of(context).secondaryColor,),
+                                                              trailing: Text(ColorTheme.of(context).addressesToWatch[i].balance,style: TextStyle(color: ColorTheme.of(context).secondaryColor),),
                                                           title: Text(
-                                                              walletWindowState
-                                                                      .addressesToWatch[
+                                                              ColorTheme.of(context).addressesToWatch[
                                                                           i]
                                                                       .address
                                                                       .substring(
                                                                           0,
                                                                           4) +
                                                                   "..." +
-                                                                  walletWindowState
-                                                                      .addressesToWatch[
+                                                                  ColorTheme.of(context).addressesToWatch[
                                                                           i]
                                                                       .address
                                                                       .substring(
-                                                                          walletWindowState.addressesToWatch[i].address.length -
+                                                                          ColorTheme.of(context).addressesToWatch[i].address.length -
                                                                               4),
-                                                              style: walletWindowState
-                                                                          .addressesToWatch[
+                                                              style: ColorTheme.of(context).addressesToWatch[
                                                                               i]
                                                                           .balance !=
                                                                       null
                                                                   ? TextStyle(
-                                                                    color:walletWindowState.lightTheme ? Colors.black:Colors.white,
+                                                                    color:ColorTheme.of(context).secondaryColor,
                                                                       fontSize:
                                                                           20.0,
                                                                     )
@@ -502,23 +457,20 @@ class _VerifiersWindowState extends State<VerifiersWindow> {
                                                     secondaryActions: <Widget>[
                                                       IconSlideAction(
                                                         caption: 'Delete',
-                                                        color: walletWindowState.lightTheme ? Colors.white : Colors.black,
+                                                        color: ColorTheme.of(context).baseColor,
                                                         icon: Icons.delete,
                                                         onTap: () {
-                                                          walletWindowState
-                                                              .addressesToWatch
+                                                          ColorTheme.of(context).addressesToWatch
                                                               .removeAt(i);
                                                           setState(() {
                                                             saveWatchAddress(
-                                                                walletWindowState
-                                                                    .addressesToWatch);
+                                                                ColorTheme.of(context).addressesToWatch);
                                                           });
                                                         },
                                                       ),
                                                     ],
                                                   ),
-                                              childCount: walletWindowState
-                                                  .addressesToWatch?.length),
+                                              childCount: ColorTheme.of(context).addressesToWatch?.length),
                                         )
                                       : SliverList(
                                           delegate: SliverChildListDelegate(
@@ -534,7 +486,7 @@ class _VerifiersWindowState extends State<VerifiersWindow> {
                                   ),
                                   Image.asset(
                                     "images/noVerifiers.png",
-                                    color:  walletWindowState.lightTheme ? Colors.black:Colors.white,
+                                    color:  ColorTheme.of(context).secondaryColor,
                                     height: walletWindowState.screenHeight / 6,
                                     //width: walletWindowState.screenHeight / 5 * 0.9,
                                   ),
@@ -544,7 +496,7 @@ class _VerifiersWindowState extends State<VerifiersWindow> {
                                     child: Text(
                                         "There is nothing on your Watch List!",
                                         style: TextStyle(
-                                            color:  walletWindowState.lightTheme ? Colors.black:Colors.white,
+                                            color:  ColorTheme.of(context).secondaryColor,
                                             fontWeight: FontWeight.w600,
                                             fontSize: 15)),
                                   ),
@@ -569,29 +521,29 @@ class _VerifiersWindowState extends State<VerifiersWindow> {
                           padding: EdgeInsets.all(0.0),
                           itemCount: 8,
                           itemBuilder: (context, i) => Card(
-                            color: walletWindowState.lightTheme ? Colors.white : Colors.black,
+                            color: ColorTheme.of(context).baseColor,
                                   child: SizedBox(
-                                width: 200.0,
-                                height: 60.0,
-                                child: Shimmer.fromColors(
-                                  baseColor: walletWindowState.lightTheme ? Colors.grey[300] : Colors.white30,
-                                  highlightColor: walletWindowState.lightTheme ? Colors.grey[100] : Colors.white10,
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(2.0),
-                                    child: ListTile(
-                                      leading: Container(
-                                        color: Colors.green,
-                                        width: 50,
-                                        height: 50,
-                                      ),
-                                      title: Text(
-                                          "                                                                        ",
-                                          style: TextStyle(
-                                              backgroundColor: Colors.grey)),
-                                    ),
-                                  ),
+                          width: 200.0,
+                          height: 60.0,
+                          child: Shimmer.fromColors(
+                            baseColor: ColorTheme.of(context).transparentColor,
+                            highlightColor: ColorTheme.of(context).highLigthColor,
+                            child: Padding(
+                              padding: const EdgeInsets.all(2.0),
+                              child: ListTile(
+                                leading: Container(
+                                  color: Colors.green,
+                                  width: 50,
+                                  height: 50,
                                 ),
-                              ))),
+                                title: Text(
+                                    "                                                                        ",
+                                    style: TextStyle(
+                                        backgroundColor: Colors.grey)),
+                              ),
+                            ),
+                          ),
+                        ))),
                 ],
               ),
             ),
@@ -604,7 +556,7 @@ class _VerifiersWindowState extends State<VerifiersWindow> {
     List list = string.split(pattern);
     List<Widget> widgetList = [];
     for (var eachColumn in list) {
-      widgetList.add(Text(eachColumn,style: TextStyle(color: walletWindowState.lightTheme ? Colors.black : Colors.white)));
+      widgetList.add(Text(eachColumn,style: TextStyle(color: ColorTheme.of(context).secondaryColor)));
     }
     Column  column = Column(crossAxisAlignment: CrossAxisAlignment.start,children: widgetList,);
     

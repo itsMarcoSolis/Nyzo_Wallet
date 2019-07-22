@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:nyzo_wallet/Data/Contact.dart';
 import 'package:nyzo_wallet/Data/Transaction.dart';
 import 'package:nyzo_wallet/Data/Wallet.dart';
+import 'package:nyzo_wallet/Widgets/ColorTheme.dart';
 import 'dart:async';
 import 'package:shimmer/shimmer.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
@@ -82,7 +83,7 @@ class TranSactionsWidgetState extends State<TranSactionsWidget> {
             child: Text(
               'History',
               style: TextStyle(
-                color: walletWindowState.lightTheme ? Colors.black:Colors.white,
+                color: ColorTheme.of(context).secondaryColor,
                   fontWeight: FontWeight.w600, letterSpacing: 0, fontSize: 35),
             ),
           ),
@@ -105,14 +106,14 @@ class TranSactionsWidgetState extends State<TranSactionsWidget> {
                       text: TextSpan(
                         text: walletWindowState.balance == 0 ? balance.toString() : (walletWindowState.balance/1000000).toString(),
                         style: TextStyle(
-                            color: walletWindowState.lightTheme ? Colors.black:Colors.white,
+                            color: ColorTheme.of(context).secondaryColor,
                             fontWeight: FontWeight.w600,
                             fontSize: 40),
                         children: <TextSpan>[
                           TextSpan(
                             text: ' ∩',
                             style: TextStyle(
-                              color: walletWindowState.lightTheme ? Colors.black:Colors.white,
+                              color: ColorTheme.of(context).secondaryColor,
                                 fontWeight: FontWeight.w600, fontSize: 20),
                           )
                         ],
@@ -148,13 +149,13 @@ class TranSactionsWidgetState extends State<TranSactionsWidget> {
                               children: <Widget>[
                                 Image.asset(
                                   "images/noTransactions.png",
-                                  color: walletWindowState.lightTheme ? Colors.black:Colors.white,
+                                  color: ColorTheme.of(context).secondaryColor,
                                   height: walletWindowState.screenHeight / 5,
                                   //width: walletWindowState.screenHeight / 5 * 0.9,
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.fromLTRB(0, 15, 0, 0),
-                                  child: Text("You don't have any transactions yet!",style:TextStyle(color: walletWindowState.lightTheme ? Colors.black:Colors.white, fontWeight: FontWeight.w600,fontSize: 15)),
+                                  child: Text("You don't have any transactions yet!",style:TextStyle(color: ColorTheme.of(context).secondaryColor, fontWeight: FontWeight.w600,fontSize: 15)),
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.all(0.0),
@@ -215,7 +216,7 @@ class TranSactionsWidgetState extends State<TranSactionsWidget> {
                                                         .split('-')
                                                         .join(''),
                                                 orElse: () => null)
-                                            .name,style: TextStyle(color: walletWindowState.lightTheme ? Colors.black:Colors.white),)
+                                            .name,style: TextStyle(color: ColorTheme.of(context).secondaryColor),)
                                         : Text(
                                             _transactions[i]
                                                     .address
@@ -228,14 +229,14 @@ class TranSactionsWidgetState extends State<TranSactionsWidget> {
                                                             .length -
                                                         4),
                                             style: TextStyle(
-                                              color: walletWindowState.lightTheme ? Colors.black:Colors.white,
+                                              color: ColorTheme.of(context).secondaryColor,
                                                 fontWeight: FontWeight.w700,
                                                 fontSize: 15),
                                           ),
                                     trailing: Text(
                                       _transactions[i].amount.toString()+" ∩",
                                       style: TextStyle(
-                                        color: walletWindowState.lightTheme ? Colors.black:Colors.white,
+                                        color: ColorTheme.of(context).secondaryColor,
                                           fontWeight: FontWeight.w700,
                                           fontSize: 20),
                                     ),
@@ -249,12 +250,13 @@ class TranSactionsWidgetState extends State<TranSactionsWidget> {
                     padding: EdgeInsets.all(0.0),
                     itemCount: 8,
                     itemBuilder: (context, i) => Card(
+                      color: ColorTheme.of(context).baseColor,
                             child: SizedBox(
                           width: 200.0,
                           height: 60.0,
                           child: Shimmer.fromColors(
-                            baseColor: Colors.grey[300],
-                            highlightColor: Colors.grey[100],
+                            baseColor: ColorTheme.of(context).transparentColor,
+                            highlightColor: ColorTheme.of(context).highLigthColor,
                             child: Padding(
                               padding: const EdgeInsets.all(2.0),
                               child: ListTile(

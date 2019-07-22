@@ -11,15 +11,15 @@ class HomePage extends StatefulWidget {
   _MyHomePageState createState() => new _MyHomePageState();
 }
 
-class _MyHomePageState extends State<HomePage>{
+class _MyHomePageState extends State<HomePage> {
+
   bool _walletCreated;
-  
   bool _visibleButttons = false;
+
   changeStatusColor(Color color) async {
     try {
       await FlutterStatusbarcolor.setStatusBarColor(color);
-    } on PlatformException catch (e) {
-    }
+    } on PlatformException catch (e) {}
   }
 
   @override
@@ -49,14 +49,7 @@ class _MyHomePageState extends State<HomePage>{
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
     return Scaffold(
-      
       resizeToAvoidBottomInset: false,
       resizeToAvoidBottomPadding: false,
       body: new Center(
@@ -89,7 +82,8 @@ class _MyHomePageState extends State<HomePage>{
                                     builder: (context) => NewWalletScreen()),
                               );
                             },
-                            child: Text("Create new Wallet",style: TextStyle(color: Colors.white)),
+                            child: Text("Create new Wallet",
+                                style: TextStyle(color: Colors.white)),
                           )),
                       new Padding(
                           padding: EdgeInsets.symmetric(vertical: 20.0)),
@@ -106,7 +100,10 @@ class _MyHomePageState extends State<HomePage>{
                                   builder: (context) => ImportWalletScreen()),
                             );
                           },
-                          child: Text("Import Existing Wallet",style: TextStyle(color: Colors.white),),
+                          child: Text(
+                            "Import Existing Wallet",
+                            style: TextStyle(color: Colors.white),
+                          ),
                         ),
                       ),
                     ],

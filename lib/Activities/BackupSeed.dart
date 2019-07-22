@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:nyzo_wallet/Data/Wallet.dart';
 import 'package:flutter/services.dart';
+import 'package:nyzo_wallet/Widgets/ColorTheme.dart';
+
 
 class BackUpSeed extends StatefulWidget {
   BackUpSeed(this._password);
@@ -27,6 +29,7 @@ class _BackUpSeedState extends State<BackUpSeed> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: ColorTheme.of(context).baseColor,
         key: _scaffoldKey,
         resizeToAvoidBottomInset: false,
         resizeToAvoidBottomPadding: false,
@@ -40,6 +43,7 @@ class _BackUpSeedState extends State<BackUpSeed> {
                   child: Center(
                       child: new Text("Backup your private key",
                           style: new TextStyle(
+                            color: ColorTheme.of(context).secondaryColor,
                             fontWeight: FontWeight.bold,
                             fontSize: 20.0,
                           )))),
@@ -49,12 +53,16 @@ class _BackUpSeedState extends State<BackUpSeed> {
                 children: <Widget>[
                   Padding(
                     padding: const EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 25.0),
-                    child: Card(
-                      child: InkWell(
-                        onTap: () {
+                    child: RaisedButton(
+                      shape: new RoundedRectangleBorder(
+                            
+                            borderRadius: new BorderRadius.circular(100.0)),
+                      color: ColorTheme.of(context).secondaryColor,
+                      
+                        onPressed: () {
                           Clipboard.setData(new ClipboardData(text: _privKey));
                           final snackBar = SnackBar(
-                              content: Text('Address copied to clipboard'));
+                              content: Text('Private Key copied to clipboard'));
 
                           _scaffoldKey.currentState..showSnackBar(snackBar);
                         },
@@ -62,10 +70,10 @@ class _BackUpSeedState extends State<BackUpSeed> {
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
                             _privKey,
-                            style: TextStyle(color: Colors.black, fontSize: 15),
+                            style: TextStyle(color: ColorTheme.of(context).baseColor, fontSize: 15),
                           ),
                         ),
-                      ),
+                      
                     ),
                   ),
                   Padding(
@@ -76,13 +84,13 @@ class _BackUpSeedState extends State<BackUpSeed> {
                     ),
                   ),
                   RaisedButton(
-                    color: Colors.black87,
+                    color: ColorTheme.of(context).extraColor,
                     shape: new RoundedRectangleBorder(
                         borderRadius: new BorderRadius.circular(30.0)),
                     onPressed: () {
                       Navigator.pop(context);
                     },
-                    child: new Text("Got it!",style: TextStyle(color: Colors.white)),
+                    child: new Text("Got it!",style: TextStyle(color: ColorTheme.of(context).baseColor)),
                   ),
                 ],
               ),

@@ -106,7 +106,7 @@ class _ImportWalletScreen2State extends State<ImportWalletScreen2> {
                         new InputDecoration(labelText: "Confirm password"),
                     validator: (val) => val != textController1.text
                         ? "The passwords don't match"
-                        : null,
+                        : val == '' ? 'Invalid Password':null,
                   ),
                   new SizedBox(
                     height: 50.0,

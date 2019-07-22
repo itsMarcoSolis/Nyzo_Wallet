@@ -45,6 +45,8 @@ dependencies:
   qr_mobile_vision: ^0.2.2
   unicorndial: ^1.1.5
   flutter_picker: ^1.0.13
+  flutter_localizations:
+    sdk: flutter
 
 
 

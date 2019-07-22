@@ -1,4 +1,4 @@
-package com.example.nyzowallet;
+package co.nyzo.nyzowallet;
 
 import android.os.Bundle;
 import io.flutter.app.FlutterActivity;
