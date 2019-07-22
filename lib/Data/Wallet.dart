@@ -227,6 +227,7 @@ Future<List> getTransactions(String address) async {
 
 Future<String> send(String password, String account, int amount, int balance,
     String data) async {
+      http.Client client = new http.Client();
   String encryptedprivKey = await _storage.read(key: "privKey");
   String salt = await _storage.read(key: "salt");
   final String key = await crypto.generateKeyFromPassword(password, salt);
@@ -264,7 +265,7 @@ Future<String> send(String password, String account, int amount, int balance,
     var message = new NyzoMessage();
     message.setType(NyzoMessage.PreviousHashRequest7);
     message.sign(hexStringAsUint8Array(senderPrivateSeed));
-    NyzoMessage result = await message.send(privKey);
+    NyzoMessage result = await message.send(privKey,client);
     print('got result: ' + result.content.toString());
     return result;
   }
@@ -303,7 +304,7 @@ Future<String> send(String password, String account, int amount, int balance,
     message.setType(NyzoMessage.Transaction5);
     message.setContent(transaction);
     message.sign(hexStringAsUint8Array(senderPrivateSeed));
-    NyzoMessage result = await message.send(privKey);
+    NyzoMessage result = await message.send(privKey,client);
     print('got result: ' + result.content.message);
     return result;
   }
@@ -343,6 +344,7 @@ Future<String> send(String password, String account, int amount, int balance,
               'you need to wait, and to understand how Nyzo provides stronger protection ' +
               'than other blockchains against this type of potential vulnerability.';
         } else {
+          client.close();
           return result2.content.message;
         }
         /* to ensure that the pending item is fetched */
@@ -350,8 +352,10 @@ Future<String> send(String password, String account, int amount, int balance,
       }
     }
   } else {
+    client.close();
     return "Invalid Transaction";
   }
+  client.close();
   return "Something went wrong";
 }
 

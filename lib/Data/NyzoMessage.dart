@@ -91,9 +91,6 @@ class NyzoMessage {
   sign(List<int> privKey) {
     KeyPair keyPair = Signature.keyPair_fromSeed(privKey);
     Uint8List pubKey = keyPair.publicKey;
-    //Uint8List privKeyT = keyPair.secretKey;
-    //print("Public Key TweetNaCl"+HEX.encode(pubKey));
-    //print("Private Key TweetNaCl"+privKeyT.toString());
     for (var i = 0; i < 32; i++) {
       this.sourceNodeIdentifier[i] = pubKey[i];
     }
@@ -118,7 +115,7 @@ class NyzoMessage {
 
   fromByteBuffer(byteBuffer) {}
 
-  Future<NyzoMessage> send(String privKey) async {
+  Future<NyzoMessage> send(String privKey,http.Client client) async {
     Uint8List hexStringAsUint8Array(String identifier) {
       identifier = identifier.split('-').join('');
       var array = new Uint8List((identifier.length / 2).floor());
@@ -133,7 +130,7 @@ class NyzoMessage {
         privKey)); //Creates a KeyPair from the generated Seed
     Uint8List pubKey = keyPair.publicKey; //Set the Public Key
 
-    http.Response response = await http.post("https://nyzo.co/message",
+    http.Response response = await client.post("https://nyzo.co/message",
         headers: {
           "Host": "nyzo.co",
           "Connection": "keep-alive",
