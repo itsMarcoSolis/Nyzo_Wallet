@@ -68,6 +68,7 @@ class ContactsWindowState extends State<ContactsWindow> {
                                     controller: slidableController,
                                     actionPane: SlidableDrawerActionPane(),
                                     child: ExpandablePanel(
+                                      
                                       header: ListTile(
                                         leading: Icon(
                                           
@@ -244,7 +245,8 @@ class ContactsWindowState extends State<ContactsWindow> {
                                         ],
                                       ),
                                       tapHeaderToExpand: true,
-                                      hasIcon: false,
+                                      hasIcon: true,
+                                      iconColor: ColorTheme.of(context).secondaryColor,
                                     ),
                                     actions: <Widget>[
                                       IconSlideAction(

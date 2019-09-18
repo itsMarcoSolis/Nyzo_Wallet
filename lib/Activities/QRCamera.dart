@@ -4,11 +4,13 @@ import 'package:nyzo_wallet/Activities/WalletWindow.dart';
 class QrCameraWindow extends StatefulWidget {
   QrCameraWindow(this.walletWindowState);
   final WalletWindowState walletWindowState;
+  
   @override
   _QrCameraWindowState createState() => _QrCameraWindowState();
 }
 
 class _QrCameraWindowState extends State<QrCameraWindow> {
+  bool hasScanned = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,7 +23,11 @@ class _QrCameraWindowState extends State<QrCameraWindow> {
         
               child: QrCamera(qrCodeCallback: (String scanned){
           widget.walletWindowState.textControllerAddress.text = scanned;
-          Navigator.pop(context);
+          
+          if (!hasScanned) {
+            Navigator.pop(context);
+            hasScanned = true;
+          }
         }),
       ),
       

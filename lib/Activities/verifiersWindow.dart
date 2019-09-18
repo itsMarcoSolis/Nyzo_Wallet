@@ -112,8 +112,8 @@ class _VerifiersWindowState extends State<VerifiersWindow> {
                                                 padding:
                                                     const EdgeInsets.symmetric(
                                                         vertical: 5),
-                                                child: ExpandablePanel(iconColor:
-                                                  ColorTheme.of(context).secondaryColor,
+                                                child: ExpandablePanel(
+                                                  iconColor: ColorTheme.of(context).secondaryColor,
                                                   header: ColorTheme.of(context).verifiersList[i].inCicle ? ListTile(
                                                     leading: ColorTheme.of(context).lightTheme ? ColorTheme.of(context).verifiersList[i].iconWhite : ColorTheme.of(context).verifiersList[i].iconBlack,
                                                     title: Text(

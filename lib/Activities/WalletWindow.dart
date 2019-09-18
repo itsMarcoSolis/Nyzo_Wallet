@@ -193,7 +193,6 @@ class WalletWindowState extends State<WalletWindow> {
             inactiveColor: ColorTheme.of(context).secondaryColor,
             activeColor: ColorTheme.of(context).secondaryColor,
             reverse: true,
-            initialIndex: 0,
             currentIndex:
                 pageIndex, // Use this to update the Bar giving a position
             onTap: (index) {
