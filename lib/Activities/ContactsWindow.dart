@@ -344,10 +344,10 @@ class ContactsWindowState extends State<ContactsWindow> {
                                 ),
                               ))),
                   Positioned(
-                    bottom: MediaQuery.of(context).size.height / 30,
-                    right: MediaQuery.of(context).size.height / 30,
+                    bottom: MediaQuery.of(context).size.height / 75,
+                    right: MediaQuery.of(context).size.height / 100,
                     child: FloatingActionButton(
-                      elevation: 0,
+                      elevation: 5,
                       backgroundColor: ColorTheme.of(context).baseColor,
                       foregroundColor: ColorTheme.of(context).secondaryColor,
                       onPressed: () {
