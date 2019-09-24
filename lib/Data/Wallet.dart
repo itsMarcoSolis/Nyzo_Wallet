@@ -227,7 +227,7 @@ Future<List> getTransactions(String address) async {
 
 Future<String> send(String password, String account, int amount, int balance,
     String data) async {
-      http.Client client = new http.Client();
+  http.Client client = new http.Client();
   String encryptedprivKey = await _storage.read(key: "privKey");
   String salt = await _storage.read(key: "salt");
   final String key = await crypto.generateKeyFromPassword(password, salt);
@@ -265,7 +265,7 @@ Future<String> send(String password, String account, int amount, int balance,
     var message = new NyzoMessage();
     message.setType(NyzoMessage.PreviousHashRequest7);
     message.sign(hexStringAsUint8Array(senderPrivateSeed));
-    NyzoMessage result = await message.send(privKey,client);
+    NyzoMessage result = await message.send(privKey, client);
     print('got result: ' + result.content.toString());
     return result;
   }
@@ -304,7 +304,7 @@ Future<String> send(String password, String account, int amount, int balance,
     message.setType(NyzoMessage.Transaction5);
     message.setContent(transaction);
     message.sign(hexStringAsUint8Array(senderPrivateSeed));
-    NyzoMessage result = await message.send(privKey,client);
+    NyzoMessage result = await message.send(privKey, client);
     print('got result: ' + result.content.message);
     return result;
   }
@@ -605,7 +605,9 @@ Future<Verifier> getVerifierStatus(Verifier verifier) async {
           verifierMap[tempAttributeList[0]] = tempAttributeList[1];
         }
       }
-      verifier.isValid = true;
+      if (attributeElementList != null) {
+        verifier.isValid = true;
+      }
     }
 
     verifier.nickname = verifierMap["nickname"];
@@ -629,7 +631,7 @@ Future<Verifier> getVerifierStatus(Verifier verifier) async {
         : verifier.inCicle = false;
 
     //verifier.balance = double.parse(lmao.toString());
-    print("gotverifs"); 
+    print("gotverifs");
     return verifier;
   } catch (e) {}
   return verifier;
@@ -656,7 +658,7 @@ Future<List<List<String>>> getBalanceList() async {
     for (var eachAddress in balanceList) {
       eachAddress[0] = eachAddress[0].split("-").join();
     }
-    print("gotblist"); 
+    print("gotblist");
     return balanceList;
   } catch (e) {}
   return balanceList;

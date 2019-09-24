@@ -114,7 +114,7 @@ class _VerifiersWindowState extends State<VerifiersWindow> {
                                                         vertical: 5),
                                                 child: ExpandablePanel(
                                                   iconColor: ColorTheme.of(context).secondaryColor,
-                                                  header: ColorTheme.of(context).verifiersList[i].inCicle ? ListTile(
+                                                  header: ColorTheme.of(context).verifiersList[i].isValid ? ColorTheme.of(context).verifiersList[i].inCicle ? ListTile(
                                                     leading: ColorTheme.of(context).lightTheme ? ColorTheme.of(context).verifiersList[i].iconWhite : ColorTheme.of(context).verifiersList[i].iconBlack,
                                                     title: Text(
                                                         ColorTheme.of(context).verifiersList[
@@ -169,6 +169,24 @@ class _VerifiersWindowState extends State<VerifiersWindow> {
                                                                 fontSize: 20.0,
                                                               )),
                                                               
+                                                  ):Container(
+                                                    child: ListTile(
+                                                      leading: Image.asset("images/communicationProblem.png"),
+                                                      title: Text(ColorTheme.of(context).verifiersList[
+                                                                          i]
+                                                                      .id,style: ColorTheme.of(context).verifiersList[
+                                                                    i]
+                                                                .isValid
+                                                            ? TextStyle(
+                                                              color: ColorTheme.of(context).secondaryColor,
+                                                                fontSize: 20.0,
+                                                              )
+                                                            : TextStyle(
+
+                                                                color:
+                                                                    Colors.red,
+                                                                fontSize: 20.0,
+                                                              ),),),
                                                   ),
                                                   expanded: ColorTheme.of(context).verifiersList[i]
                                                           .isValid
