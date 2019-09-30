@@ -68,7 +68,7 @@ Future createNewWallet(String password) async {
   addContact(
       [],
       Contact(
-          "6650b3d9d5ffe4870688d51cba85a90b45ca8f18ee90c0adfd8e425839dc4f50",
+          "17f6bb308d5765122cdc3c9805b89e8b1c44df6d3a88962b76a9c8180cfb7e31",
           "Donate",
           "Help us develop this wallet."));
   return [HEX.encode(privKey), HEX.encode(pubKey)];
