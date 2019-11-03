@@ -34,6 +34,7 @@ class _MyAppState extends State<MyApp> {
   void updateTheme() {
     getNightModeValue().then((bool value) {
       setState(() {
+        value??=false;
         lightTheme = value;
         if (!lightTheme) {
           baseColor = Colors.white;
