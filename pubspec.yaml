@@ -21,11 +21,11 @@ dependencies:
   flutter_secure_storage: ^3.2.1+1
   shared_preferences: ^0.5.3+4
   flutter_string_encryption: ^0.3.1
-  local_auth: ^0.4.0+1
-  intl: ^0.15.8
+  local_auth: ^0.6.0+1
+  intl: ^0.16.0
   http: ^0.12.0+2
   ed25519_hd_key: ^1.0.1
-  flutter_sodium: ^0.0.9
+  flutter_sodium: ^0.0.11
   html: ^0.14.0+2
   crypto: ^2.0.6
   html_unescape: ^1.0.1+2
