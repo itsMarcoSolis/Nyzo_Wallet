@@ -78,14 +78,19 @@ class _MyAppState extends State<MyApp> {
       child: MaterialApp(
         supportedLocales:[
           Locale('en','US'),
-          Locale('es','ES')
+          Locale('es','ES'),
+          Locale('cn','CN'),
+          Locale('nl','NL'),
+          Locale('de','DE')
         ] ,
         localizationsDelegates: [
           AppLocalizations.delegate,
           GlobalCupertinoLocalizations.delegate,
+          GlobalMaterialLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate,
         ],
         localeListResolutionCallback: (List<Locale> locales,Iterable<Locale> supportedLocales){
+          print(locales.toString());
           for (var eachLocale  in locales) {
             for (var eachSupportedLocale in supportedLocales) {
               if (eachLocale.languageCode == eachSupportedLocale.languageCode) {
@@ -117,10 +122,15 @@ class _MyAppState extends State<MyApp> {
           setState(() {
             addressesToWatch = _list;
             for (var eachAddress in addressesToWatch) {
-              eachAddress.balance =
+              try {
+                eachAddress.balance =
                   balanceList.firstWhere((List<String> address) {
                 return address[0] == eachAddress.address;
               })[1];
+              } catch (e) {
+                eachAddress.balance = "0";
+              }
+              
             }
           });
         });
@@ -134,10 +144,14 @@ class _MyAppState extends State<MyApp> {
           setState(() {
             addressesToWatch = _list;
             for (var eachAddress in addressesToWatch) {
-              eachAddress.balance =
+             try {
+                eachAddress.balance =
                   balanceList.firstWhere((List<String> address) {
                 return address[0] == eachAddress.address;
               })[1];
+             } catch (e) {
+               eachAddress.balance = "0";
+             }
             }
           });
         });
