@@ -79,7 +79,7 @@ class _MyAppState extends State<MyApp> {
         supportedLocales:[
           Locale('en','US'),
           Locale('es','ES'),
-          Locale('cn','CN'),
+          Locale('zh','CN'),
           Locale('nl','NL'),
           Locale('de','DE')
         ] ,
