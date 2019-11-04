@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nyzo_wallet/Data/AppLocalizations.dart';
 import 'package:nyzo_wallet/Data/Wallet.dart';
 import 'package:flutter/services.dart';
 import 'package:nyzo_wallet/Widgets/ColorTheme.dart';
@@ -41,7 +42,7 @@ class _BackUpSeedState extends State<BackUpSeed> {
               new Padding(
                   padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),
                   child: Center(
-                      child: new Text("Backup your private key",
+                      child: new Text(AppLocalizations.of(context).translate("String4"),
                           style: new TextStyle(
                             color: ColorTheme.of(context).secondaryColor,
                             fontWeight: FontWeight.bold,
@@ -62,7 +63,7 @@ class _BackUpSeedState extends State<BackUpSeed> {
                         onPressed: () {
                           Clipboard.setData(new ClipboardData(text: _privKey));
                           final snackBar = SnackBar(
-                              content: Text('Private Key copied to clipboard'));
+                              content: Text(AppLocalizations.of(context).translate("String5")));
 
                           _scaffoldKey.currentState..showSnackBar(snackBar);
                         },
@@ -79,7 +80,7 @@ class _BackUpSeedState extends State<BackUpSeed> {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 100.0),
                     child: Text(
-                      "Tap to copy",
+                      AppLocalizations.of(context).translate("String6"),
                       style: TextStyle(color: Colors.white, fontSize: 15),
                     ),
                   ),
@@ -90,7 +91,7 @@ class _BackUpSeedState extends State<BackUpSeed> {
                     onPressed: () {
                       Navigator.pop(context);
                     },
-                    child: new Text("Got it!",style: TextStyle(color: ColorTheme.of(context).baseColor)),
+                    child: new Text(AppLocalizations.of(context).translate("String7"),style: TextStyle(color: ColorTheme.of(context).baseColor)),
                   ),
                 ],
               ),

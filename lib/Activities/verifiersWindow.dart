@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:nyzo_wallet/Activities/WalletWindow.dart';
+import 'package:nyzo_wallet/Data/AppLocalizations.dart';
 import 'package:nyzo_wallet/Data/Verifier.dart';
 import 'package:nyzo_wallet/Data/Wallet.dart';
 import 'package:nyzo_wallet/Widgets/ColorTheme.dart';
@@ -72,7 +73,7 @@ class _VerifiersWindowState extends State<VerifiersWindow> {
         ),
         Center(
           child: Text(
-            'Watch List',
+            AppLocalizations.of(context).translate("String41"),
             style: TextStyle(
               color: ColorTheme.of(context).secondaryColor,
                 fontWeight: FontWeight.w600, letterSpacing: 0, fontSize: 35),
@@ -98,7 +99,7 @@ class _VerifiersWindowState extends State<VerifiersWindow> {
                               child: CustomScrollView(
                                 slivers: <Widget>[
                                   (ColorTheme.of(context).verifiersList?.length != 0)
-                                      ? makeHeader("Verifiers",ColorTheme.of(context).baseColor):SliverList(
+                                      ? makeHeader(	AppLocalizations.of(context).translate("String94"),ColorTheme.of(context).baseColor):SliverList(
                                           delegate: SliverChildListDelegate(
                                               [Container()])),
                                   SliverList(
@@ -199,7 +200,7 @@ class _VerifiersWindowState extends State<VerifiersWindow> {
                                                           children: <Widget>[
                                                             Row(
                                                               children: <Widget>[
-                                                                Text("In cycle: ", style: TextStyle(color: ColorTheme.of(context).secondaryColor,fontWeight: FontWeight.w700),
+                                                                Text(AppLocalizations.of(context).translate("String42")+" ", style: TextStyle(color: ColorTheme.of(context).secondaryColor,fontWeight: FontWeight.w700),
                                                                     ),
                                                                     Text(ColorTheme.of(context).verifiersList[
                                                                             i]
@@ -209,7 +210,7 @@ class _VerifiersWindowState extends State<VerifiersWindow> {
                                                             ),
                                                             Row(
                                                               children: <Widget>[
-                                                                Text("Open edge: " , style: TextStyle(color: ColorTheme.of(context).secondaryColor,fontWeight: FontWeight.w700),
+                                                                Text(AppLocalizations.of(context).translate("String43")+" " , style: TextStyle(color: ColorTheme.of(context).secondaryColor,fontWeight: FontWeight.w700),
                                                                     ),
                                                                     Text(ColorTheme.of(context).verifiersList[
                                                                             i]
@@ -219,7 +220,7 @@ class _VerifiersWindowState extends State<VerifiersWindow> {
                                                             ),
                                                             Row(
                                                               children: <Widget>[
-                                                                Text("Receiving UDP: " , style: TextStyle(color: ColorTheme.of(context).secondaryColor,fontWeight: FontWeight.w700),
+                                                                Text(AppLocalizations.of(context).translate("String44")+" " , style: TextStyle(color: ColorTheme.of(context).secondaryColor,fontWeight: FontWeight.w700),
                                                                     ),
                                                                     Text(ColorTheme.of(context).verifiersList[
                                                                             i]
@@ -229,7 +230,7 @@ class _VerifiersWindowState extends State<VerifiersWindow> {
                                                             ),
                                                             Row(
                                                               children: <Widget>[
-                                                                Text("Retention edge: " , style: TextStyle(color: ColorTheme.of(context).secondaryColor,fontWeight: FontWeight.w700),
+                                                                Text(AppLocalizations.of(context).translate("String45")+" " , style: TextStyle(color: ColorTheme.of(context).secondaryColor,fontWeight: FontWeight.w700),
                                                                     ),
                                                                     Text(ColorTheme.of(context).verifiersList[
                                                                             i]
@@ -239,7 +240,7 @@ class _VerifiersWindowState extends State<VerifiersWindow> {
                                                             ),
                                                             Row(
                                                               children: <Widget>[
-                                                                Text("Status: " , style: TextStyle(color: ColorTheme.of(context).secondaryColor,fontWeight: FontWeight.w700),
+                                                                Text(AppLocalizations.of(context).translate("String46")+" " , style: TextStyle(color: ColorTheme.of(context).secondaryColor,fontWeight: FontWeight.w700),
                                                                     ),
                                                                     Text(ColorTheme.of(context).verifiersList[
                                                                             i]
@@ -249,7 +250,7 @@ class _VerifiersWindowState extends State<VerifiersWindow> {
                                                             ),
                                                             Row(
                                                               children: <Widget>[
-                                                                Text("Trailing Edge: " , style: TextStyle(color: ColorTheme.of(context).secondaryColor,fontWeight: FontWeight.w700),
+                                                                Text(AppLocalizations.of(context).translate("String47")+" " , style: TextStyle(color: ColorTheme.of(context).secondaryColor,fontWeight: FontWeight.w700),
                                                                     ),
                                                                     Text(ColorTheme.of(context).verifiersList[
                                                                         i]
@@ -259,7 +260,7 @@ class _VerifiersWindowState extends State<VerifiersWindow> {
                                                             ),
                                                             Row(
                                                               children: <Widget>[
-                                                                Text("Transactions: " , style: TextStyle(color: ColorTheme.of(context).secondaryColor,fontWeight: FontWeight.w700),
+                                                                Text(AppLocalizations.of(context).translate("String48")+" " , style: TextStyle(color: ColorTheme.of(context).secondaryColor,fontWeight: FontWeight.w700),
                                                                     ),
                                                                     Text(ColorTheme.of(context).verifiersList[
                                                                             i]
@@ -269,7 +270,7 @@ class _VerifiersWindowState extends State<VerifiersWindow> {
                                                             ),
                                                             Row(
                                                               children: <Widget>[
-                                                                Text("Version : " , style: TextStyle(color: ColorTheme.of(context).secondaryColor,fontWeight: FontWeight.w700),
+                                                                Text(AppLocalizations.of(context).translate("String49")+" " , style: TextStyle(color: ColorTheme.of(context).secondaryColor,fontWeight: FontWeight.w700),
                                                                     ),
                                                                     Text(ColorTheme.of(context).verifiersList[
                                                                             i]
@@ -280,7 +281,7 @@ class _VerifiersWindowState extends State<VerifiersWindow> {
                                                            
                                                             Row(
                                                               children: <Widget>[
-                                                                Text("Balance: " , style: TextStyle(color: ColorTheme.of(context).secondaryColor,fontWeight: FontWeight.w700),
+                                                                Text(AppLocalizations.of(context).translate("String50")+" ", style: TextStyle(color: ColorTheme.of(context).secondaryColor,fontWeight: FontWeight.w700),
                                                                     ),
                                                                     Text(ColorTheme.of(context).verifiersList[
                                                                             i]
@@ -290,7 +291,7 @@ class _VerifiersWindowState extends State<VerifiersWindow> {
                                                             ),
                                                             Row(
                                                               children: <Widget>[
-                                                                Text("Blocks CT: " , style: TextStyle(color: ColorTheme.of(context).secondaryColor,fontWeight: FontWeight.w700),
+                                                                Text(AppLocalizations.of(context).translate("String51") , style: TextStyle(color: ColorTheme.of(context).secondaryColor,fontWeight: FontWeight.w700),
                                                                     ),
                                                                     Text(ColorTheme.of(context).verifiersList[
                                                                             i]
@@ -302,12 +303,12 @@ class _VerifiersWindowState extends State<VerifiersWindow> {
 
                                                             crossAxisAlignment: CrossAxisAlignment.start,
                                                               children: <Widget>[
-                                                                Text("Block Vote: " , style: TextStyle(color: ColorTheme.of(context).secondaryColor,fontWeight: FontWeight.w700,),
+                                                                Text(AppLocalizations.of(context).translate("String52") , style: TextStyle(color: ColorTheme.of(context).secondaryColor,fontWeight: FontWeight.w700,),
                                                                     ),
                                                                     ColorTheme.of(context).verifiersList[
                                                                             i]
                                                                         .blockVote
-                                                                        .toString().contains("other")? Text(ColorTheme.of(context).verifiersList[
+                                                                        .toString().contains(AppLocalizations.of(context).translate("String53"))? Text(ColorTheme.of(context).verifiersList[
                                                                             i]
                                                                         .blockVote
                                                                         .toString(),style: TextStyle(color: ColorTheme.of(context).secondaryColor)): createColumn(ColorTheme.of(context).verifiersList[
@@ -318,7 +319,7 @@ class _VerifiersWindowState extends State<VerifiersWindow> {
                                                             ),
                                                             Row(
                                                               children: <Widget>[
-                                                                Text("Cycle Length: " , style: TextStyle(color: ColorTheme.of(context).secondaryColor,fontWeight: FontWeight.w700),
+                                                                Text(AppLocalizations.of(context).translate("String54")+" " , style: TextStyle(color: ColorTheme.of(context).secondaryColor,fontWeight: FontWeight.w700),
                                                                     ),
                                                                     Text(ColorTheme.of(context).verifiersList[
                                                                         i]
@@ -328,7 +329,7 @@ class _VerifiersWindowState extends State<VerifiersWindow> {
                                                             ),
                                                             Row(
                                                               children: <Widget>[
-                                                                Text("Frozen Edge: " , style: TextStyle(color: ColorTheme.of(context).secondaryColor,fontWeight: FontWeight.w700),
+                                                                Text(AppLocalizations.of(context).translate("String55")+" " , style: TextStyle(color: ColorTheme.of(context).secondaryColor,fontWeight: FontWeight.w700),
                                                                     ),
                                                                     Text(ColorTheme.of(context).verifiersList[
                                                                             i]
@@ -338,7 +339,7 @@ class _VerifiersWindowState extends State<VerifiersWindow> {
                                                             ),
                                                             Row(
                                                               children: <Widget>[
-                                                                Text("ID: " , style: TextStyle(color: ColorTheme.of(context).secondaryColor,fontWeight: FontWeight.w700),
+                                                                Text(AppLocalizations.of(context).translate("String56")+" " , style: TextStyle(color: ColorTheme.of(context).secondaryColor,fontWeight: FontWeight.w700),
                                                                     ),
                                                                     Text(ColorTheme.of(context).verifiersList[
                                                                             i]
@@ -348,7 +349,7 @@ class _VerifiersWindowState extends State<VerifiersWindow> {
                                                             ),
                                                             Row(
                                                               children: <Widget>[
-                                                                Text("IP Address: " , style: TextStyle(color: ColorTheme.of(context).secondaryColor,fontWeight: FontWeight.w700),
+                                                                Text(AppLocalizations.of(context).translate("String57")+" " , style: TextStyle(color: ColorTheme.of(context).secondaryColor,fontWeight: FontWeight.w700),
                                                                     ),
                                                                     Text(ColorTheme.of(context).verifiersList[
                                                                             i]
@@ -358,7 +359,7 @@ class _VerifiersWindowState extends State<VerifiersWindow> {
                                                             ),
                                                             Row(
                                                               children: <Widget>[
-                                                                Text("Las Queried: " , style: TextStyle(color: ColorTheme.of(context).secondaryColor,fontWeight: FontWeight.w700),
+                                                                Text(AppLocalizations.of(context).translate("String58")+" " , style: TextStyle(color: ColorTheme.of(context).secondaryColor,fontWeight: FontWeight.w700),
                                                                     ),
                                                                     Text(ColorTheme.of(context).verifiersList[
                                                                             i]
@@ -368,7 +369,7 @@ class _VerifiersWindowState extends State<VerifiersWindow> {
                                                             ),
                                                             Row(
                                                               children: <Widget>[
-                                                                Text("Last Removal Heigth: " , style: TextStyle(color: ColorTheme.of(context).secondaryColor,fontWeight: FontWeight.w700),
+                                                                Text(AppLocalizations.of(context).translate("String59")+" ", style: TextStyle(color: ColorTheme.of(context).secondaryColor,fontWeight: FontWeight.w700),
                                                                     ),
                                                                     Text(ColorTheme.of(context).verifiersList[
                                                                             i]
@@ -378,7 +379,7 @@ class _VerifiersWindowState extends State<VerifiersWindow> {
                                                             ),
                                                             Row(
                                                               children: <Widget>[
-                                                                Text("Mesh: " , style: TextStyle(color: ColorTheme.of(context).secondaryColor,fontWeight: FontWeight.w700),
+                                                                Text(AppLocalizations.of(context).translate("String60")+" " , style: TextStyle(color: ColorTheme.of(context).secondaryColor,fontWeight: FontWeight.w700),
                                                                     ),
                                                                     Text(ColorTheme.of(context).verifiersList[
                                                                             i]
@@ -393,7 +394,7 @@ class _VerifiersWindowState extends State<VerifiersWindow> {
                                                       : Center(
                                                           child: Text(
                                                             
-                                                              "No known verifiers for id " +
+                                                              AppLocalizations.of(context).translate("String61") +
                                                                   ColorTheme.of(context).verifiersList[
                                                                           i]
                                                                       .id,style:TextStyle(color: ColorTheme.of(context).secondaryColor,),),
@@ -402,7 +403,7 @@ class _VerifiersWindowState extends State<VerifiersWindow> {
                                               ),
                                               secondaryActions: <Widget>[
                                                 IconSlideAction(
-                                                  caption: 'Delete',
+                                                  caption: AppLocalizations.of(context).translate("String62"),
                                                   color: ColorTheme.of(context).baseColor,
                                                   icon: Icons.delete,
                                                   onTap: () {
@@ -419,7 +420,7 @@ class _VerifiersWindowState extends State<VerifiersWindow> {
                                         childCount: ColorTheme.of(context).verifiersList?.length),
                                   ),
                                   (ColorTheme.of(context).addressesToWatch?.length != 0)
-                                      ? makeHeader("Addresses",ColorTheme.of(context).baseColor)
+                                      ? makeHeader(	AppLocalizations.of(context).translate("String95"),ColorTheme.of(context).baseColor)
                                       : SliverList(
                                           delegate: SliverChildListDelegate(
                                               [Container()]),
@@ -512,7 +513,7 @@ class _VerifiersWindowState extends State<VerifiersWindow> {
                                     padding:
                                         const EdgeInsets.fromLTRB(0, 15, 0, 0),
                                     child: Text(
-                                        "There is nothing on your Watch List!",
+                                        AppLocalizations.of(context).translate("String63"),
                                         style: TextStyle(
                                             color:  ColorTheme.of(context).secondaryColor,
                                             fontWeight: FontWeight.w600,
@@ -521,7 +522,7 @@ class _VerifiersWindowState extends State<VerifiersWindow> {
                                   Padding(
                                     padding: const EdgeInsets.all(0.0),
                                     child: Text(
-                                        "Add something to the watch list using the button below.",
+                                        AppLocalizations.of(context).translate("String64"),
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                             color: Color(0xFF666666),

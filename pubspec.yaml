@@ -72,13 +72,15 @@ flutter:
         - asset: fonts/WalletFont.ttf
 
   assets:
-  - images/Logo.png
-  - images/noTransactions.png
-  - images/noContacts.png
-  - images/noVerifiers.png
-  - images/qr.png
-  - images/communicationProblem.png
-  - images/normal.png
-  - images/NotProducing.png
-  - images/trackingProblem.png
-  - images/cycle.png
+    - images/Logo.png
+    - images/noTransactions.png
+    - images/noContacts.png
+    - images/noVerifiers.png
+    - images/qr.png
+    - images/communicationProblem.png
+    - images/normal.png
+    - images/NotProducing.png
+    - images/trackingProblem.png
+    - images/cycle.png
+    - lang/en.json
+    - lang/es.json

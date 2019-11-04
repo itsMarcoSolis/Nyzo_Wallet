@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nyzo_wallet/Data/AppLocalizations.dart';
 import 'package:nyzo_wallet/Data/Contact.dart';
 import 'package:nyzo_wallet/Data/Transaction.dart';
 import 'package:nyzo_wallet/Data/Wallet.dart';
@@ -81,7 +82,7 @@ class TranSactionsWidgetState extends State<TranSactionsWidget> {
           ),
           Center(
             child: Text(
-              'History',
+              AppLocalizations.of(context).translate("String72"),
               style: TextStyle(
                 color: ColorTheme.of(context).secondaryColor,
                   fontWeight: FontWeight.w600, letterSpacing: 0, fontSize: 35),
@@ -99,7 +100,7 @@ class TranSactionsWidgetState extends State<TranSactionsWidget> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
-                      'Balance',
+                      AppLocalizations.of(context).translate("String50"),
                       style: TextStyle(color: Color(0xFF555555), fontSize: 15),
                     ),
                     RichText(
@@ -130,7 +131,7 @@ class TranSactionsWidgetState extends State<TranSactionsWidget> {
           Padding(
             padding: const EdgeInsets.fromLTRB(20, 5, 0, 5),
             child: Text(
-              'Transactions',
+              AppLocalizations.of(context).translate("String73"),
               style: TextStyle(color: Color(0xFF555555), fontSize: 15),
             ),
           ),
@@ -155,12 +156,12 @@ class TranSactionsWidgetState extends State<TranSactionsWidget> {
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.fromLTRB(0, 15, 0, 0),
-                                  child: Text("You don't have any transactions yet!",style:TextStyle(color: ColorTheme.of(context).secondaryColor, fontWeight: FontWeight.w600,fontSize: 15)),
+                                  child: Text(AppLocalizations.of(context).translate("String78"),style:TextStyle(color: ColorTheme.of(context).secondaryColor, fontWeight: FontWeight.w600,fontSize: 15)),
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.all(0.0),
                                   
-                                  child: Text("Try receiving some Nyzo.",textAlign: TextAlign.center,style:TextStyle(color: Color(0xFF666666), fontWeight: FontWeight.w400,fontSize: 15)),
+                                  child: Text(AppLocalizations.of(context).translate("String79"),textAlign: TextAlign.center,style:TextStyle(color: Color(0xFF666666), fontWeight: FontWeight.w400,fontSize: 15)),
                                 ),
                               ],
                             ),
@@ -187,7 +188,7 @@ class TranSactionsWidgetState extends State<TranSactionsWidget> {
                                           color: Color(0xFF555555),
                                         ),
                                       ),
-                                      child: _transactions[i].type == "from"
+                                      child: _transactions[i].type == 	AppLocalizations.of(context).translate("String99")
                                           ? Icon(
                                               Icons.add,
                                               color: Color(0xFF555555),

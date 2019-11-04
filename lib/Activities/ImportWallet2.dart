@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:nyzo_wallet/Activities/WalletWindow.dart';
+import 'package:nyzo_wallet/Data/AppLocalizations.dart';
 import 'package:nyzo_wallet/Data/Wallet.dart';
 
 class ImportWalletScreen2 extends StatefulWidget {
@@ -77,7 +78,7 @@ class _ImportWalletScreen2State extends State<ImportWalletScreen2> {
               new Padding(
                   padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),
                   child: Center(
-                      child: new Text("Set your Password",
+                      child: new Text(AppLocalizations.of(context).translate("String16"),
                           style: new TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 20.0,
@@ -93,7 +94,7 @@ class _ImportWalletScreen2State extends State<ImportWalletScreen2> {
                     controller: textController1,
                     style: TextStyle(color: Colors.black),
                     decoration: new InputDecoration(
-                      labelText: "Password",
+                      labelText: 	AppLocalizations.of(context).translate("String81"),
                     ),
                   ),
                   new TextFormField(
@@ -103,10 +104,10 @@ class _ImportWalletScreen2State extends State<ImportWalletScreen2> {
                     obscureText: true,
                     style: TextStyle(color: Colors.black),
                     decoration:
-                        new InputDecoration(labelText: "Confirm password"),
+                        new InputDecoration(labelText: 	AppLocalizations.of(context).translate("String84")),
                     validator: (val) => val != textController1.text
-                        ? "The passwords don't match"
-                        : val == '' ? 'Invalid Password':null,
+                        ? 	AppLocalizations.of(context).translate("String85")
+                        : val == '' ? 	AppLocalizations.of(context).translate("String86"):null,
                   ),
                   new SizedBox(
                     height: 50.0,
@@ -127,7 +128,7 @@ class _ImportWalletScreen2State extends State<ImportWalletScreen2> {
                                 _performWalletCreation();
                               }
                             },
-                            child: new Text("Import Wallet",style: TextStyle(color: Colors.white)),
+                            child: new Text(AppLocalizations.of(context).translate("String17"),style: TextStyle(color: Colors.white)),
                           ),
                         ),
                 ],

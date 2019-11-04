@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:nyzo_wallet/Data/AppLocalizations.dart';
 import 'package:nyzo_wallet/Data/Contact.dart';
 import 'package:nyzo_wallet/Data/Wallet.dart';
 import 'package:nyzo_wallet/Widgets/ColorTheme.dart';
@@ -46,7 +47,7 @@ class ContactsWindowState extends State<ContactsWindow> {
         ),
         Center(
           child: Text(
-            'Contacts',
+            AppLocalizations.of(context).translate("String8"),
             style: TextStyle(
               color: ColorTheme.of(context).secondaryColor,
                 fontWeight: FontWeight.w600, letterSpacing: 0, fontSize: 35),
@@ -99,7 +100,7 @@ class ContactsWindowState extends State<ContactsWindow> {
                                                     CrossAxisAlignment.start,
                                                 children: <Widget>[
                                                   Text(
-                                                    'Address',
+                                                    AppLocalizations.of(context).translate("String9"),
                                                     style: TextStyle(
                                                         color:
                                                             Color(0xFF555555),
@@ -121,7 +122,7 @@ class ContactsWindowState extends State<ContactsWindow> {
                                                                           .address));
                                                               final snackBar = SnackBar(
                                                                   content: Text(
-                                                                      'Address copied to clipboard'));
+                                                                      AppLocalizations.of(context).translate("String10")));
                                                               Scaffold.of(
                                                                       context)
                                                                   .showSnackBar(
@@ -137,7 +138,7 @@ class ContactsWindowState extends State<ContactsWindow> {
                                                     padding: const EdgeInsets
                                                         .fromLTRB(0, 15, 0, 0),
                                                     child: Text(
-                                                      'Data',
+                                                      AppLocalizations.of(context).translate("String11"),
                                                       style: TextStyle(
                                                           color:
                                                               Color(0xFF555555),
@@ -295,7 +296,7 @@ class ContactsWindowState extends State<ContactsWindow> {
                                   Padding(
                                     padding:
                                         const EdgeInsets.fromLTRB(0, 15, 0, 0),
-                                    child: Text("Didn't save any contacts yet!",
+                                    child: Text(AppLocalizations.of(context).translate("String12"),
                                         style: TextStyle(
                                             color: Color(0xFF555555),
                                             fontWeight: FontWeight.w600,
@@ -304,7 +305,7 @@ class ContactsWindowState extends State<ContactsWindow> {
                                   Padding(
                                     padding: const EdgeInsets.all(0.0),
                                     child: Text(
-                                        "Try adding one using the button below.",
+                                        AppLocalizations.of(context).translate("String13"),
                                         style: TextStyle(
                                             color: Color(0xFF666666),
                                             fontWeight: FontWeight.w400,
@@ -352,7 +353,7 @@ class ContactsWindowState extends State<ContactsWindow> {
                       foregroundColor: ColorTheme.of(context).secondaryColor,
                       onPressed: () {
                         floatingdialog.information(
-                            context, "Add Contact", contactsList, onClose: () {
+                            context, 	AppLocalizations.of(context).translate("String69"), contactsList, onClose: () {
                           getContacts().then((List<Contact> _contactList) {
                             setState(() {
                               contactsList = _contactList;

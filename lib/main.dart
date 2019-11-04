@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:nyzo_wallet/Data/AppLocalizations.dart';
 import 'package:nyzo_wallet/Data/Verifier.dart';
 import 'package:nyzo_wallet/Data/watchedAddress.dart';
 import 'Data/Wallet.dart';
 import 'homePage.dart';
 import 'package:nyzo_wallet/Widgets/ColorTheme.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() => runApp(MyApp());
 
@@ -74,6 +76,26 @@ class _MyAppState extends State<MyApp> {
       balanceList: balanceList,
       updateAddressesToWatch: updateWatchAddresses,
       child: MaterialApp(
+        supportedLocales:[
+          Locale('en','US'),
+          Locale('es','ES')
+        ] ,
+        localizationsDelegates: [
+          AppLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+        ],
+        localeListResolutionCallback: (List<Locale> locales,Iterable<Locale> supportedLocales){
+          for (var eachLocale  in locales) {
+            for (var eachSupportedLocale in supportedLocales) {
+              if (eachLocale.languageCode == eachSupportedLocale.languageCode) {
+                return eachSupportedLocale;
+              }
+              
+            }
+          }
+          return supportedLocales.first;
+        },
         debugShowCheckedModeBanner: false,
         title: 'Nyzo Wallet',
         home: HomePage(),

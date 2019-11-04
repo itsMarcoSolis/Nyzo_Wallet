@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nyzo_wallet/Data/AppLocalizations.dart';
 import 'package:nyzo_wallet/Data/Verifier.dart';
 import 'package:nyzo_wallet/Data/Wallet.dart';
 import 'package:nyzo_wallet/Data/watchedAddress.dart';
@@ -27,7 +28,7 @@ class AddVerifierDialog {
                     Padding(
                       padding: const EdgeInsets.all(8),
                       child: Text(
-                        isVerifier ? "Id" : "Address",
+                        isVerifier ? AppLocalizations.of(context).translate("String80") : 	AppLocalizations.of(context).translate("String9"),
                         style: TextStyle(
                             fontWeight: FontWeight.w700, fontSize: 18),
                       ),
@@ -37,7 +38,7 @@ class AddVerifierDialog {
                 Container(
                     child: TextFormField(
                   validator: (String val) =>
-                      val == '' ? "This field can't be empty." : null,
+                      val == '' ? 	AppLocalizations.of(context).translate("String67") : null,
                   key: nameFormKey,
                   controller: nameController, 
                   maxLength: isVerifier ? 9 : 67,
@@ -70,14 +71,14 @@ class AddVerifierDialog {
             ),
             actions: <Widget>[
               FlatButton(
-                child: Text("Cancel"),
+                child: Text(	AppLocalizations.of(context).translate("String34")),
                 onPressed: () {
                   nameController.text = '';
                   Navigator.pop(context);
                 },
               ),
               FlatButton(
-                child: Text("Add"),
+                child: Text(	AppLocalizations.of(context).translate("String71")),
                 onPressed: () async {
                   isVerifier ? addVerifier(
                       Verifier.fromId(

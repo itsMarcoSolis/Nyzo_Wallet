@@ -2,6 +2,7 @@ import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:nyzo_wallet/Activities/SettingsWindow.dart';
 import 'package:nyzo_wallet/Activities/verifiersWindow.dart';
+import 'package:nyzo_wallet/Data/AppLocalizations.dart';
 import 'package:nyzo_wallet/Data/Verifier.dart';
 import 'package:nyzo_wallet/Data/Wallet.dart';
 import 'package:flutter/services.dart';
@@ -119,7 +120,7 @@ class WalletWindowState extends State<WalletWindow> {
 
     childButtons.add(UnicornButton(
         hasLabel: true,
-        labelText: "Add verifier",
+        labelText: 	AppLocalizations.of(context).translate("String96"),
         currentButton: FloatingActionButton(
           heroTag: "verifier",
           backgroundColor: ColorTheme.of(context).baseColor,
@@ -131,7 +132,7 @@ class WalletWindowState extends State<WalletWindow> {
                 color: ColorTheme.of(context).secondaryColor,
               )),
           onPressed: () {
-            floatingdialog.information(context, "Add to Watch List", true,
+            floatingdialog.information(context, 	AppLocalizations.of(context).translate("String97"), true,
                 onClose: () {
               ColorTheme.of(context).updateVerifiers();
               
@@ -141,7 +142,7 @@ class WalletWindowState extends State<WalletWindow> {
 
     childButtons.add(UnicornButton(
         hasLabel: true,
-        labelText: "Add address",
+        labelText: 	AppLocalizations.of(context).translate("String98"),
         currentButton: FloatingActionButton(
           heroTag: "address",
           backgroundColor: ColorTheme.of(context).baseColor,
@@ -152,7 +153,7 @@ class WalletWindowState extends State<WalletWindow> {
           ),
           onPressed: () {
             setState(() {
-              floatingdialog.information(context, "Add to Watch List", false,
+              floatingdialog.information(context, 	AppLocalizations.of(context).translate("String97"), false,
                   onClose: () {
                 ColorTheme.of(context).updateAddressesToWatch();
               });

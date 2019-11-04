@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:nyzo_wallet/Activities/WalletWindow.dart';
 import 'package:nyzo_wallet/Activities/BackupSeed.dart';
+import 'package:nyzo_wallet/Data/AppLocalizations.dart';
 import 'package:nyzo_wallet/Data/Wallet.dart';
 import 'package:nyzo_wallet/homePage.dart';
 import 'package:nyzo_wallet/Widgets/ColorTheme.dart';
@@ -50,7 +51,7 @@ class SettingsWindowState extends State<SettingsWindow> {
           ),
           Center(
             child: Text(
-              'Settings',
+              AppLocalizations.of(context).translate("String30"),
               style: TextStyle(
                   color: ColorTheme.of(context).secondaryColor,
                   fontWeight: FontWeight.w600,
@@ -89,7 +90,7 @@ class SettingsWindowState extends State<SettingsWindow> {
                     child: Padding(
                       padding: const EdgeInsets.all(15.0),
                       child: Text(
-                        "Backup Wallet Seed",
+                        AppLocalizations.of(context).translate("String31"),
                         style: TextStyle(
                             color: ColorTheme.of(context).secondaryColor,
                             fontWeight: FontWeight.w700,
@@ -109,20 +110,20 @@ class SettingsWindowState extends State<SettingsWindow> {
                     builder: (BuildContext context) {
                       return AlertDialog(
                         title: Text(
-                          "DELETE WALLET",
+                          AppLocalizations.of(context).translate("String32"),
                           style: TextStyle(color: Colors.black),
                         ),
                         content: Text(
-                            "You will lose all your Nyzo if you don't have a backup of your seed. \n \nDo you want to continue?"),
+                            AppLocalizations.of(context).translate("String33")),
                         actions: <Widget>[
                           FlatButton(
-                            child: Text("Cancel"),
+                            child: Text(AppLocalizations.of(context).translate("String34")),
                             onPressed: () {
                               Navigator.pop(context);
                             },
                           ),
                           FlatButton(
-                            child: Text("DELETE MY WALLET"),
+                            child: Text(AppLocalizations.of(context).translate("String35")),
                             onPressed: () {
                               Navigator.pop(context);
                               deleteWallet();
@@ -146,7 +147,7 @@ class SettingsWindowState extends State<SettingsWindow> {
                   child: Padding(
                     padding: const EdgeInsets.all(15.0),
                     child: Text(
-                      "Delete Wallet",
+                      AppLocalizations.of(context).translate("String36"),
                       style: TextStyle(
                           color: ColorTheme.of(context).secondaryColor,
                           fontWeight: FontWeight.w700,
@@ -171,7 +172,7 @@ class SettingsWindowState extends State<SettingsWindow> {
                     padding: const EdgeInsets.all(15.0),
                     child: ListTile(
                       leading: Text(
-                        "Watch Sentinels",
+                        AppLocalizations.of(context).translate("String37"),
                         style: TextStyle(
                             color: ColorTheme.of(context).secondaryColor,
                             fontWeight: FontWeight.w700,
@@ -220,7 +221,7 @@ class SettingsWindowState extends State<SettingsWindow> {
                     padding: const EdgeInsets.all(15.0),
                     child: ListTile(
                       leading: Text(
-                        "Night  Mode",
+                        AppLocalizations.of(context).translate("String38"),
                         style: TextStyle(
                             color: ColorTheme.of(context).secondaryColor,
                             fontWeight: FontWeight.w700,
@@ -266,7 +267,7 @@ class SettingsWindowState extends State<SettingsWindow> {
                   child: Padding(
                     padding: const EdgeInsets.all(15.0),
                     child: Text(
-                      "Beta v0.1 ",
+                      "Beta v0.1",
                       style: TextStyle(
                           color: ColorTheme.of(context).secondaryColor,
                           fontWeight: FontWeight.w700,
@@ -281,7 +282,7 @@ class SettingsWindowState extends State<SettingsWindow> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 new Text(
-                  "Made with ",
+                  AppLocalizations.of(context).translate("String39")+" ",
                   style: TextStyle(
                     color: ColorTheme.of(context).secondaryColor,
                   ),
@@ -291,7 +292,7 @@ class SettingsWindowState extends State<SettingsWindow> {
                   color: ColorTheme.of(context).secondaryColor,
                   size: 15,
                 ),
-                new Text(" for the community.",
+                new Text(" "+AppLocalizations.of(context).translate("String40"),
                     style: TextStyle(
                         color: ColorTheme.of(context).secondaryColor))
               ],

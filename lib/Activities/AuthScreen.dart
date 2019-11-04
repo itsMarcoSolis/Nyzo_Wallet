@@ -5,6 +5,7 @@ import 'dart:async';
 import 'package:flutter/services.dart';
 import 'package:local_auth/error_codes.dart' as auth_error;
 import 'package:nyzo_wallet/Activities/WalletWindow.dart';
+import 'package:nyzo_wallet/Data/AppLocalizations.dart';
 import 'package:nyzo_wallet/Widgets/ColorTheme.dart';
 
 class AuthScreen extends StatefulWidget {
@@ -22,10 +23,11 @@ class _AuthScreenState extends State<AuthScreen> {
   @override
   void initState() {
     super.initState();
-    try {
+    Future.delayed(Duration(seconds: 1),(){
+      try {
       Future didAuthenticate = _localAuth.authenticateWithBiometrics(
         stickyAuth: true,
-          localizedReason: 'Please authenticate to show your account.');
+          localizedReason: 	AppLocalizations.of(context).translate("String80"));
       didAuthenticate.then((value) {
         if (value) {
           Future salt = _storage.read(key: "Password");
@@ -51,6 +53,7 @@ class _AuthScreenState extends State<AuthScreen> {
       } else if (e.code == auth_error.passcodeNotSet) {
       } else if (e.code == auth_error.otherOperatingSystem) {}
     }
+    });
   }
 
   @override
@@ -106,7 +109,7 @@ class _AuthScreenState extends State<AuthScreen> {
                   child: new Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
-                      new Text("Enter your Password to unlock your Wallet",
+                      new Text(AppLocalizations.of(context).translate("String1"),
                           style: new TextStyle(
                             color: ColorTheme.of(context).secondaryColor,
                             fontWeight: FontWeight.bold,
@@ -130,7 +133,7 @@ class _AuthScreenState extends State<AuthScreen> {
                               );
                               } else {
                                 final snackBar = SnackBar(
-                              content: Text('Wrong password!'));
+                              content: Text(AppLocalizations.of(context).translate("String2")));
 
                           scaffoldKey.currentState..showSnackBar(snackBar);
                               }
@@ -163,7 +166,7 @@ class _AuthScreenState extends State<AuthScreen> {
                                       BorderSide(color: Color(0x55666666))),
                               contentPadding: EdgeInsets.all(10),
                               hasFloatingPlaceholder: false,
-                              labelText: "Password",
+                              labelText: 	AppLocalizations.of(context).translate("String81"),
                               labelStyle: TextStyle(
                                   color: Color(0xFF555555),
                                   fontWeight: FontWeight.w600,
@@ -190,7 +193,7 @@ class _AuthScreenState extends State<AuthScreen> {
                               );
                               } else {
                                 final snackBar = SnackBar(
-                              content: Text('Wrong password!'));
+                              content: Text(AppLocalizations.of(context).translate("String2")));
 
                           scaffoldKey.currentState..showSnackBar(snackBar);
                               }
@@ -198,7 +201,7 @@ class _AuthScreenState extends State<AuthScreen> {
                             });
 
                         },
-                    child: new Text("Unlock",style: TextStyle(color: ColorTheme.of(context).baseColor)),
+                    child: new Text(AppLocalizations.of(context).translate("String3"),style: TextStyle(color: ColorTheme.of(context).baseColor)),
                   ),
                       ),
                       new Expanded(

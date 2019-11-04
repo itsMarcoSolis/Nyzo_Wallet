@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:nyzo_wallet/Activities/ImportWallet2.dart';
+import 'package:nyzo_wallet/Data/AppLocalizations.dart';
 
 class ImportWalletScreen extends StatefulWidget {
   @override
@@ -61,7 +62,7 @@ class _ImportWalletScreenState extends State<ImportWalletScreen> {
               new Padding(
                   padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),
                   child: Center(
-                      child: new Text("Paste your Private Key",
+                      child: new Text(AppLocalizations.of(context).translate("String14"),
                           style: new TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 20.0,
@@ -75,11 +76,11 @@ class _ImportWalletScreenState extends State<ImportWalletScreen> {
                 controller: privKeytextController,
                 style: TextStyle(color: Colors.black),
                 decoration: new InputDecoration(
-                  labelText: "Private Key",
+                  labelText: 	AppLocalizations.of(context).translate("String82"),
                 ),
                 validator: (String val) => val.contains(RegExp(r'[g-z]')) ||
                         !(val.length == 67 || val.length == 64)
-                    ? "Invalid private key."
+                    ? 	AppLocalizations.of(context).translate("String83")
                     : null,
               ),
               new SizedBox(
@@ -100,7 +101,7 @@ class _ImportWalletScreenState extends State<ImportWalletScreen> {
                             _performWalletCreation();
                           }
                         },
-                        child: new Text("Next",style: TextStyle(color: Colors.white)),
+                        child: new Text(AppLocalizations.of(context).translate("String15"),style: TextStyle(color: Colors.white)),
                       ),
                     ),
             ],

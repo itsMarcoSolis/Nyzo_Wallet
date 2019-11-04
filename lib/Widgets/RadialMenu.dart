@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nyzo_wallet/Data/AppLocalizations.dart';
 import 'package:vector_math/vector_math.dart' show radians;
 import 'dart:math';
 import 'TransactionsWidget.dart';
@@ -161,23 +162,23 @@ class _RadialMenuState extends State<RadialMenu>
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              menuButton(Icon(Icons.settings), "Settings", () {
+              menuButton(Icon(Icons.settings), 	AppLocalizations.of(context).translate("String30"), () {
                 activeWindow = 4;
                 _animate(360 * 4 / 5 - 90);
               }),
-              menuButton(Icon(Icons.contacts), "Contacts", () {
+              menuButton(Icon(Icons.contacts), 	AppLocalizations.of(context).translate("String8"), () {
                 activeWindow = 3;
                 _animate(360 * 3 / 5 - 90);
               }),
-              menuButton(Icon(Icons.history), "History", () {
+              menuButton(Icon(Icons.history), 	AppLocalizations.of(context).translate("String72"), () {
                 activeWindow = 0;
                 _animate(0.0 - 90);
               }),
-              menuButton(Icon(Icons.send), "Send", () {
+              menuButton(Icon(Icons.send), 	AppLocalizations.of(context).translate("String22"), () {
                 activeWindow = 1;
                 _animate(360 * 1 / 5 - 90);
               }),
-              menuButton(Icon(Icons.call_received), "Receive", () {
+              menuButton(Icon(Icons.call_received), 	AppLocalizations.of(context).translate("String23"), () {
                 activeWindow = 2;
                 _animate(360 * 2 / 5 - 90);
               })

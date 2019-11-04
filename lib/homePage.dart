@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
+import 'package:nyzo_wallet/Data/AppLocalizations.dart';
 import 'Data/Wallet.dart';
 import 'Activities/NewWallet.dart';
 import 'Activities/AuthScreen.dart';
@@ -82,7 +83,7 @@ class _MyHomePageState extends State<HomePage> {
                                     builder: (context) => NewWalletScreen()),
                               );
                             },
-                            child: Text("Create new Wallet",
+                            child: Text(AppLocalizations.of(context).translate("String65"),
                                 style: TextStyle(color: Colors.white)),
                           )),
                       new Padding(
@@ -101,7 +102,7 @@ class _MyHomePageState extends State<HomePage> {
                             );
                           },
                           child: Text(
-                            "Import Existing Wallet",
+                            AppLocalizations.of(context).translate("String66"),
                             style: TextStyle(color: Colors.white),
                           ),
                         ),
@@ -117,9 +118,9 @@ class _MyHomePageState extends State<HomePage> {
             new Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                new Text("Made with "),
+                new Text(AppLocalizations.of(context).translate("String39")),
                 new Icon(Icons.favorite, color: Colors.black),
-                new Text(" for the community.")
+                new Text(AppLocalizations.of(context).translate("String40"))
               ],
             )
           ],

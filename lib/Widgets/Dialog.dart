@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nyzo_wallet/Data/AppLocalizations.dart';
 import 'package:nyzo_wallet/Data/Contact.dart';
 import 'package:nyzo_wallet/Data/Wallet.dart';
 
@@ -28,13 +29,13 @@ class AddContactDialog {
             content: Container(
                 child: TextFormField(
               validator: (String val) =>
-                  val == '' ? "This field can't be empty." : null,
+                  val == '' ? AppLocalizations.of(context).translate("String67") : null,
               key: nameFormKey,
               controller: nameController,
               maxLength: 24,
               decoration: InputDecoration(
                 hasFloatingPlaceholder: false,
-                labelText: "Name",
+                labelText: AppLocalizations.of(context).translate("String68"),
                 labelStyle: TextStyle(
                   
                                   color: Color(0xFF555555),
@@ -58,18 +59,18 @@ class AddContactDialog {
             )),
             actions: <Widget>[
               FlatButton(
-                child: Text("Cancel"),
+                child: Text(AppLocalizations.of(context).translate("String34")),
                 onPressed: () {
                   nameController.text = '';
                   Navigator.pop(context);
                 },
               ),
               FlatButton(
-                child: Text("Next"),
+                child: Text(AppLocalizations.of(context).translate("String15")),
                 onPressed: () {
                   if (nameFormKey.currentState.validate()) {
                     Navigator.pop(context);
-                    address(context2, "Add Contact", contactList,
+                    address(context2, AppLocalizations.of(context).translate("String69"), contactList,
                         onClose: onClose);
                   }
                 },
@@ -98,12 +99,12 @@ class AddContactDialog {
               validator: (String val) => (val.contains(RegExp(r'[g-z]')) ||
                           !(val.length == 67 || val.length == 64)) ||
                       val == ''
-                  ? "Invalid Nyzo address."
+                  ? AppLocalizations.of(context).translate("String70")
                   : null,
               
               decoration: InputDecoration(
                 hasFloatingPlaceholder: false,
-                labelText: "Address",
+                labelText: AppLocalizations.of(context).translate("String9"),
                 labelStyle: TextStyle(
                                   color: Color(0xFF555555),
                                   fontWeight: FontWeight.w600,
@@ -126,7 +127,7 @@ class AddContactDialog {
             ),
             actions: <Widget>[
               FlatButton(
-                child: Text("Cancel"),
+                child: Text(AppLocalizations.of(context).translate("String34")),
                 onPressed: () {
                   nameController.text = '';
                   addressController.text = '';
@@ -134,12 +135,12 @@ class AddContactDialog {
                 },
               ),
               FlatButton(
-                child: Text("Next"),
+                child: Text(AppLocalizations.of(context).translate("String15")),
                 onPressed: () {
                   var addressForm = addressFormKey.currentState;
                   if (addressForm.validate()) {
                     Navigator.pop(context);
-                    data(context2, "Add Contact", contactList,
+                    data(context2, AppLocalizations.of(context).translate("String69"), contactList,
                         onClose: onClose);
                   }
                 },
@@ -168,7 +169,7 @@ class AddContactDialog {
               
               decoration: InputDecoration(
                 hasFloatingPlaceholder: false,
-                labelText: "Data",
+                labelText: 	AppLocalizations.of(context).translate("String11"),
                 labelStyle: TextStyle(
                                   color: Color(0xFF555555),
                                   fontWeight: FontWeight.w600,
@@ -191,7 +192,7 @@ class AddContactDialog {
             ),
             actions: <Widget>[
               FlatButton(
-                child: Text("Cancel"),
+                child: Text(AppLocalizations.of(context).translate("String34")),
                 onPressed: () {
                   nameController.text = '';
                   addressController.text = '';
@@ -200,7 +201,7 @@ class AddContactDialog {
                 },
               ),
               FlatButton(
-                child: Text("Add"),
+                child: Text(AppLocalizations.of(context).translate("String71")),
                 onPressed: () async {
                   addContact(
                           contactList,
