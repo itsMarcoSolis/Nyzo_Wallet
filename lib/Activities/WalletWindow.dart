@@ -206,23 +206,23 @@ class WalletWindowState extends State<WalletWindow> {
                 ? [
                     TitledNavigationBarItem(
                         backgroundColor: ColorTheme.of(context).baseColor,
-                        title: 'History',
+                        title: 	AppLocalizations.of(context).translate("String72"),
                         icon: Icons.history),
                     TitledNavigationBarItem(
                         backgroundColor: ColorTheme.of(context).baseColor,
-                        title: 'Contacts',
+                        title: 	AppLocalizations.of(context).translate("String8"),
                         icon: Icons.contacts),
                     TitledNavigationBarItem(
                         backgroundColor: ColorTheme.of(context).baseColor,
-                        title: 'Transfer',
+                        title: 	AppLocalizations.of(context).translate("String21"),
                         icon: Icons.send),
                     TitledNavigationBarItem(
                         backgroundColor: ColorTheme.of(context).baseColor,
-                        title: 'Verifiers',
+                        title: 	AppLocalizations.of(context).translate("String94"),
                         icon: Icons.remove_red_eye),
                     TitledNavigationBarItem(
                         backgroundColor: ColorTheme.of(context).baseColor,
-                        title: 'Settings',
+                        title: 	AppLocalizations.of(context).translate("String30"),
                         icon: Icons.settings),
                   ]
                 : [

@@ -28,7 +28,7 @@ class AddVerifierDialog {
                     Padding(
                       padding: const EdgeInsets.all(8),
                       child: Text(
-                        isVerifier ? AppLocalizations.of(context).translate("String80") : 	AppLocalizations.of(context).translate("String9"),
+                        isVerifier ? AppLocalizations.of(context).translate("String96") : 	AppLocalizations.of(context).translate("String98"),
                         style: TextStyle(
                             fontWeight: FontWeight.w700, fontSize: 18),
                       ),

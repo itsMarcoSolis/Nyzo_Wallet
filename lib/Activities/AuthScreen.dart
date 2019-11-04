@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:local_auth/error_codes.dart' as auth_error;
 import 'package:nyzo_wallet/Activities/WalletWindow.dart';
 import 'package:nyzo_wallet/Data/AppLocalizations.dart';
+
 import 'package:nyzo_wallet/Widgets/ColorTheme.dart';
 
 class AuthScreen extends StatefulWidget {
@@ -79,7 +80,7 @@ class _AuthScreenState extends State<AuthScreen> {
                         Future didAuthenticate =
                             _localAuth.authenticateWithBiometrics(
                                 localizedReason:
-                                    'Please authenticate to show your account.');
+                                    AppLocalizations.of(context).translate("String80"));
                         didAuthenticate.then((value) {
                           if (value) {
                             Future salt = _storage.read(key: "Password");
@@ -110,6 +111,7 @@ class _AuthScreenState extends State<AuthScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
                       new Text(AppLocalizations.of(context).translate("String1"),
+                      textAlign: TextAlign.justify,
                           style: new TextStyle(
                             color: ColorTheme.of(context).secondaryColor,
                             fontWeight: FontWeight.bold,

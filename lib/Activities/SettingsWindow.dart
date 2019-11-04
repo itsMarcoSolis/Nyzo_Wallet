@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:nyzo_wallet/Activities/WalletWindow.dart';
 import 'package:nyzo_wallet/Activities/BackupSeed.dart';
 import 'package:nyzo_wallet/Data/AppLocalizations.dart';
@@ -55,8 +54,8 @@ class SettingsWindowState extends State<SettingsWindow> {
               style: TextStyle(
                   color: ColorTheme.of(context).secondaryColor,
                   fontWeight: FontWeight.w600,
-                          letterSpacing: 0,
-                          fontSize: 35),
+                  letterSpacing: 0,
+                  fontSize: 35),
             ),
           ),
           Expanded(
@@ -117,13 +116,25 @@ class SettingsWindowState extends State<SettingsWindow> {
                             AppLocalizations.of(context).translate("String33")),
                         actions: <Widget>[
                           FlatButton(
-                            child: Text(AppLocalizations.of(context).translate("String34")),
+                            child: Text(AppLocalizations.of(context)
+                                .translate("String34")),
                             onPressed: () {
                               Navigator.pop(context);
                             },
                           ),
                           FlatButton(
-                            child: Text(AppLocalizations.of(context).translate("String35")),
+                            child: Text(
+                              AppLocalizations.of(context)
+                                  .translate("String35"),
+                              overflow: TextOverflow.clip,
+                              style: TextStyle(
+                                  fontSize: AppLocalizations.of(context)
+                                              .locale
+                                              .languageCode ==
+                                          'nl'
+                                      ? 11
+                                      : null),
+                            ),
                             onPressed: () {
                               Navigator.pop(context);
                               deleteWallet();
@@ -179,7 +190,8 @@ class SettingsWindowState extends State<SettingsWindow> {
                             fontSize: 15),
                       ),
                       trailing: Switch(
-                        inactiveTrackColor: ColorTheme.of(context).transparentColor,
+                        inactiveTrackColor:
+                            ColorTheme.of(context).transparentColor,
                         activeColor: ColorTheme.of(context).secondaryColor,
                         value: _switchValue,
                         onChanged: (bool val) {
@@ -228,7 +240,8 @@ class SettingsWindowState extends State<SettingsWindow> {
                             fontSize: 15),
                       ),
                       trailing: Switch(
-                        inactiveTrackColor: ColorTheme.of(context).transparentColor,
+                        inactiveTrackColor:
+                            ColorTheme.of(context).transparentColor,
                         activeColor: ColorTheme.of(context).secondaryColor,
                         value: _nigthMode,
                         onChanged: (bool val) {
@@ -236,7 +249,6 @@ class SettingsWindowState extends State<SettingsWindow> {
                           if (val) {
                             setState(() {
                               _nigthMode = val;
-                              
                             });
                             setNightModeValue(val);
 
@@ -282,7 +294,7 @@ class SettingsWindowState extends State<SettingsWindow> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 new Text(
-                  AppLocalizations.of(context).translate("String39")+" ",
+                  AppLocalizations.of(context).translate("String39") + " ",
                   style: TextStyle(
                     color: ColorTheme.of(context).secondaryColor,
                   ),
@@ -292,9 +304,10 @@ class SettingsWindowState extends State<SettingsWindow> {
                   color: ColorTheme.of(context).secondaryColor,
                   size: 15,
                 ),
-                new Text(" "+AppLocalizations.of(context).translate("String40"),
-                    style: TextStyle(
-                        color: ColorTheme.of(context).secondaryColor))
+                new Text(
+                    " " + AppLocalizations.of(context).translate("String40"),
+                    style:
+                        TextStyle(color: ColorTheme.of(context).secondaryColor))
               ],
             ),
           )
